@@ -1,0 +1,5 @@
+
+
+* Wed Dec 30 2009 17:05:49 Steven E. Pav <steven@cerebellumcapital.com>
+- prepare to make this a collaborative project.
+

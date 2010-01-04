@@ -1,0 +1,109 @@
+
+#set output "fname.ps"
+#set terminal postscript color 
+
+set terminal x11
+set xrange [-0.0001:0.0001];
+set nologscale y;
+set nologscale x;
+
+# min/max
+min(a,b) = a + ((b-a) - abs(b-a))/2.0;
+max(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+ep = 0.00000001;
+sqep = sqrt(ep);
+set xrange [-ep:ep];
+f(x) = (x/sqep)*atan((x/sqep)) - 0.5*log(1 + (x*x/ep));
+f1(x) = (atan(((x)/sqep)))/sqep;
+f2(x) = 1.0/(x*x + ep);
+
+set nologscale y;
+set xrange [-0.01:0.01];
+set xrange [-sqep:sqep];
+#plot f(x),f1(x),f2(x);
+
+g(x) = atan(x);
+myh = 0.01;
+X = sqrt(2);
+
+phi(h) = (g(X+h) - g(X-h))/(2.0 * h);
+
+D00 = phi(myh);
+D10 = phi(myh/2.0);
+D20 = phi(myh/4.0);
+D30 = phi(myh/8.0);
+D40 = phi(myh/16.0);
+
+D11 = (4.0 * D10 - D00) / 3.0;
+D21 = (4.0 * D20 - D10) / 3.0;
+D31 = (4.0 * D30 - D20) / 3.0;
+D41 = (4.0 * D40 - D30) / 3.0;
+
+D22 = (16.0 * D21 - D11) / 15.0;
+D32 = (16.0 * D31 - D21) / 15.0;
+D42 = (16.0 * D41 - D31) / 15.0;
+
+D33 = (64.0 * D32 - D22) / 63.0;
+D43 = (64.0 * D42 - D32) / 63.0;
+
+D44 = (256.0 * D42 - D32) / 255.0;
+
+print D00, " & & & & ";
+print D10, " & ", D11, " & & & ";
+print D20, " & ", D21, " & ", D22, " & & ";
+print D30, " & ", D31, " & ", D32, " & ", D33, " & ";
+print D40, " & ", D41, " & ", D42, " & ", D43, " & ", D44;
+
+print "";
+h = 1.0; print h, " & ", phi(h) , " \\\\ ";
+h = 0.1; print h, " & ", phi(h) , " \\\\ ";
+h = 0.01; print h, " & ", phi(h) , " \\\\ ";
+h = 0.001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.0001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.00001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.000001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.0000001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.00000001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.000000001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.000000000000001; print h, " & ", phi(h) , " \\\\ ";
+h = 0.0000000000000001; print h, " & ", phi(h) , " \\\\ ";
+
+
+
+#set xrange [0:pi/3];
+#set logscale y;
+#set nologscale x;
+#set output "plotop.eps"
+#set terminal postscript color 
+#set xlabel "anin"
+#set ylabel "xiop"
+#plot tot(x) title "xii123" with lines lt 1 lw 2,\
+#	   badtot(x) title "oldxiii" with lines lt 3 lw 1;
+#
+#set xrange [0:pi/3];
+#set logscale y;
+#set nologscale x;
+#set output "plottwoop.eps"
+#set terminal postscript color 
+#set xlabel "anin"
+#set ylabel "xiop"
+#plot mpcon(x) title "mp123" with lines lt 1 lw 1,\
+#	   cccon(x) title "cc123" with lines lt 3 lw 1;
+##tot(x) title "xii123" with lines lt 5 lw 1\
+
+#
+#plot tan(x) * sqrt(ha(x)*ha(x) + 1.0) * ga(x,-atan(1.0/ha(x))),\
+#     tan(x) * ((ha(x)*ha(x) + 1.0)/(ha(x) + 1.0)) * ga(x,-atan(1.0/ha(x))) ;
+     
+## raddeg
+#rd(a) = real(a*pi)/180.0;
+#dg(a) = 180.0*a/pi;
+#
+##how to show scifig
+#round(a) = floor(0.5+a);
+#prec(a,n) = (real(round(a*(10.0**n))))/(10.0**n);
+#sigfi(a,n) = real(round(real(a)/(10.0**int((log10(a))-n))))/(10.0**n);
+#expon(a) = int((log10(a)));
+##scifig(a,n): print sigfi(a,n), 'x10^', expon(a);
+

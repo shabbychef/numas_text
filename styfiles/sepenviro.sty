@@ -1,0 +1,131 @@
+
+%cvs%stuff%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLDUP
+% $Id: sepenviro.sty 3 2005-11-08 20:56:42Z spav $
+% $Log: sepenviro.sty,v $
+% Revision 1.7  2005/03/17 18:11:39  spav
+% minor cosmetic changes
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%UNFOLD
+
+\typeout{-- reading sepenviro.sty}
+\typeout{-- CVSId: $Id: sepenviro.sty 3 2005-11-08 20:56:42Z spav $}
+\typeout{-- warning: sepenviro and seprefs are redundant; }
+\typeout{--        : refs will be cut from sepenviro eventually; }
+
+%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+%%%%%%
+\theoremstyle{remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{caution}[theorem]{Caution}
+
+%%%%%%
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{problem}[theorem]{Problem}
+
+\newtheorem{hwexercise}{Exercise}
+\newtheorem{hwproblem}[hwexercise]{Problem}
+\newtheorem{hwsolution}{Solution}
+
+\newtheorem{clstheorem}{Theorem}
+\newtheorem{clscorollary}[clstheorem]{Corollary}
+\newtheorem{clsexample}[clstheorem]{Example}
+\newtheorem{clsdefinition}[clstheorem]{Definition}
+%%%%%%
+\newenvironment{colvec}
+	{\left[\begin{array}{c}}
+	{\end{array}\right]}
+
+%%%%%%
+\newenvironment{since}
+        {\begin{trivlist}\item[
+        {\bf Proof }]}{\hfill\framebox[1.2ex]{\rule{0.3em}{0mm}} \end{trivlist}}
+
+%\newenvironment{proof}
+%        {\begin{trivlist}\item[
+%        {\bf Proof }]}{\hfill\framebox[1.2ex]{\rule{0.3em}{0mm}} \end{trivlist}}
+
+%shortcut references%FOLDUP
+%%%%%%
+\providecommand{\figref}[1]{Figure~\ref{fig:#1}}
+%\providecommand{\subfigref}[2]{Figure~\ref{fig:#1}(\ref{subfig:#2})}
+\providecommand{\subfigref}[1]{Figure~\ref{subfig:#1}}
+\providecommand{\tabref}[1]{Table~\ref{tab:#1}}
+\providecommand{\eqref}[1]{Equation~\ref{#1}}
+\providecommand{\eqrefs}[2]{(\ref{eq:#1})--(\ref{eq:#2})}
+\providecommand{\thmref}[1]{Theorem~\ref{thm:#1}}
+\providecommand{\lemref}[1]{Lemma~\ref{lem:#1}}
+\providecommand{\remref}[1]{Remark~\ref{rem:#1}}
+\providecommand{\defref}[1]{Definition~\ref{def:#1}}
+\providecommand{\corref}[1]{Corollary~\ref{cor:#1}}
+\providecommand{\noteref}[1]{Note~\ref{note:#1}}
+\providecommand{\propref}[1]{Proposition~\ref{prop:#1}}
+\providecommand{\claimref}[1]{Claim~\ref{claim:#1}}
+\providecommand{\asref}[1]{Assumption~\ref{ass:#1}}
+\providecommand{\asrefs}[2]{Assumptions~\ref{ass:#1}--\ref{ass:#2}}
+\providecommand{\assertref}[1]{Assertion~\ref{assert:#1}}
+\providecommand{\algref}[1]{Algorithm~\ref{alg:#1}}
+  \renewcommand{\algref}[1]{Algorithm~\ref{alg:#1}}
+\providecommand{\algstepref}[1]{step~\ref{algstep:#1}}
+\providecommand{\probref}[1]{Problem~\ref{prob:#1}}
+\providecommand{\exref}[1]{Exercise~\ref{ex:#1}}
+\providecommand{\eqnref}[1]{equation~\ref{eqn:#1}}
+\providecommand{\ineqnref}[1]{inequality~\ref{ineqn:#1}}
+\providecommand{\secref}[1]{Section~\ref{sec:#1}}
+\providecommand{\subsecref}[1]{Subsection~\ref{subsec:#1}}
+\providecommand{\chapref}[1]{Chapter~\ref{chap:#1}}
+\providecommand{\ihref}[1]{Hypothesis~\ref{ih:#1}}
+\providecommand{\itemref}[1]{item~\ref{item:#1}}
+\providecommand{\pitemref}[1]{item~(\ref{item:#1})}
+\providecommand{\partref}[1]{part~\ref{part:#1}}
+\providecommand{\moveref}[1]{move~\ref{move:#1}}
+%UNFOLD
+
+%shortcut references with varioref%FOLDUP
+\RequirePackage{varioref}
+
+\providecommand{\figvref}[1]{Figure~\vref{fig:#1}}
+\providecommand{\subfigvref}[1]{Figure~\vref{subfig:#1}}
+\providecommand{\tabvref}[1]{Table~\vref{tab:#1}}
+\providecommand{\eqvref}[1]{Equation~\vref{#1}}
+\providecommand{\thmvref}[1]{Theorem~\vref{thm:#1}}
+\providecommand{\lemvref}[1]{Lemma~\vref{lem:#1}}
+\providecommand{\remvref}[1]{Remark~\vref{rem:#1}}
+\providecommand{\defvref}[1]{Definition~\vref{def:#1}}
+\providecommand{\corvref}[1]{Corollary~\vref{cor:#1}}
+\providecommand{\notevref}[1]{Note~\vref{note:#1}}
+\providecommand{\propvref}[1]{Proposition~\vref{prop:#1}}
+\providecommand{\claimvref}[1]{Claim~\vref{claim:#1}}
+\providecommand{\asvref}[1]{Assumption~\vref{ass:#1}}
+\providecommand{\assertvref}[1]{Assertion~\vref{assert:#1}}
+\providecommand{\algvref}[1]{Algorithm~\vref{alg:#1}}
+  \renewcommand{\algvref}[1]{Algorithm~\vref{alg:#1}}
+\providecommand{\algstepvref}[1]{step~\vref{algstep:#1}}
+\providecommand{\probvref}[1]{Problem~\vref{prob:#1}}
+\providecommand{\exvref}[1]{Exercise~\vref{ex:#1}}
+\providecommand{\eqnvref}[1]{equation~\vref{eqn:#1}}
+\providecommand{\ineqnvref}[1]{inequality~\vref{ineqn:#1}}
+\providecommand{\secvref}[1]{Section~\vref{sec:#1}}
+\providecommand{\subsecvref}[1]{Subsection~\vref{subsec:#1}}
+\providecommand{\chapvref}[1]{Chapter~\vref{chap:#1}}
+\providecommand{\ihvref}[1]{Hypothesis~\vref{ih:#1}}
+\providecommand{\itemvref}[1]{item~\vref{item:#1}}
+\providecommand{\pitemvref}[1]{item~(\vref{item:#1})}
+\providecommand{\partvref}[1]{part~\vref{part:#1}}
+\providecommand{\movevref}[1]{move~\vref{move:#1}}
+%UNFOLD

@@ -1,0 +1,545 @@
+
+#generate all the figs for the numerical analysis notes
+
+#$Id: figgen.gpt,v 1.1.1.1 2005/10/18 01:37:13 spav Exp $
+#$Log: figgen.gpt,v $
+#Revision 1.1.1.1  2005/10/18 01:37:13  spav
+#adding numas
+#
+#Revision 1.2  2004/12/18 01:36:20  spav
+#done with corrections. now is version 0.1?
+#
+#Revision 1.1  2004/12/16 00:33:53  spav
+#fixed the figs?
+#
+
+#pointtypes:#FOLDUP
+#pointtype  | on screen | in psfile
+#         0    none        none
+#         1    diamond     plus
+#         2    plus        times
+#         3    square      asterix
+#         4    times       square
+#         5    triangle    fillsquare
+#         6    asterix     circle
+#         7    diamond     fillcircle
+#         8    plus        triangle
+#         9    square      filltriangle
+#        10    times       nabla
+#        11    triangle    fillnabla
+#        12    asterix     diamond
+#        13    diamond     filldiamond
+#        14    plus        pentagon
+#        15    square      fillpentagon
+#        16    times       emptyclock
+#        17    triangle    quarterfillclockNE
+#        18    asterix     quarterfillclockNW
+#        19    diamond     halffillclocktop
+#        20    plus        quarterfillclockSW
+#        21    square      twofillclockSWNE
+#        22    times       halffillclockleft
+#
+#        32    plus        emptysquareclock
+#        33    square      quarterfillsquareclockNE
+# 
+#        53    triangle    twofilldiamondclockNS
+#
+#        75    square      blockingpentagon
+#
+#        76    times       plus
+#        80    plus        fillsquare
+#
+#        93    square      quarterfillclockNW
+#UNFOLD
+# acceptable colors:#FOLDUP
+# 	blackdot	lt 0
+# 	red				lt 1,10
+# 	bluedot		lt 3
+# 	blackdsh  lt 7,16
+# 	reddash   lt 8,17
+# 	greydash  lt 9,18
+# perhaps acceptable:
+# 	magenta		lt 4
+# unacceptable (invisble on a b/w printer):
+# 	green			lt 2
+# 	cyan			lt 5
+# 	yeller  	lt 6
+#
+#plot .0 with lines lt 10,\
+#     .1 with lines lt 11,\
+#     .2 with lines lt 12,\
+#     .3 with lines lt 13,\
+#     .4 with lines lt 14,\
+#     .5 with lines lt 15,\
+#     .6 with lines lt 16,\
+#     .7 with lines lt 17,\
+#     .8 with lines lt 18,\
+#     .9 with lines lt 19;
+#plot .0 with lines lw 0,\
+#     .1 with lines lw 1,\
+#     .2 with lines lw 2,\
+#     .3 with lines lw 3,\
+#     .4 with lines lw 4,\
+#     .5 with lines lw 5,\
+#     .6 with lines lw 6,\
+#     .7 with lines lw 7,\
+#     .8 with lines lw 8,\
+#     .9 with lines lw 9;
+#UNFOLD
+
+# min/max
+min(a,b) = a + ((b-a) - abs(b-a))/2.0;
+max(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+##################################################
+##################################################
+#figure 5.1
+set terminal x11
+set xrange [0:3.5];
+set yrange [-1:2];
+set nologscale y;
+set nologscale x;
+
+l0(x) = - (x-0.5) * (x-3.0);
+l1(x) = 0.8 * (x-1.0) * (x-3.0);
+l2(x) = 0.2 * (x-1.0) * (x-0.5);
+p(x) = 3 * l0(x) - 10 * l1(x) + 2*l2(x);
+
+plot l0(x) with lines lt 1 lw 2,l1(x) with lines lt 3 lw 2,\
+	l2(x) with lines lt 7 lw 2,1 title "" with dots lt 7,0 title "" with dots lt 3;
+
+set output "lagrange.eps"
+set terminal postscript color 
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 5.2
+set xrange [0:4];
+set yrange [*:*];
+set nologscale y;
+set nologscale x;
+plot p(x) with lines lt 1 lw 2;
+
+set output "lpoly.eps"
+set terminal postscript color 
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 6.1
+
+set xrange [-0.1:1.1];
+set yrange [0:6]
+set nologscale y;
+set nologscale x;
+
+plot "spline.dat" notitle with linespoints lt 3 lw 3 pt 7 ps 1
+
+set output "spline1.eps"
+set terminal postscript landscape color solid
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 6.2
+set xrange [-0.1:1.1];
+set yrange [2:6]
+set nologscale y;
+set nologscale x;
+
+rn(x) = (4.1 + sin(1.0 / (0.08*x+0.05)));
+
+plot rn(x) title "fn" with lines lt 1 lw 2, \
+		"splinter.dat" title "interp" with linespoints lt 3 lw 3 pt 7 ps 1
+
+set output "splinterp.eps"
+set terminal postscript landscape color solid
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 6.3(a)
+
+set xrange [-0:6];
+set yrange [-1:3]
+set nologscale y;
+set nologscale x;
+
+#bspline of deg zero
+t0 = 1;
+t1 = 2.5;
+
+less0(x) = (x < t0);
+less1(x) = (x < t1);
+
+not(x) = 1 - x;
+and(a,b) = a + ((b-a) - abs(b-a))/2.0;
+or(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+in01(x) = and(not(less0(x)),less1(x));
+
+bs(x) = in01(x);
+
+#plot bs(x) title "fn" with lines, "bs0.dat" title "ip" with linespoints lw 2 pt 7 ps 1
+plot "bs00.dat" notitle with linespoints lt 1 lw 3 pt 6 ps 1, \
+"bs01.dat" notitle with linespoints lt 1 lw 3 pt 6 ps 1, \
+"bs02.dat" notitle with linespoints lt 1 lw 3 pt 7 ps 1, \
+"bs03.dat" notitle with points lt 1 lw 3 pt 7 ps 1;
+
+set output "bsp0.eps"
+set terminal postscript landscape color solid
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 6.3(b)
+
+set xrange [-0:6];
+set yrange [-1:3]
+set nologscale y;
+set nologscale x;
+
+#bspline of deg zero
+t0 = 1;
+t1 = 2.5;
+t2 = 3.5;
+
+less0(x) = (x < t0);
+less1(x) = (x < t1);
+less2(x) = (x < t2);
+
+not(x) = 1 - x;
+and(a,b) = a + ((b-a) - abs(b-a))/2.0;
+or(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+in01(x) = and(not(less0(x)),less1(x));
+in12(x) = and(not(less1(x)),less2(x));
+
+bs(x) = ((x - t0) * in01(x) / (t1-t0)) + ((t2 - x) * in12(x) / (t2-t1));
+
+plot bs(x) notitle with lines lt 1 lw 3;
+
+set output "bsp1.eps"
+set terminal postscript landscape color solid
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 6.3(c)
+
+set xrange [-0:6];
+set yrange [-1:3]
+set nologscale y;
+set nologscale x;
+
+#set linestyle 1 lt 1 lw 3 pt 5
+#set linestyle 2 lt 1 lw 3 pt 6
+
+#bspline of deg zero
+t0 = 1;
+t1 = 2.5;
+t2 = 3.5;
+t3 = 4;
+
+less0(x) = (x < t0);
+less1(x) = (x < t1);
+less2(x) = (x < t2);
+less3(x) = (x < t3);
+
+not(x) = 1 - x;
+and(a,b) = a + ((b-a) - abs(b-a))/2.0;
+or(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+in01(x) = and(not(less0(x)),less1(x));
+in12(x) = and(not(less1(x)),less2(x));
+in23(x) = and(not(less2(x)),less3(x));
+
+bs10(x) = ((x - t0) * in01(x) / (t1-t0)) + ((t2 - x) * in12(x) / (t2-t1));
+bs11(x) = ((x - t1) * in12(x) / (t2-t1)) + ((t3 - x) * in23(x) / (t3-t2));
+
+bs20(x) = ((x - t0) * bs10(x) / (t2-t0)) + ((t3 - x) * bs11(x) / (t3-t1));
+
+plot bs10(x) title "b10" with lines lt 0 lw 4,\
+  bs11(x) title "b11" with lines lt 1 lw 2,\
+  bs20(x) title "b20" with lines lt 3 lw 3;
+
+set output "bsp2.eps"
+set terminal postscript landscape enhanced color dashed
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 7.1 
+
+set xrange [1e-16:1];
+set yrange [*:*];
+set logscale x;
+set logscale y;
+
+#plot "deriv.dat" thru abs(x-(1.0/3.0)) title "hdip" with linespoints;
+plot "deriv.dat" title "hdip" with linespoints lt 1 lw 2;
+
+set output "hdip.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+
+##################################################
+##################################################
+#figure 9.1
+
+set xrange [0.3:3.2];
+set nologscale y;
+set nologscale x;
+
+# min/max
+min(a,b) = a + ((b-a) - abs(b-a))/2.0;
+max(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+apx(x) = 1.7052 * log(x);
+
+plot "lsqr.dat" notitle with points lt 1 pt 6 ps 2, apx(x) notitle with lines lt 3 lw 3
+
+set output "lsqrlog.eps"
+set terminal postscript landscape color solid
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 9.2
+set xrange [-1.25:1.25];
+set yrange [-1.5:1.5];
+set nologscale y;
+set nologscale x;
+
+epsil = 0.05;
+haeps = epsil / 2.0;
+g0(x) = (haeps - 1) * x*x - haeps*x + 1.0;
+g1(x) = x*x*x + (haeps-1)*(x*x + x) + 1.0;
+
+plot g0(x) with lines lt 1 lw 2, g1(x) with lines lt 3 lw 4, \
+		 0 notitle with lines lt 7 lw 1;
+
+set output "badbasis.eps"
+set terminal postscript color
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 9.3
+set xrange [0:1];
+set yrange [0:1.1];
+set nologscale y;
+set nologscale x;
+
+p0(x) = 1;
+p1(x) = x * p0(x);
+p2(x) = x * p1(x);
+p3(x) = x * p2(x);
+p4(x) = x * p3(x);
+p5(x) = x * p4(x);
+p6(x) = x * p5(x);
+
+plot p0(x) notitle with lines lt 0 lw 3, \
+     p1(x) notitle with lines lt 1 lw 3, \
+     p2(x) notitle with lines lt 3 lw 3, \
+     p3(x) notitle with lines lt 7 lw 2, \
+     p4(x) notitle with lines lt 8 lw 4, \
+     p5(x) notitle with lines lt 9 lw 4, \
+     p6(x) notitle with lines lt 0 lw 5;
+
+set output "badpoly.eps"
+set terminal postscript color
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 9.4
+set xrange [0:1];
+set yrange [-1.1:1.1];
+set nologscale y;
+set nologscale x;
+
+T0(x) = 1;
+T1(x) = x;
+T2(x) = 2.0 * x * T1(x) - T0(x);
+T3(x) = 2.0 * x * T2(x) - T1(x);
+T4(x) = 2.0 * x * T3(x) - T2(x);
+T5(x) = 2.0 * x * T4(x) - T3(x);
+T6(x) = 2.0 * x * T5(x) - T4(x);
+
+plot T0(x) notitle with lines lt 0 lw 3, \
+     T1(x) notitle with lines lt 1 lw 3, \
+     T2(x) notitle with lines lt 3 lw 3, \
+     T3(x) notitle with lines lt 7 lw 2, \
+     T4(x) notitle with lines lt 8 lw 4, \
+     T5(x) notitle with lines lt 9 lw 4, \
+     T6(x) notitle with lines lt 0 lw 5;
+
+set output "cheby.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 10.1
+
+set xrange [0:3];
+set yrange [*:*];
+set nologscale x;
+set nologscale y;
+
+plot "eulerep.dat" title "approx" with linespoints lt 1 lw 2, \
+		 exp(x) title "actual" lt 3 lw 4;
+
+set output "eulerep.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 10.2
+
+set xrange [0.0000001:0.01];
+set yrange [0.01:10000];
+set logscale y;
+set logscale x;
+
+# min/max
+min(a,b) = a + ((b-a) - abs(b-a))/2.0;
+max(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+trunc(x) = 10000000.0 * x * x;
+rndff(x) = sin(x) * (x*x) + 0.0001 / x + 0.01 / (1.0 - x);
+error(x) = trunc(x) + rndff(x);
+
+plot trunc(x) with lines lt 0 lw 4,rndff(x) with lines lt 1 lw 2, \
+	   error(x) with linespoints lt 3 lw 3;
+
+set output "fakerror.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+#
+#plot tan(x) * sqrt(ha(x)*ha(x) + 1.0) * ga(x,-atan(1.0/ha(x))),\
+#     tan(x) * ((ha(x)*ha(x) + 1.0)/(ha(x) + 1.0)) * ga(x,-atan(1.0/ha(x))) ;
+
+
+##################################################
+##################################################
+#figure 10.3
+
+set xrange [0:2];
+set yrange [*:*];
+set terminal x11;
+set nologscale x;
+set nologscale y;
+
+epos(zer,t) = zer * exp(t);
+eneg(zer,t) = zer * exp(-t);
+
+plot epos(0.5,x) with lines lt 0 lw 2,\
+		 epos(0.75,x) with lines lt 1 lw 3,\
+		 epos(1.0,x) with lines lt 3 lw 2,\
+		 epos(1.25,x) with lines lt 7 lw 2,\
+		 epos(1.5,x) with lines lt 8 lw 2;
+
+set output "epos.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+plot eneg(0.5,x) with lines lt 0 lw 2,\
+		 eneg(0.75,x) with lines lt 1 lw 3,\
+		 eneg(1.0,x) with lines lt 3 lw 2,\
+		 eneg(1.25,x) with lines lt 7 lw 2,\
+		 eneg(1.5,x) with lines lt 8 lw 2;
+
+set output "eneg.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+##################################################
+##################################################
+#figure 10.4
+
+
+set xrange [0:12];
+set yrange [*:*];
+set nologscale x;
+set nologscale y;
+
+g(y) = 2.0 * pi + cos(y) - y;
+
+plot g(x) title "gofy" with lines lt 1 lw 3, 0 notitle with lines lt 3 lw 3;
+
+set output "gofy.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+
+set xrange [0:3];
+set yrange [*:*];
+set nologscale x;
+set nologscale y;
+
+
+plot "beul.dat" title "approx" with linespoints lt 1 lw 2, \
+		 exp(x) title "actual" lt 3 lw 4;
+
+set output "beul.eps";
+set terminal postscript color;
+replot;
+set terminal x11;
+set output;
+
+#miscellaneous gnuplot odds and ends:
+
+#min(a,b) = a + ((b-a) - abs(b-a))/2.0;
+#max(a,b) = a + ((b-a) + abs(b-a))/2.0;
+
+## raddeg
+#rd(a) = real(a*pi)/180.0;
+#dg(a) = 180.0*a/pi;
+#
+##how to show scifig
+#round(a) = floor(0.5+a);
+#prec(a,n) = (real(round(a*(10.0**n))))/(10.0**n);
+#sigfi(a,n) = real(round(real(a)/(10.0**int((log10(a))-n))))/(10.0**n);
+#expon(a) = int((log10(a)));
+##scifig(a,n): print sigfi(a,n), 'x10^', expon(a);
+

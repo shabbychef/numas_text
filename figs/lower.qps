@@ -1,0 +1,986 @@
+%!PS-Adobe-1.0
+%%BoundingBox: 0 0 595 842
+%%Creator: Qt 3.1.1
+%%CreationDate: Fri Oct 17 09:50:25 2003
+%%Orientation: Landscape
+%%Pages: 1
+%%DocumentFonts: ArialMT
+
+%%EndComments
+%%BeginProlog
+% Prolog copyright 1994-2001 Trolltech. You may copy this prolog in any way
+% that is directly related to this document. For other use of this prolog,
+% see your licensing agreement for Qt.
+/d/def load def/D{bind d}bind d/d2{dup dup}D/B{0 d2}D/W{255 d2}D/ED{exch d}D
+/D0{0 ED}D/LT{lineto}D/MT{moveto}D/S{stroke}D/F{setfont}D/SW{setlinewidth}D
+/CP{closepath}D/RL{rlineto}D/NP{newpath}D/CM{currentmatrix}D/SM{setmatrix}D
+/TR{translate}D/SD{setdash}D/SC{aload pop setrgbcolor}D/CR{currentfile read
+pop}D/i{index}D/bs{bitshift}D/scs{setcolorspace}D/DB{dict dup begin}D/DE{end
+d}D/ie{ifelse}D/sp{astore pop}D/BSt 0 d/LWi 1 d/PSt 1 d/Cx 0 d/Cy 0 d/WFi
+false d/OMo false d/BCol[1 1 1]d/PCol[0 0 0]d/BkCol[1 1 1]d/BDArr[0.94 0.88
+0.63 0.50 0.37 0.12 0.06]d/defM matrix d/nS 0 d/GPS{PSt 1 ge PSt 5 le and{{
+LArr PSt 1 sub 2 mul get}{LArr PSt 2 mul 1 sub get}ie}{[]}ie}D/QS{PSt 0 ne{
+LWi SW gsave PCol SC true GPS 0 SD S OMo PSt 1 ne and grestore{BkCol SC
+false GPS dup 0 get SD S}if}if}D/r28{{CR dup 32 gt{exit}if pop}loop 3{CR}
+repeat 0 4{7 bs exch dup 128 gt{84 sub}if 42 sub 127 and add}repeat}D/rA 0 d
+/rL 0 d/rB{rL 0 eq{/rA r28 d/rL 28 d}if dup rL gt{rA exch rL sub rL exch/rA
+0 d/rL 0 d rB exch bs add}{dup rA 16#fffffff 3 -1 roll bs not and exch dup
+rL exch sub/rL ED neg rA exch bs/rA ED}ie}D/uc{/rL 0 d 0{dup 2 i length ge{
+exit}if 1 rB 1 eq{3 rB dup 3 ge{1 add dup rB 1 i 5 ge{1 i 6 ge{1 i 7 ge{1 i
+8 ge{128 add}if 64 add}if 32 add}if 16 add}if 3 add exch pop}if 3 add exch
+10 rB 1 add{dup 3 i lt{dup}{2 i}ie 4 i 3 i 3 i sub 2 i getinterval 5 i 4 i 3
+-1 roll putinterval dup 4 -1 roll add 3 1 roll 4 -1 roll exch sub dup 0 eq{
+exit}if 3 1 roll}loop pop pop}{3 rB 1 add{2 copy 8 rB put 1 add}repeat}ie}
+loop pop}D/sl D0/QCIgray D0/QCIcolor D0/QCIindex D0/QCI{/colorimage where{
+pop false 3 colorimage}{exec/QCIcolor ED/QCIgray QCIcolor length 3 idiv
+string d 0 1 QCIcolor length 3 idiv 1 sub{/QCIindex ED/x QCIindex 3 mul d
+QCIgray QCIindex QCIcolor x get 0.30 mul QCIcolor x 1 add get 0.59 mul
+QCIcolor x 2 add get 0.11 mul add add cvi put}for QCIgray image}ie}D/di{
+gsave TR dup false ne{/languagelevel where{pop languagelevel 3 ge}{false}ie}
+{false}ie{/ma ED 8 eq{/dc[0 1]d/DeviceGray}{/dc[0 1 0 1 0 1]d/DeviceRGB}ie
+scs/im ED/mt ED/h ED/w ED/id 7 DB/ImageType 1 d/Width w d/Height h d
+/ImageMatrix mt d/DataSource im d/BitsPerComponent 8 d/Decode dc d DE/md 7
+DB/ImageType 1 d/Width w d/Height h d/ImageMatrix mt d/DataSource ma d
+/BitsPerComponent 1 d/Decode[0 1]d DE 4 DB/ImageType 3 d/DataDict id d
+/MaskDict md d/InterleaveType 3 d end image}{pop dup 1 eq{pop false 3 1 roll
+imagemask}{8 4 1 roll 8 eq{image}{QCI}ie}ie}ie grestore}d/BF{gsave BSt 1 eq{
+BCol SC WFi{fill}{eofill}ie}if BSt 2 ge BSt 8 le and{BDArr BSt 2 sub get/sc
+ED BCol{1. exch sub sc mul 1. exch sub}forall 3 array astore SC WFi{fill}{
+eofill}ie}if BSt 9 ge BSt 14 le and{WFi{clip}{eoclip}ie defM SM pathbbox 3 i
+3 i TR 4 2 roll 3 2 roll exch sub/h ED sub/w ED OMo{NP 0 0 MT 0 h RL w 0 RL
+0 h neg RL CP BkCol SC fill}if BCol SC 0.3 SW NP BSt 9 eq BSt 11 eq or{0 4 h
+{dup 0 exch MT w exch LT}for}if BSt 10 eq BSt 11 eq or{0 4 w{dup 0 MT h LT}
+for}if BSt 12 eq BSt 14 eq or{w h gt{0 6 w h add{dup 0 MT h sub h LT}for}{0
+6 w h add{dup 0 exch MT w sub w exch LT}for}ie}if BSt 13 eq BSt 14 eq or{w h
+gt{0 6 w h add{dup h MT h sub 0 LT}for}{0 6 w h add{dup w exch MT w sub 0
+exch LT}for}ie}if S}if BSt 24 eq{}if grestore}D/mat matrix d/ang1 D0/ang2 D0
+/w D0/h D0/x D0/y D0/ARC{/ang2 ED/ang1 ED/h ED/w ED/y ED/x ED mat CM pop x w
+2 div add y h 2 div add TR 1 h w div neg scale ang2 0 ge{0 0 w 2 div ang1
+ang1 ang2 add arc}{0 0 w 2 div ang1 ang1 ang2 add arcn}ie mat SM}D/C D0/P{NP
+MT 0.5 0.5 rmoveto 0 -1 RL -1 0 RL 0 1 RL CP PCol SC fill}D/M{/Cy ED/Cx ED}D
+/L{NP Cx Cy MT/Cy ED/Cx ED Cx Cy LT QS}D/DL{NP MT LT QS}D/HL{1 i DL}D/VL{2 i
+exch DL}D/R{/h ED/w ED/y ED/x ED NP x y MT 0 h RL w 0 RL 0 h neg RL CP BF QS
+}D/ACR{/h ED/w ED/y ED/x ED x y MT 0 h RL w 0 RL 0 h neg RL CP}D/xr D0/yr D0
+/rx D0/ry D0/rx2 D0/ry2 D0/RR{/yr ED/xr ED/h ED/w ED/y ED/x ED xr 0 le yr 0
+le or{x y w h R}{xr 100 ge yr 100 ge or{x y w h E}{/rx xr w mul 200 div d/ry
+yr h mul 200 div d/rx2 rx 2 mul d/ry2 ry 2 mul d NP x rx add y MT x y rx2
+ry2 180 -90 x y h add ry2 sub rx2 ry2 270 -90 x w add rx2 sub y h add ry2
+sub rx2 ry2 0 -90 x w add rx2 sub y rx2 ry2 90 -90 ARC ARC ARC ARC CP BF QS}
+ie}ie}D/E{/h ED/w ED/y ED/x ED mat CM pop x w 2 div add y h 2 div add TR 1 h
+w div scale NP 0 0 w 2 div 0 360 arc mat SM BF QS}D/A{16 div exch 16 div
+exch NP ARC QS}D/PIE{/ang2 ED/ang1 ED/h ED/w ED/y ED/x ED NP x w 2 div add y
+h 2 div add MT x y w h ang1 16 div ang2 16 div ARC CP BF QS}D/CH{16 div exch
+16 div exch NP ARC CP BF QS}D/BZ{curveto QS}D/CRGB{255 div 3 1 roll 255 div
+3 1 roll 255 div 3 1 roll}D/BC{CRGB BkCol sp}D/BR{CRGB BCol sp/BSt ED}D/WB{1
+W BR}D/NB{0 B BR}D/PE{setlinejoin setlinecap CRGB PCol sp/LWi ED/PSt ED LWi
+0 eq{0.25/LWi ED}if}D/P1{1 0 5 2 roll 0 0 PE}D/ST{defM SM concat}D/MF{true
+exch true exch{exch pop exch pop dup 0 get dup findfont dup/FontName get 3
+-1 roll eq{exit}if}forall exch dup 1 get/fxscale ED 2 get/fslant ED exch
+/fencoding ED[fxscale 0 fslant 1 0 0]makefont fencoding false eq{}{dup
+maxlength dict begin{1 i/FID ne{def}{pop pop}ifelse}forall/Encoding
+fencoding d currentdict end}ie definefont pop}D/MFEmb{findfont dup length
+dict begin{1 i/FID ne{d}{pop pop}ifelse}forall/Encoding ED currentdict end
+definefont pop}D/DF{findfont/fs 3 -1 roll d[fs 0 0 fs -1 mul 0 0]makefont d}
+D/ty 0 d/Y{/ty ED}D/Tl{gsave SW PCol SC NP 1 i exch MT 1 i 0 RL S grestore}D
+/T{PCol SC ty MT 1 i dup length 2 div exch stringwidth pop 3 -1 roll exch
+sub exch div exch 0 exch ashow}D/QI{/C save d pageinit/Cx 0 d/Cy 0 d/OMo
+false d}D/QP{C restore showpage}D/SPD{/setpagedevice where{1 DB 3 1 roll d
+end setpagedevice}{pop pop}ie}D/SV{BSt LWi PSt Cx Cy WFi OMo BCol PCol BkCol
+/nS nS 1 add d gsave}D/RS{nS 0 gt{grestore/BkCol ED/PCol ED/BCol ED/OMo ED
+/WFi ED/Cy ED/Cx ED/PSt ED/LWi ED/BSt ED/nS nS 1 sub d}if}D/CLSTART{/clipTmp
+matrix CM d defM SM NP}D/CLEND{clip NP clipTmp SM}D/CLO{grestore gsave defM
+SM}D
+
+/LArr[ [] [] [ 15.0 4.500 ] [ 4.500 15.0 ] [ 4.500 4.500 ] [ 4.500 4.500 ] [ 7.500 4.500 4.500 4.500 ] [ 4.500 7.500 4.500 4.500 ] [ 7.500 4.500 4.500 4.500 4.500 ] [ 4.500 7.500 4.500 4.500 4.500 4.500 ] ] d
+/pageinit {
+36 24 translate
+% 185*280 mm (landscape)
+ 90 rotate 0.666667 -0.666667 scale/defM matrix CM d } d
+%%EndProlog
+%%BeginSetup
+% Fonts and encodings used
+/ArialMTList [
+[ /ArialMT 1.0 0.0 ]
+  [ /Arial 1.0 0.0 ]
+  [ /Helvetica 1.0 0.0 ]
+] d
+%%BeginFont: Arial
+%!PS-Adobe-3.0 Resource-Font
+%%Copyright: Typeface © The Monotype Corporation plc. Data © The Monotype Corporation plc/Type Solutions Inc. 1990-1992. All Rights Reserved
+%%Creator: Converted from TrueType by Qt
+25 dict begin
+/_d{bind def}bind def
+/_m{moveto}_d
+/_l{lineto}_d
+/_cl{closepath eofill}_d
+/_c{curveto}_d
+/_sc{7 -1 roll{setcachedevice}{pop pop pop pop pop pop}ifelse}_d
+/_e{exec}_d
+/FontName /ArialMT def
+/PaintType 0 def
+/FontMatrix[.001 0 0 .001 0 0]def
+/FontBBox[-664 -324 2028 1037]def
+/FontType 3 def
+/Encoding StandardEncoding def
+/FontInfo 10 dict dup begin
+/FamilyName (Arial) def
+/FullName (Arial) def
+/Notice (Typeface © The Monotype Corporation plc. Data © The Monotype Corporation plc/Type Solutions Inc. 1990-1992. All Rights Reserved Arial¨ Trademark of The Monotype Corporation plc registered in the US Pat & TM Off. and elsewhere.) def
+/Weight (Regular) def
+/Version (Version 2.82) def
+/ItalicAngle 0.0 def
+/isFixedPitch false def
+/UnderlinePosition -217 def
+/UnderlineThickness 150 def
+end readonly def
+/CharStrings 13 dict dup begin
+/.notdef{750 0 125 0 625 625 _sc
+125 0 _m
+125 625 _l
+625 625 _l
+625 0 _l
+125 0 _l
+141 16 _m
+609 16 _l
+609 609 _l
+141 609 _l
+141 16 _l
+_cl}_d
+/b{{556 0 65 -11 515 716 _sc
+147 0 _m
+65 0 _l
+65 716 _l
+153 716 _l
+153 460 _l
+190 506 237 530 295 530 _c
+327 530 357 523 386 511 _c
+414 498 438 480 456 457 _c
+474 433 489 405 499 372 _c
+509 339 515 304 515 267 _c
+515 178 493 109 449 61 _c
+405 13 352 -11 291 -11 _c
+229 -11 181 14 147 65 _c
+147 0 _l
+146 263 _m
+146 201 154 156 171 128 _c
+199 83 236 61 284 61 _c
+322 61 355 77 383 111 _c
+411 144 425 194 425 260 _c
+425 327 411 377 385 409 _c
+358 441 326 458 288 458 _c
+249 458 216 441 188 408 _c
+160 374 146 326 146 263 _c
+_cl}_e}_d
+/e{{556 0 37 -11 515 530 _sc
+421 167 _m
+512 156 _l
+497 102 470 61 432 32 _c
+393 3 344 -11 284 -11 _c
+208 -11 147 12 103 58 _c
+59 104 37 170 37 255 _c
+37 342 59 410 104 458 _c
+148 506 207 530 279 530 _c
+348 530 405 506 449 459 _c
+493 412 515 346 515 260 _c
+515 254 514 247 514 237 _c
+127 237 _l
+130 179 146 136 175 106 _c
+204 76 240 61 284 61 _c
+316 61 344 69 367 86 _c
+389 102 407 129 421 167 _c
+132 309 _m
+422 309 _l
+418 353 407 385 389 407 _c
+361 441 324 458 280 458 _c
+239 458 205 444 178 417 _c
+150 390 135 354 132 309 _c
+_cl}_e}_d
+/f{278 0 9 0 313 728 _sc
+87 0 _m
+87 450 _l
+9 450 _l
+9 519 _l
+87 519 _l
+87 574 _l
+87 608 90 634 96 651 _c
+104 674 119 693 141 707 _c
+162 721 192 728 230 728 _c
+255 728 283 725 313 719 _c
+299 643 _l
+281 645 264 647 248 647 _c
+221 647 202 641 191 630 _c
+179 618 174 597 174 566 _c
+174 519 _l
+275 519 _l
+275 450 _l
+174 450 _l
+174 0 _l
+87 0 _l
+_cl}_d
+/g{{556 0 32 -209 489 530 _sc
+50 -42 _m
+135 -55 _l
+139 -81 149 -100 165 -112 _c
+187 -128 216 -137 254 -137 _c
+294 -137 326 -128 348 -112 _c
+370 -96 386 -73 394 -44 _c
+398 -26 400 11 400 68 _c
+361 22 313 0 256 0 _c
+184 0 129 25 90 77 _c
+51 128 32 190 32 262 _c
+32 311 41 357 59 399 _c
+77 441 103 473 137 496 _c
+171 518 211 530 257 530 _c
+318 530 368 505 408 456 _c
+408 519 _l
+489 519 _l
+489 70 _l
+489 -10 480 -66 464 -100 _c
+448 -134 422 -160 386 -180 _c
+350 -199 307 -209 255 -209 _c
+193 -209 143 -195 105 -167 _c
+67 -139 48 -98 50 -42 _c
+123 269 _m
+}_e{123 201 136 151 163 120 _c
+190 88 224 73 265 73 _c
+305 73 338 88 366 119 _c
+393 150 407 199 407 266 _c
+407 329 393 377 365 409 _c
+337 441 303 458 263 458 _c
+224 458 191 442 164 410 _c
+136 378 123 331 123 269 _c
+_cl}_e}_d
+/h{556 0 66 0 488 716 _sc
+66 0 _m
+66 716 _l
+154 716 _l
+154 459 _l
+194 506 246 530 309 530 _c
+347 530 381 522 409 507 _c
+437 492 458 471 470 445 _c
+482 418 488 379 488 329 _c
+488 0 _l
+400 0 _l
+400 329 _l
+400 373 390 405 371 425 _c
+352 445 325 455 291 455 _c
+265 455 240 448 217 434 _c
+194 420 178 402 168 379 _c
+158 356 154 324 154 284 _c
+154 0 _l
+66 0 _l
+_cl}_d
+/i{222 0 66 0 154 716 _sc
+66 615 _m
+66 716 _l
+154 716 _l
+154 615 _l
+66 615 _l
+66 0 _m
+66 519 _l
+154 519 _l
+154 0 _l
+66 0 _l
+_cl}_d
+/l{222 0 64 0 152 716 _sc
+64 0 _m
+64 716 _l
+152 716 _l
+152 0 _l
+64 0 _l
+_cl}_d
+/m{{833 0 66 0 769 530 _sc
+66 0 _m
+66 519 _l
+145 519 _l
+145 446 _l
+161 471 182 491 209 507 _c
+236 522 267 530 302 530 _c
+340 530 371 522 396 506 _c
+420 490 438 467 448 439 _c
+489 499 542 530 608 530 _c
+660 530 699 515 727 487 _c
+755 459 769 415 769 356 _c
+769 0 _l
+681 0 _l
+681 327 _l
+681 361 678 386 672 402 _c
+666 418 656 430 641 440 _c
+626 449 609 454 589 454 _c
+552 454 522 441 498 417 _c
+474 393 462 354 462 301 _c
+462 0 _l
+374 0 _l
+374 337 _l
+374 376 366 405 352 425 _c
+338 444 314 454 282 454 _c
+257 454 234 447 213 434 _c
+192 421 177 402 168 377 _c
+158 352 154 316 154 269 _c
+154 0 _l
+66 0 _l
+}_e{_cl}_e}_d
+/o{{556 0 33 -11 519 530 _sc
+33 259 _m
+33 355 59 426 113 473 _c
+157 511 212 530 276 530 _c
+347 530 405 506 451 460 _c
+496 413 519 349 519 267 _c
+519 200 509 147 489 109 _c
+469 71 439 41 401 20 _c
+363 0 321 -11 276 -11 _c
+203 -11 144 12 100 58 _c
+55 104 33 171 33 259 _c
+124 259 _m
+124 193 138 143 167 110 _c
+195 77 232 61 276 61 _c
+320 61 356 77 385 110 _c
+414 143 429 194 429 262 _c
+429 326 414 374 385 408 _c
+355 441 319 458 276 458 _c
+232 458 195 441 167 408 _c
+138 375 124 325 124 259 _c
+_cl}_e}_d
+/p{{556 0 66 -198 516 530 _sc
+66 -198 _m
+66 519 _l
+146 519 _l
+146 451 _l
+164 477 186 497 210 510 _c
+234 523 262 530 296 530 _c
+340 530 379 518 413 496 _c
+447 473 472 441 490 399 _c
+507 357 516 312 516 263 _c
+516 210 506 162 487 120 _c
+468 77 440 44 404 22 _c
+368 0 330 -11 290 -11 _c
+260 -11 234 -5 211 7 _c
+187 19 168 34 154 54 _c
+154 -198 _l
+66 -198 _l
+146 256 _m
+146 189 159 140 186 108 _c
+213 76 246 61 284 61 _c
+323 61 356 77 384 110 _c
+412 143 426 194 426 264 _c
+426 330 412 379 385 412 _c
+358 444 326 461 288 461 _c
+250 461 217 443 189 408 _c
+160 373 146 322 146 256 _c
+_cl}_e}_d
+/r{333 0 65 0 347 530 _sc
+65 0 _m
+65 519 _l
+144 519 _l
+144 440 _l
+164 476 182 500 200 512 _c
+217 524 236 530 256 530 _c
+286 530 316 520 347 502 _c
+316 420 _l
+294 432 273 439 252 439 _c
+232 439 215 433 200 422 _c
+184 410 173 394 167 374 _c
+157 342 153 308 153 271 _c
+153 0 _l
+65 0 _l
+_cl}_d
+/t{278 0 18 -6 271 700 _sc
+258 79 _m
+271 1 _l
+245 -3 223 -6 204 -6 _c
+172 -6 147 -1 130 8 _c
+112 18 100 31 93 48 _c
+85 64 82 99 82 152 _c
+82 450 _l
+18 450 _l
+18 519 _l
+82 519 _l
+82 647 _l
+169 700 _l
+169 519 _l
+258 519 _l
+258 450 _l
+169 450 _l
+169 147 _l
+169 121 170 105 174 98 _c
+177 91 182 85 189 81 _c
+196 77 206 75 219 75 _c
+229 75 242 76 258 79 _c
+_cl}_d
+end readonly def
+
+/BuildGlyph
+ {exch begin
+ CharStrings exch
+ 2 copy known not{pop /.notdef}if
+ true 3 1 roll get exec
+ end}_d
+
+/BuildChar {
+ 1 index /Encoding get exch get
+ 1 index /BuildGlyph get exec
+}_d
+
+FontName currentdict end definefont pop
+%% Font Page 00
+/ArialMT-ENC-00 [
+/.notdef/b/o/t/m/r/i/g/h/p/l/e/f/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef] def
+/ArialMT-Uni-00 ArialMT-ENC-00 /ArialMT MFEmb
+%%BeginFont: ArialMT
+%!PS-AdobeFont-1.0 Composite Font
+%%FontName: ArialMT-Uni
+%%Creator: Composite font created by Qt
+25 dict begin
+/FontName /ArialMT-Uni def
+/PaintType 0 def
+/FontMatrix[1 0 0 1 0 0]def
+/FontType 0 def
+/FMapType 2 def
+/Encoding [
+0]def
+/FDepVector [
+/ArialMT-Uni-00 findfont
+]def
+FontName currentdict end definefont pop
+%%EndFont
+%%EndFont
+/F1 30/ArialMT-Uni DF
+%%EndSetup
+%%Page: 1 1
+%%BeginPageSetup
+QI
+%%EndPageSetup
+[1.66341 0 0 1.66667 -106.458 -218.333]ST
+W P1
+NB
+W BC
+F1 F
+609 Y<00010002000300030002000400050006000700080003>155 75 T
+175 Y<000300020009000A000B000C0003>84 779 T
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+WB
+530 4640 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+6162 1155 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 79 79 81 BR
+1126 3946 48 48 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5583 3944 48 48 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 2 B 0 0 PE
+1150 3970 5607 3968 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+1 B BR
+5574 2271 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+5607 3968 5606 2303 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 2 B 0 0 PE
+1150 4672 1148 1190 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+1117 2733 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 255 0 0 BR
+4817 2570 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4818 3936 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5 B BR
+NP
+4849 2602 MT
+5607 2601 LT
+5607 3968 LT
+4850 3968 LT
+CP BF QS
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+4849 2602 4850 3968 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+1 255 0 0 BR
+3968 2955 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3968 3937 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+4000 2987 3969 VL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+5 B BR
+NP
+4000 2987 MT
+4850 2986 LT
+4850 3968 LT
+4000 3969 LT
+CP BF QS
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 255 0 0 BR
+2245 2353 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2245 3938 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5 B BR
+NP
+1149 2765 MT
+2277 2764 LT
+2277 3970 LT
+1150 3970 LT
+CP BF QS
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+2277 3970 2385 VL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+1 255 0 0 BR
+3021 2832 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3022 3937 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5 B BR
+NP
+3053 2864 MT
+2277 2864 LT
+2277 3970 LT
+3054 3969 LT
+CP BF QS
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+3053 2864 3054 3969 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+NP
+3054 3091 MT
+4000 3090 LT
+4000 3969 LT
+3054 3969 LT
+CP BF QS
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 2 B 0 0 PE
+1176 2723 1149 2765 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1204 2682 1176 2723 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1233 2645 1204 2682 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1262 2609 1233 2645 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1291 2576 1262 2609 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1320 2546 1291 2576 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1350 2517 1320 2546 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1381 2490 1350 2517 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1411 2466 1381 2490 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1442 2443 1411 2466 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1473 2423 1442 2443 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1504 2404 1473 2423 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1536 2387 1504 2404 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1567 2372 1536 2387 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1599 2358 1567 2372 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1631 2346 1599 2358 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1663 2336 1631 2346 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1695 2327 1663 2336 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1727 2320 1695 2327 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1759 2314 1727 2320 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1791 2310 1759 2314 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1823 2307 1791 2310 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1855 2305 1823 2307 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1887 2305 1855 HL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1918 2305 1887 HL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1950 2307 1918 2305 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1982 2310 1950 2307 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1998 2312 1982 2310 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2013 2314 1998 2312 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2045 2319 2013 2314 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2076 2325 2045 2319 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2107 2332 2076 2325 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2138 2339 2107 2332 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2199 2357 2138 2339 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2229 2367 2199 2357 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2259 2378 2229 2367 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2319 2401 2259 2378 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2348 2414 2319 2401 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2377 2427 2348 2414 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2434 2455 2377 2427 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2490 2484 2434 2455 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2545 2515 2490 2484 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2599 2547 2545 2515 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2702 2614 2599 2547 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2801 2681 2702 2614 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2984 2813 2801 2681 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3068 2874 2984 2813 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3149 2930 3068 2874 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3189 2955 3149 2930 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3228 2979 3189 2955 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3266 3000 3228 2979 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3304 3020 3266 3000 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3323 3029 3304 3020 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3342 3037 3323 3029 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3379 3053 3342 3037 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3398 3059 3379 3053 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3417 3065 3398 3059 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3436 3071 3417 3065 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3455 3075 3436 3071 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3474 3080 3455 3075 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3493 3083 3474 3080 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3512 3086 3493 3083 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3532 3088 3512 3086 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3551 3090 3532 3088 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3571 3091 3551 3090 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3592 3091 3571 HL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3612 3090 3592 3091 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3633 3089 3612 3090 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3654 3087 3633 3089 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3675 3084 3654 3087 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3697 3081 3675 3084 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3742 3072 3697 3081 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3766 3067 3742 3072 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3789 3061 3766 3067 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3838 3046 3789 3061 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3890 3029 3838 3046 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3944 3009 3890 3029 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3973 2998 3944 3009 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4002 2986 3973 2998 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4127 2932 4002 2986 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4268 2868 4127 2932 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4427 2793 4268 2868 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4608 2710 4427 2793 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5045 2518 4608 2710 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5606 2303 5045 2518 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1150 3970 5607 3968 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+5607 3968 5606 2303 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 2 B 0 0 PE
+1150 4672 1148 1190 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3 2 B 0 0 PE
+4849 2602 4850 3968 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4000 2987 3969 VL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2277 3970 2385 VL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3053 2864 3054 3969 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 2 B 0 0 PE
+1176 2723 1149 2765 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1204 2682 1176 2723 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1233 2645 1204 2682 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1262 2609 1233 2645 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1291 2576 1262 2609 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1320 2546 1291 2576 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1350 2517 1320 2546 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1381 2490 1350 2517 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1411 2466 1381 2490 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1442 2443 1411 2466 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1473 2423 1442 2443 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1504 2404 1473 2423 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1536 2387 1504 2404 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1567 2372 1536 2387 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1599 2358 1567 2372 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1631 2346 1599 2358 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1663 2336 1631 2346 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1695 2327 1663 2336 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1727 2320 1695 2327 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1759 2314 1727 2320 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1791 2310 1759 2314 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1823 2307 1791 2310 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1855 2305 1823 2307 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1887 2305 1855 HL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1918 2305 1887 HL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1950 2307 1918 2305 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1982 2310 1950 2307 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1998 2312 1982 2310 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2013 2314 1998 2312 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2045 2319 2013 2314 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2076 2325 2045 2319 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2107 2332 2076 2325 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2138 2339 2107 2332 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2199 2357 2138 2339 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2229 2367 2199 2357 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2259 2378 2229 2367 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2319 2401 2259 2378 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2348 2414 2319 2401 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2377 2427 2348 2414 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2434 2455 2377 2427 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2490 2484 2434 2455 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2545 2515 2490 2484 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2599 2547 2545 2515 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2702 2614 2599 2547 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2801 2681 2702 2614 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2984 2813 2801 2681 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3068 2874 2984 2813 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3149 2930 3068 2874 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3189 2955 3149 2930 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3228 2979 3189 2955 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3266 3000 3228 2979 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3304 3020 3266 3000 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3323 3029 3304 3020 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3342 3037 3323 3029 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3379 3053 3342 3037 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3398 3059 3379 3053 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3417 3065 3398 3059 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3436 3071 3417 3065 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3455 3075 3436 3071 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3474 3080 3455 3075 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3493 3083 3474 3080 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3512 3086 3493 3083 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3532 3088 3512 3086 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3551 3090 3532 3088 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3571 3091 3551 3090 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3592 3091 3571 HL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3612 3090 3592 3091 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3633 3089 3612 3090 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3654 3087 3633 3089 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3675 3084 3654 3087 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3697 3081 3675 3084 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3742 3072 3697 3081 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3766 3067 3742 3072 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3789 3061 3766 3067 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3838 3046 3789 3061 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3890 3029 3838 3046 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3944 3009 3890 3029 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3973 2998 3944 3009 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4002 2986 3973 2998 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4127 2932 4002 2986 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4268 2868 4127 2932 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4427 2793 4268 2868 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4608 2710 4427 2793 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5045 2518 4608 2710 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5606 2303 5045 2518 DL
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+0 0 B 0 0 PE
+WB
+530 4640 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+6162 1155 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 79 79 81 BR
+1126 3946 48 48 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+5583 3944 48 48 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 B BR
+5574 2271 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1117 2733 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+1 255 0 0 BR
+4817 2570 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+4818 3936 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3968 2955 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3968 3937 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2245 2353 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+2245 3938 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3021 2832 64 64 E
+[0.207926 0 0 0.208333 -106.458 -218.333]ST
+3022 3937 64 64 E
+
+QP
+%%Trailer
+%%Pages: 1
+%%DocumentFonts: ArialMT
+%%EOF

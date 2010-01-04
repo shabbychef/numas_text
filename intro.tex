@@ -1,0 +1,795 @@
+%%%%(c) COPYRIGHT NOTICE%FOLDUP
+%%%%(c)
+%%%%(c)  This file is a portion of the source for the textbook
+%%%%(c)
+%%%%(c)    Numerical Methods Course Notes,
+%%%%(c)    Copyright 2004-2010 by Steven E. Pav
+%%%%(c)
+%%%%(c)  See the file COPYING.txt for copying conditions
+%%%%(c)
+%%%%(c)%UNFOLD
+
+%%throat clearing%FOLDUP
+\typeout{-- intro.tex}
+\typeout{-- N© 2004-2010 Steven E. Pav}
+%UNFOLD
+
+%%local commands%FOLDUP
+\providecommand{\bifo}[3][{}]{\BIFO{#1}{{#2},{#3}}}
+%UNFOLD
+
+\chapter{Introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Taylor's Theorem}%FOLDUP
+\label{sec:taylors}
+
+Recall from calculus the Taylor's series for a function, $f(x)$, expanded about some
+number, $c$, is written as
+\[f(x) \sim  a_0 + a_1 \Parens{x-c} + a_2 \Parens{x-c}^2 + \ldots.\]%
+Here the symbol $\sim$ is used to denote a ``formal series,'' meaning that 
+convergence is not guaranteed in general.  The constants $a_i$ are related to
+the function $f$ and its derivatives evaluated at $c$.  When $c=0,$ this is a
+MacLaurin series.
+
+For example we have the following Taylor's series (with $c=0$):
+
+\begin{empheq}[innerbox=\widefbox]{align}
+\exp{x} &= 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \ldots\\
+\sin\Parens{x} &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - \ldots\\
+\cos\Parens{x} &= 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \ldots
+\end{empheq}
+
+\begin{bktheorem}[Taylor's Theorem]\label{bkthm:taylors}%FOLDUP
+If $f(x)$ has derivatives of order $0,1,2,\ldots,n+1$ on the closed interval
+\clinv{a}{b}, then for any $x$ and $c$ in this interval
+\[
+f(x) = \sum_{k=0}^{n} \frac{f^{\Parens{k}}\Parens{c} \, \Parens{x-c}^k}{k!} +
+\frac{f^{\Parens{n+1}}\Parens{\xi} \, \Parens{x-c}^{n+1}}{\Parens{n+1}!},
+\]
+where $\xi$ is some number between $x$ and $c,$ and $f^{k}(x)$ is the \kth{k}
+derivative of $f$ at $x.$
+\end{bktheorem}
+\index{Taylor's Theorem}
+%UNFOLD
+We will use this theorem again and again in this class.  The main usage is to
+approximate a function by the first few terms of its Taylor's series
+expansion;  the theorem then tells us the approximation is ``as good'' as the
+final term, also known as the \emph{error term}.  That is, we can make the
+following manipulation:
+
+\begin{eqnarray*}
+f(x) &=& \sum_{k=0}^{n} \frac{f^{\Parens{k}}\Parens{c} \, \Parens{x-c}^k}{k!} +
+\frac{f^{\Parens{n+1}}\Parens{\xi} \, \Parens{x-c}^{n+1}}{\Parens{n+1}!}\\
+f(x) - \sum_{k=0}^{n} \frac{f^{\Parens{k}}\Parens{c} \, \Parens{x-c}^k}{k!} &=& 
+\frac{f^{\Parens{n+1}}\Parens{\xi} \, \Parens{x-c}^{n+1}}{\Parens{n+1}!}\\
+\abs{f(x) - \sum_{k=0}^{n} \frac{f^{\Parens{k}}\Parens{c} \, \Parens{x-c}^k}{k!}} &=& 
+\frac{\abs{f^{\Parens{n+1}}\Parens{\xi}} \abs{x-c}^{n+1}}{\Parens{n+1}!}.
+\end{eqnarray*}
+
+On the left hand side is the difference between $f(x)$ and its approximation by
+Taylor's series.  We will then use our knowledge about
+$f^{\Parens{n+1}}\Parens{\xi}$ on the interval \clinv{a}{b} to find some
+constant $M$ such that
+
+\begin{eqnarray*}
+\abs{f(x) - \sum_{k=0}^{n} \frac{f^{\Parens{k}}\Parens{c} \, \Parens{x-c}^k}{k!}} &=& 
+\frac{\abs{f^{\Parens{n+1}}\Parens{\xi}} \abs{x-c}^{n+1}}{\Parens{n+1}!} \le M
+\abs{x-c}^{n+1}.
+\end{eqnarray*}
+
+\begin{bkexprob}%FOLDUP
+Find an approximation for $f(x) = \sin x,$ expanded about $c=0,$ using $n=3.$
+\begin{bksolution}
+Solving for $f^{\Parens{k}}$ is fairly easy for this
+function.  We find that
+\begin{eqnarray*}
+f(x) = \sin x &=& \sin (0) + \frac{\cos(0) \, x}{1!} + \frac{-\sin (0) \, x^2}{2!} +
+\frac{- \cos (0) \, x^3}{3!} + \frac{\sin (\xi) \, x^4}{4!}\\
+&=& x - \frac{x^3}{6} + \frac{\sin (\xi ) \, x^4}{24},
+\end{eqnarray*}
+so
+\begin{eqnarray*}
+\abs{\sin x - \Parens{x - \frac{x^3}{6}}} &=& \abs{\frac{\sin (\xi ) \, x^4}{24}}
+\le \frac{x^4}{24},
+\end{eqnarray*}
+because $\abs{\sin(\xi)} \le 1.$
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+\begin{bkexprob}%FOLDUP
+Apply Taylor's Theorem for the case $n=1.$  
+\begin{bksolution}
+Taylor's Theorem for $n=1$ states:
+Given a function, $f(x)$ with a continuous derivative on \clinv{a}{b}, then 
+\[f(x) = f(c) + f'(\xi) (x-c)\]
+for some $\xi$ between $x,c$ when $x,c$ are in \clinv{a}{b}.\\
+This is the {Mean Value Theorem}.  As a one-liner, the MVT says that at some
+time during a trip, your velocity is the same as your average velocity for the
+trip.  
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+\begin{bkexprob}%FOLDUP
+Apply Taylor's Theorem to expand $f(x) = x^3 - 21x^2 + 17$ around $c=1$.
+\begin{bksolution} Simple calculus gives us
+\begin{eqnarray*}
+f^{\Parens{0}}(x) &=& x^3 - 21x^2 + 17,\\
+f^{\Parens{1}}(x) &=& 3 x^2 - 42x,\\
+f^{\Parens{2}}(x) &=& 6 x - 42,\\
+f^{\Parens{3}}(x) &=& 6,\\
+f^{\Parens{k}}(x) &=& 0.
+\end{eqnarray*}
+with the last holding for $k>3.$  Evaluating these at $c=1$ gives
+\[
+f(x) = -3 + -39 (x-1) + \frac{-36 \Parens{x-1}^2}{2} + \frac{6
+\Parens{x-1}^3}{6}.
+\]
+Note there is no error term, since the higher order derivatives are identically
+zero.  By carrying out simple algebra, you will find that the above expansion
+is, in fact, the function $f(x).$
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+There is an alternative form of Taylor's Theorem, in this case substituting
+$x+h$ for $x,$ and $x$ for $c$ in the more general version.  This gives
+
+\begin{bktheorem}[Taylor's Theorem, Alternative Form]%FOLDUP
+If $f(x)$ has derivatives of order $0, 1, \ldots, n+1$ on the closed interval
+\clinv{a}{b}, then for any $x$ in this interval and any $h$ such that $x+h$ is
+in this interval,
+\[
+f(x+h) = \sum_{k=0}^{n} \frac{f^{\Parens{k}}\Parens{x} \, \Parens{h}^k}{k!} +
+\frac{f^{\Parens{n+1}}\Parens{\xi} \, \Parens{h}^{n+1}}{\Parens{n+1}!},
+\]
+where $\xi$ is some number between $x$ and $x+h.$
+\end{bktheorem}%UNFOLD
+\index{Taylor's Theorem}
+
+We generally apply this form of the theorem with $h \rightarrow 0.$  This leads
+to a discussion on the matter of \emph{Orders of Convergence}.  The following
+definition will suffice for this class
+
+\begin{bkdefinition}%FOLDUP
+We say that a function $f(h)$ is in the class \bigo{h^k} (pronounced ``big-Oh
+of $h^k$'') if there is some
+constant $C$ such that
+\[\abs{f(h)} \le C \abs{h}^k\]
+for all $h$ ``sufficiently small,'' \ie smaller than some $h^*$ in absolute
+value.
+
+For a function $f \in \bigo{h^k}$ we sometimes write $f = \bigo{h^k}.$  We
+sometimes also write \bigo{h^k}, meaning some function which is a member of this class.
+\end{bkdefinition}
+%UNFOLD
+\index{big-O}
+%
+%
+Roughly speaking, through use of the ``Big-O'' function we can write an
+expression without ``sweating the small stuff.''  This can give us an intuitive
+understanding of how an approximation works, without losing too many of the
+details.
+
+\begin{bkexample}\label{bkex:lnexp}%FOLDUP
+Consider the Taylor expansion of $\ln x$:
+\begin{eqnarray*}
+\ln \Parens{x + h} &=& \ln x + \frac{\Parens{1/x} \, h}{1} + \frac{\Parens{-1/x^2} \, h^2}{2} +
+\frac{\Parens{2/\xi^3} \, h^3}{6}
+\end{eqnarray*}
+Letting $x=1,$ we have
+\begin{eqnarray*}
+\ln \Parens{1 + h} &=& h - \half[h^2] + \oneby{3 \xi^3} h^3.
+\end{eqnarray*}
+Using the fact that $\xi$ is between $1$ and $1+h,$ as long as $h$ is
+relatively small (say smaller than \half), the term $\oneby{3 \xi^3}$ can be
+bounded by a constant, and thus
+\begin{eqnarray*}
+\ln \Parens{1 + h} &=& h - \half[h^2] + \bigo{h^3}.
+\end{eqnarray*}
+
+Thus we say that $h - \half[h^2]$ is a \bigo{h^3} approximation to $\ln (1+h).$
+For example
+\[
+\ln(1+0.01) \approx 0.009950331 \approx 0.00995 = 0.01 - \half[0.01^2]. 
+\]
+
+\end{bkexample}%UNFOLD
+
+%\subsection{Alternating Series Theorem}%FOLDUP
+%Another theorem for proving convergence is the following:
+%
+%\begin{bktheorem}[Alternating Series Theorem]%FOLDUP
+%If $a_0 \ge a_1 \ge a_2 \ge a_3 \ge \ldots \ge 0,$ and $\lim_{k\rightarrow\infty} a_k =
+%0$ then the series 
+%\[
+%\sum_{k=0}^\infty \Parens{-1}^k a_k = a_0 - a_1 + a_2 - \ldots
+%\]
+%converges.  Moreover, if you let $S$ be the value of the sum, and $S_n$ be the
+%partial sum $\sum_{k=0}^n \Parens{-1}^k a_k$, then 
+%\[
+%\abs{S_n - S} \le a_{n+1}.
+%\]
+%\end{bktheorem}%UNFOLD
+%
+%This theorem can help us figure out how many terms to take in an approximation.
+%
+%\begin{bkexample}%FOLDUP
+%Use Taylor's Theorem on $f(x) = \ln\Parens{1+x},$ then use the AST to figure
+%out how many terms are needed to get an accurate approximation for $\ln2.$
+%\\\emph{Solution:}  The expansion for this function is actually
+%\begin{eqnarray*}
+%\ln\Parens{1+x} &=& x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \ldots
+%= \sum_{k=1}^\infty \frac{\Parens{-1}^{k-1} x^k}{k}.
+%\end{eqnarray*}
+%Thus
+%\begin{eqnarray*}
+%\ln2 = \ln\Parens{1+x} &=& 1 - \oneby{2} + \oneby{3} - \oneby{4} + \ldots
+%\end{eqnarray*}
+%This is an alternating series with terms
+%$1,\oneby{2},\oneby{3},\oneby{4},\ldots$  How many terms are sufficient?
+%Suppose we wish to find an approximation of $\ln2$ good to $9$ decimal places.
+%Thus we want an error smaller than \tenex{\half}{-9}.  The AST tells us that
+%\[\abs{S_n - n} \le a_{n+1} = \oneby{n+1}.\]
+%Thus it suffices to take $\oneby{n+1} \le \tenex{\half}{-9}.$  That is, the AST
+%tells us we need to take 2 billion terms in our approximation;  this is poor.
+%\end{bkexample}%UNFOLD
+%%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Loss of Significance}%FOLDUP
+
+Generally speaking, a computer stores a number $x$ as a mantissa and exponent,
+that is $x=\tenex{\pm r}{k},$ where $r$ is a rational number of a given number of
+digits in \coinv{0.1}{1}, and $k$ is an integer in a certain range.
+
+The number of significant digits in $r$ is usually determined by the user's
+input.  Operations on numbers stored in this way follow a ``lowest common
+denominator'' type of rule, \ie precision cannot be gained but can be lost.
+Thus for example if you add the two quantities $0.171717$ and $0.51$, then the
+result should only have two significant digits;  the precision of the first
+measurement is lost in the uncertainty of the second.  
+
+This is as it should be.  However, a loss of significance can be incurred if
+two nearly equal quantities are subtracted from one another.  Thus if I were to
+direct my computer to subtract $0.177241$ from $0.177589,$ the result would be
+$\tenex{.348}{-3},$ and three significant digits have been lost.  This loss is
+called \emph{subtractive cancellation}, \index{subtractive cancellation}
+and can often be avoided by rewriting the expression.  This will be made
+clearer by the examples below.
+
+Errors can also occur when quantities of radically different magnitudes are
+summed. For example $0.1234 + \tenex{5.6789}{-20}$ might be rounded to $0.1234$
+by a system that keeps only 16 significant digits.  This may lead to
+unexpected results.
+
+The usual strategies for rewriting subtractive expressions are completing the
+square, factoring, or using the Taylor expansions, as the following examples
+illustrate.  
+
+\begin{bkexprob}%FOLDUP
+Consider the stability of $\sqrt{x+1} - 1$ when $x$ is near $0.$  Rewrite the
+expression to rid it of subtractive cancellation.
+\begin{bksolution}Suppose that $x = \tenex{1.2345678}{-5}.$  Then $\sqrt{x+1}
+\approx 1.000006173$.  If your computer (or calculator) can only keep 8
+significant digits, this will be rounded to $1.0000062.$  When $1$ is
+subtracted, the result is \tenex{6.2}{-6}.  Thus $6$ significant digits have
+been lost from the original.
+
+To fix this, we \emph{rationalize} the expression
+\begin{eqnarray*}
+\sqrt{x+1} - 1 &=& \sqrt{x+1} - 1 \frac{\sqrt{x+1} + 1}{\sqrt{x+1} + 1} 
+=	\frac{x + 1 - 1}{\sqrt{x+1} + 1} 
+=	\frac{x}{\sqrt{x+1} + 1}.
+\end{eqnarray*}
+This expression has no subtractions, and so is not subject to subtractive
+cancelling.  When $x=\tenex{1.2345678}{-5},$ this expression evaluates
+approximately as 
+\[\frac{\tenex{1.2345678}{-5}}{2.0000062} \approx \tenex{6.17281995}{-6}\]
+on a machine with 8 digits, there is no loss of precision.
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+Note that nearly all modern computers and calculators store intermediate
+results of calculations in higher precision formats.  This minimizes, but does
+not eliminate, problems like those of the previous example problem.
+
+\begin{bkexprob}\label{bkexp:quadratic}%FOLDUP
+Write stable code to find the roots of the equation $x^2 + bx + c = 0.$
+\begin{bksolution}The usual quadratic formula is
+\[x_{\pm} = \frac{-b \pm \sqrt{b^2 - 4c}}{2}\]
+Supposing that $b \gg c > 0$, the expression in the square root might be rounded to
+$b^2,$ giving two roots $x_{+} = 0,\,x_{-} = -b.$  The latter root is nearly
+correct, while the former has no correct digits.  To correct this problem,
+multiply the numerator and denominator of $x_{+}$ by $-b - \sqrt{b^2 - 4c}$
+to get
+\[x_{+} = \frac{2c}{-b - \sqrt{b^2 - 4c}}\]
+Now if $b \gg c > 0,$ this expression gives root $x_{+} = -c/b,$ which
+is nearly correct.  This leads to the pair:
+\[x_{-} = \frac{-b - \sqrt{b^2 - 4c}}{2},\quad
+x_{+} = \frac{2c}{-b - \sqrt{b^2 - 4c}}\]
+Note that the two roots are nearly reciprocals, and if $x_{-}$ is computed,
+$x_{+}$ can easily be computed with little additional work.
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+\begin{bkexprob}%FOLDUP
+Rewrite $\exp{x} - \cos x$ to be stable when $x$ is near $0.$
+\begin{bksolution}Look at the Taylor's Series expansion for these
+functions:
+\begin{eqnarray*}
+\exp{x} - \cos{x} &=& \Bracks{1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} +
+\frac{x^4}{4!} + \frac{x^5}{5!} + \ldots} - 
+\Bracks{1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \ldots}\\
+&=& x + x^2 + \frac{x^3}{3!} + \bigo{x^5}
+\end{eqnarray*}
+This expression has no subtractions, and so is not subject to subtractive
+cancelling.  Note that we propose calculating $x + x^2 + x^3/6$ as an
+\emph{approximation} of $\exp{x} - \cos{x},$ which we cannot calculate exactly
+anyway.  Since we assume $x$ is nearly zero, the approximate should be
+good.  If $x$ is \emph{very} close to zero, we may only have to take the first
+one or two terms.  If $x$ is not so close to zero, we may need to take all
+three terms, or even more terms of the expansion; if $x$ is far from zero we 
+should use some other technique.
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vector Spaces, Inner Products, Norms}%FOLDUP
+
+We explore some of the basics of functional analysis which may be useful in
+this text.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vector Space}%FOLDUP
+\label{subsec:vectorspace}
+
+A vector space is a collection of objects together with a binary operator which is
+defined over an algebraic field.\footnote{For the purposes of this text, this algebraic field will
+\emph{always} be the real field, \reals{}, though in the real world, the
+complex field, \comps{}, has some currency.} 
+The binary operator allows
+transparent algebraic manipulation of vectors.
+
+\begin{bkdefinition}\label{bkdef:vecspace}%FOLDUP
+A collection of vectors, \vecs, with a binary addition operator, $+,$
+defined over \vecs, and a scalar multiply over the real field \reals{},
+forms a \emph{vector space} if
+
+\begin{compactenum}
+\item For each $\vect{u},\vect{v}\in\vecs,$ the sum $\vect{u}+\vect{v}$ is a vector 
+in \vecs.
+(\ie the space is ``closed under addition.'')
+\item Addition is commutative: $\vect{u}+\vect{v} = \vect{v}+\vect{u}$ for each
+$\vect{u},\vect{v}\in\vecs$.
+
+\item For each $\vect{u}\in\vecs,$ and each scalar $\alpha\in\reals{}$ the scalar
+product $\alpha\vect{u}$ is a vector in \vecs.
+(\ie the space is ``closed under scalar multiplication.'')
+\item There is a zero vector $\vect{0}\in\vecs$ such that for any
+$\vect{u}\in\vecs,$ $0 \vect{u} = \vect{0},$ where $0$ is the zero of \reals{}.
+\item For any $\vect{u}\in\vecs,$ $1 \vect{u} = \vect{u},$ where $1$ is the
+multiplicative identity of \reals{}.
+\item 
+For any $\vect{u},\vect{v}\in\vecs,$ and scalars $\alpha,\beta\in\reals{},$
+both
+$(\alpha +_{\reals{}} \beta)\vect{u} = \alpha\vect{u} + \beta\vect{u}$
+and
+$\alpha\Parens{\vect{u}+\vect{v}} = \alpha\vect{u} + \alpha\vect{v}$ hold,
+where $+_{\reals{}}$ is addition
+in \reals{}.
+(\ie scalar multiplication distributes in both ways.)
+
+\end{compactenum}
+\end{bkdefinition}
+%UNFOLD
+\index{vector space}
+
+\begin{bkexample}\label{bkex:realsn}%FOLDUP
+The most familiar example of a vector space is \reals{n}, which is the
+collection of $n$-tuples of real numbers.  That is $\vect{u}\in\reals{n}$ is of
+the form \smooshvec{u_1,u_2,\ldots,u_n}, where $u_i\in\reals{}$ for
+$i=\onetox{n}$. Addition and scalar multiplication over \reals{} are defined pairwise:
+\begin{align*}
+ \smooshvec{u_1,u_2,\ldots,u_n} + 
+ \smooshvec{v_1,v_2,\ldots,v_n} &=
+ \smooshvec{u_1 + v_1,u_2 + v_2,\ldots,u_n + v_n},\quad\text{and}\\
+ \alpha\smooshvec{u_1,u_2,\ldots,u_n} &=
+ \smooshvec{\alpha u_1,\alpha u_2,\ldots,\alpha u_n}
+\end{align*}
+\end{bkexample}%UNFOLD
+Note that some authors distinguish between \emph{points} in $n$-dimensional
+space and \emph{vectors} in $n$-dimensional space.  We will use \reals{n} to
+refer to both of them, as in this text there is no need to distinguish them
+symbolically.
+%\begin{bkexample}\label{bkex:compsn}%FOLDUP
+%Similarly defined is \comps{n}, which is the
+%collection of $n$-tuples of complex numbers.   This is a vector space over
+%\comps{}.
+%\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:funcspace}%FOLDUP
+Let $X\subseteq\reals{k}$ be an closed, bounded set, and let $H$ be the collection of 
+all functions from $X$
+to \reals{}.  Then $H$ forms a vector space under the ``pointwise'' defined
+addition and scalar multiplication over \reals{}.
+That is, for $u,v\in H,$ $u+v$ is the function in $H$ defined by 
+\( \Bracks{u+v}\Parens{x} = u(x) + v(x)\)
+for all $x\in X$.  And for $u\in H,\alpha \in \reals{},$ $\alpha u$ is the function in
+\( \Bracks{\alpha u}\Parens{x} = \alpha\Parens{u(x)}\).
+\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:funcspacezero}%FOLDUP
+Let $X\subseteq\reals{k}$ be a closed, bounded set, and let $H_0$ be the collection of 
+all functions from $X$ to \reals{} that take the value zero on \bord{X}. 
+Then $H$ forms a vector space under the ``pointwise'' defined
+addition and scalar multiplication over \reals{}.
+The only difference between proving $H_0$ is a vector space and the proof
+required for the previous example is in showing that $H_0$ is
+indeed closed under addition and scalar multiplication.  This is simple because
+if $x\in\bord{X},$ then $\Bracks{u+v}(x) = u(x) + v(x) = 0 + 0,$ and thus $u+v$
+has the property that it takes value $0$ on \bord{X}.  Similarly for $\alpha
+u$. This would not have worked if the functions of $H_0$ were required to take
+some other value on \bord{X}, like, say, $2$ instead of $0$.
+\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:polyspaces}%FOLDUP
+Let \polys{n} be the collection of all `formal' polynomials of degree less 
+than or equal to $n$ with coefficients from \reals{}.  Then \polys{n} forms a
+vector space over \reals{}.
+\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:realmatsn}%FOLDUP
+The collection of all real-valued $m\cross n$ matrices forms a vector space
+over the reals with the usual scalar multiplication and matrix addition.
+This space is denoted as \reals{m\cross n}.  Another way of viewing this space
+is it is the space of linear functions which carry vectors of \reals{n} to
+vectors of \reals{m}.
+\end{bkexample}%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Inner Products}%FOLDUP
+\label{subsec:innerprod}
+
+An inner product is a way of ``multiplying'' two vectors from a vector space
+together to get a scalar from the same field the space is defined over (\eg a
+real or a complex number).  The inner product should have the following
+properties:
+
+%\begin{bkdefinition}\label{bkdef:billinearform}%FOLDUP
+%For a vector space, \vecs, defined over \fld, a binary function,
+%\BIFO{}{,}, which takes two vectors of \vecs to \fld is a 
+%\emph{bilinear form} if 
+%
+%\begin{compactenum}
+%\item it is linear in both its arguments:
+%\end{compactenum}
+%\end{bkdefinition}
+%%UNFOLD
+\begin{bkdefinition}\label{bkdef:innerpro}%FOLDUP
+For a vector space, \vecs, defined over \reals{}, a binary function,
+\bifo{}{}, which takes two vectors of \vecs to \reals{} is an 
+\emph{inner product} if 
+\begin{compactenum}
+\item It is symmetric: $\bifo{\vect{v}}{\vect{u}} = \bifo{\vect{u}}{\vect{v}}$.
+\item It is linear in both its arguments:
+\begin{align*}
+\bifo{\alpha \vect{u} + \beta \vect{v}}{\vect{w}} &= 
+\alpha\bifo{\vect{u}}{\vect{w}} + \beta\bifo{\vect{v}}{\vect{w}}\quad\text{and}\\
+\bifo{\vect{u}}{\alpha \vect{v} + \beta \vect{w}} &= 
+\alpha\bifo{\vect{u}}{\vect{v}} + \beta\bifo{\vect{u}}{\vect{w}}.
+\end{align*}
+A binary function for which this holds is sometimes called a \emph{bilinear
+form}.
+\item It is positive: $\bifo{\vect{v}}{\vect{v}} \ge 0,$ with equality holding
+if and only if \vect{v} is the zero vector of \vecs.
+\end{compactenum}
+\end{bkdefinition}
+%UNFOLD
+\index{inner product}
+
+\begin{bkexample}\label{bkex:realsnip}%FOLDUP
+The most familiar example of an inner product is the \Ltwo[] (pronounced ``L
+two'') inner product on the vector space \reals{n}. 
+If $\vect{u} = \smooshvec{u_1,u_2,\ldots,u_n},$
+and $\vect{v} = \smooshvec{v_1,v_2,\ldots,v_n},$ then letting
+\[\bifo[2]{\vect{u}}{\vect{v}} = \sum_i u_i v_i\]
+gives an inner product.  This inner product is the usual vector calculus dot
+product and is sometimes written as \(\vect{u}\cdot\vect{v}\) or
+\(\trans{\vect{u}}\vect{v}\).
+%This is a specific case ($p=2$) of the more general \Lnum[]{p} inner product defined as
+%\[\bifo[p]{\vect{u}}{\vect{v}} = \Parens{\sum_i \abs{u_i v_i}^{p/2}}^{2/p}\]
+%no!
+\end{bkexample}%UNFOLD
+%\begin{bkexample}\label{bkex:compsn}%FOLDUP
+%Similarly defined is \comps{n}, which is the
+%collection of $n$-tuples of complex numbers.   This is a vector space over
+%\comps{}.
+%\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:funcspaceip}%FOLDUP
+Let $H$ be the vector space of functions from $X$ to \reals{} from
+\bkexref{funcspace}.  Then for $u,v\in H$, letting
+\[\bifo[H]{u}{v} = \int_X u(x) v(x) \dx,\]
+gives an inner product.  This inner product is like the ``limit case'' of the
+\Ltwo[] inner product on \reals{n} as $n$ goes to infinity.
+\end{bkexample}%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Norms}%FOLDUP
+\label{subsec:norms}
+
+A norm is a way of measuring the ``length'' of a vector:
+\begin{bkdefinition}\label{bkdef:norm}%FOLDUP
+A function $\dabs{\cdot}$ from a vector space, \vecs, to \reals{+} is called a 
+\emph{norm} if 
+\begin{compactenum}
+\item It obeys the triangle inequality:
+$\dabs{\vect{x}+\vect{y}} \le \dabs{\vect{x}} + \dabs{\vect{y}}.$
+\item It scales positively:
+$\dabs{\alpha \vect{x}} = \abs{\alpha} \dabs{\vect{x}},$ for scalar $\alpha.$
+\item It is positive: $\dabs{\vect{x}} \ge 0,$ with equality only holding when
+$\vect{x}$ is the zero vector.
+\end{compactenum}
+\end{bkdefinition}
+%UNFOLD
+\index{norm}
+
+The easiest way of constructing a norm is on top of an inner product.  If 
+\bifo{}{} is an inner product on vector space \vecs, then letting 
+\[\dabs{\vect{u}} = \sqrt{\bifo{\vect{u}}{\vect{u}}}\] 
+gives a norm on \vecs.  This is how we construct our most common norms:
+\begin{bkexample}\label{bkex:realsnvecnorm}%FOLDUP
+For vector $\vect{x} \in \reals{n}$, its \Ltwo[] norm is defined
+\[\dltwo{\vect{x}} = \Parens{\sum_{i=1}^n x_i^2}^{\half} =
+\Parens{\trans{\vect{x}}\vect{x}}^{\half}.\]
+This is constructed on top of the \Ltwo[] inner product.
+\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:realsnLpnorm}%FOLDUP
+The \Lnum[]{p} norm on \reals{n} generalizes the \Ltwo[] norm, and 
+is defined, for $p > 0,$ as 
+\[\dNormL{p}{\vect{x}} = \Parens{\sum_{i=1}^n \abs{x_i}^{p}}^{1/p}.\]
+\end{bkexample}%UNFOLD
+\begin{bkexample}\label{bkex:realsnLinfnorm}%FOLDUP
+The \Linf[] norm on \reals{n} is defined as 
+\[\dlinf{\vect{x}} = \max_{i} \abs{x_i}.\]
+The \Linf[] norm is somehow the ``limit'' of the \Lnum[]{p} norm as
+$p\to\infty$.
+\end{bkexample}%UNFOLD
+%UNFOLD
+
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Eigenvalues}%FOLDUP
+\label{sec:eiegenvalues}
+
+It is assumed the reader has some familiarity with linear algebra.  We review
+the topic of eigenvalues.
+
+\begin{bkdefinition}\label{bkdef:eigenthings}%FOLDUP
+A nonzero vector \vect{x} is an \emph{eigenvector} of a given matrix \Mtx{A}, with
+corresponding \emph{eigenvalue} $\lambda$ if
+\[\Mtx{A} \vect{x} = \lambda \vect{x}\]
+Subtracting the right hand side from the left and gathering terms gives
+\[\Parens{\Mtx{A} - \lambda \Mtx{I}} \vect{x} = \vect{0}.\]
+Since \vect{x} is assumed to be nonzero, the matrix 
+${\Mtx{A} - \lambda \Mtx{I}}$ must be singular.  A matrix is singular if
+and only if its determinant is zero.  These steps are reversible, thus we claim
+$\lambda$ is an eigenvalue if and only if 
+\[\det\Parens{\Mtx{A} - \lambda \Mtx{I}} = 0.\]
+The left hand side can be expanded to a polynomial in $\lambda,$ of degree $n$
+where $\Mtx{A}$ is an $n\cross n$ matrix.  This gives the so-called
+\emph{characteristic equation}.  Sometimes eigenvectors,-values are called
+characteristic vectors,-values.
+\end{bkdefinition}
+%UNFOLD
+\index{eigenvalue}
+\index{eigenvector}
+%
+\begin{bkexprob}\label{bkexp:findeig}%FOLDUP
+Find the eigenvalues of 
+\[\wrapBracks{\begin{array}{cc} 1 & 1\\4 & -2\end{array}}\]
+\begin{bksolution}The eigenvalues are roots of 
+\[0 = \det\wrapBracks{\begin{array}{cc} 1-\lambda & 1\\4 & -2-\lambda\end{array}} =
+\Parens{1-\lambda}\Parens{-2-\lambda} - 4 = \lambda^2 + \lambda -6.
+\]
+This equation has roots $\lambda_1 = -3, \lambda_2 = 2.$
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+\begin{bkexprob}\label{bkexp:eigsq}%FOLDUP
+Find the eigenvalues of $\Mtx{A}^2$.
+\begin{bksolution}Let $\lambda$ be an eigenvalue of $\Mtx{A},$ with
+corresponding eigenvector \vect{x}.  Then
+\[\Mtx{A}^2 \vect{x} = \Mtx{A} \Parens{\Mtx{A} \vect{x}} = \Mtx{A}
+\Parens{\lambda \vect{x}} = \lambda \Mtx{A} \vect{x} = \lambda^2 \vect{x}.\]
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+The eigenvalues of a matrix tell us, roughly, how the linear transform scales a
+given matrix; the eigenvectors tell us which directions are ``purely scaled.''
+This will make more sense when we talk about norms of vectors and matrices.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Matrix Norms}%FOLDUP
+\label{subsec:matrixnorms}
+
+Given a norm \dabs{\cdot} on the vector space, \reals{n}, we can define the matrix 
+norm ``subordinate'' to it, as follows:
+
+\begin{bkdefinition}\label{bkdef:mtxnorm}%FOLDUP
+Given a norm \dabs{\cdot} on \reals{n}, we define the subordinate matrix
+norm on \reals{n\cross n} by
+\[\dabs{\Mtx{A}} = \max_{\vect{x} \ne \vect{0}} \frac{\dabs{\Mtx{A}\vect{x}}}{\dabs{\vect{x}}}.\]
+\end{bkdefinition}
+%UNFOLD
+\index{norm!subordinate}
+We will use the subordinate two-norm for matrices.  From the definition of the
+subordinate norm as a max, we 
+conclude that if $\vect{x}$ is a nonzero vector then
+\begin{eqnarray*}
+\frac{\dltwo{\Mtx{A}\vect{x}}}{\dltwo{\vect{x}}} &\le&
+\dltwo{\Mtx{A}}\quad\text{thus,}\\
+\dltwo{\Mtx{A}\vect{x}} &\le& \dltwo{\Mtx{A}} \dltwo{\vect{x}}.
+\end{eqnarray*}
+
+%\begin{bkexprob}\label{bkexp:maxeig}%FOLDUP
+%Let $\Lambda$ be the set of eigenvalues of $\Mtx{A}.$ Prove that
+%\[
+%\dltwo{\Mtx{A}} = \max\limits_{\lambda\in\Lambda} \abs{\lambda}.
+%\]
+%\begin{bksolution}
+%First let $\lambda_M$ be an eigenvalue such that $\abs{\lambda_M} =
+%\max_{\lambda\in\Lambda}\abs{\lambda}.$  Let \vect{x} be a corresponding
+%eigenvector.  Then 
+%\[
+%\frac{\dltwo{\Mtx{A}\vect{x}}}{\dltwo{\vect{x}}} = 
+%\frac{\dltwo{\lambda_M\vect{x}}}{\dltwo{\vect{x}}} = 
+%\frac{\abs{\lambda_M} \dltwo{\vect{x}}}{\dltwo{\vect{x}}} = 
+%\abs{\lambda_M}.
+%\]
+%This proves that $\dltwo{\Mtx{A}} \ge \abs{\lambda_M}.$
+%
+%Now for arbitrary \vect{v}, we decompose it as the linear combination of
+%eigenvectors:
+%$\vect{v} = \sum_i \alpha_i \vect{x_i}$
+%Then
+%\[\Mtx{A}\vect{v} = \Mtx{A} \sum_i \alpha_i \vect{x_i} =
+% \sum_i \alpha_i \Mtx{A} \vect{x_i} =
+% \sum_i \alpha_i \lambda_i \vect{x_i}.\]
+%Then
+%\[
+%\dltwo{\Mtx{A}\vect{v}}^2 = 
+%\trans{\Parens{\sum_i \alpha_i \lambda_i \vect{x_i}}} 
+%{\Parens{\sum_i \alpha_i \lambda_i \vect{x_i}}} 
+%= \sum_i\sum_j \alpha_i \alpha_j \lambda_i\lambda_j \trans{\vect{x_i}}\vect{x_j}
+%\le \lambda_M^2 \sum_i\sum_j \alpha_i \alpha_j \trans{\vect{x_i}}\vect{x_j}
+%= \lambda_M^2 \dltwo{\vect{v}}^2.
+%\]
+%Thus $\dltwo{\Mtx{A}\vect{v}}\le\abs{\lambda_M}\dltwo{\vect{v}},$ and thus
+%$\dltwo{\Mtx{A}} \le \abs{\lambda_M}.$
+%\end{bksolution}
+%\end{bkexprob}%UNFOLD
+%The previous proof is a bit more involved than I would expect you to follow.  I
+%include it for completeness.
+\begin{bkexample}\label{bkexp:maxeig}%FOLDUP
+Strange but true:  If $\Lambda$ is the set of eigenvalues of $\Mtx{A},$ then
+\[
+\dltwo{\Mtx{A}} = \max\limits_{\lambda\in\Lambda} \abs{\lambda}.
+\]
+\end{bkexample}%UNFOLD
+\begin{bkexprob}\label{bkexp:mnormCS}%FOLDUP
+Prove that 
+\[
+\dltwo{\Mtx{A}\Mtx{B}} \le \dltwo{\Mtx{A}} \dltwo{\Mtx{B}}.
+\]
+\begin{bksolution}
+\[\dltwo{\Mtx{A}\Mtx{B}} \defeq 
+\max_{\vect{x} \ne \vect{0}} \frac{\dltwo{\Mtx{A}\Mtx{B}\vect{x}}}{\dltwo{\vect{x}}}
+\le 
+\max_{\vect{x} \ne \vect{0}} \frac{\dltwo{\Mtx{A}}\dltwo{\Mtx{B}\vect{x}}}{\dltwo{\vect{x}}}
+=
+{\dltwo{\Mtx{A}}\dltwo{\Mtx{B}}}.
+\]
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+%UNFOLD
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Exercises}%FOLDUP
+\begin{bkexs}
+\item Suppose $f\in\bigo{h^k}.$ Show that $f\in\bigo{h^m}$ for any $m$ with $0
+< m < k.$ \begin{bkhint}Take $h^* < 1.$\end{bkhint}
+Note this may appear counterintuitive, unless you remember that \bigo{h^k}
+is a \emph{better} approximation than \bigo{h^m} when $m < k$.
+\item Suppose $f\in\bigo{h^k},$ and $g\in\bigo{h^m}.$  Show that
+$fg \in \bigo{h^{k+m}}.$
+\item Suppose $f\in\bigo{h^k},$ and $g\in\bigo{h^m},$ with $m < k.$ Show that
+$f + g \in \bigo{h^{m}}.$
+\item Prove that $f(h) = -3 h^5$ is in \bigo{h^5}.
+\item Prove that $f(h) = h^2 + 5h^{17}$ is in \bigo{h^2}.
+\item Prove that $f(h) = h^3$ is \emph{not} in \bigo{h^4} \begin{bkhint}Proof
+by contradiction.\end{bkhint}
+\item Prove that $\sin(h)$ is in \bigo{h}.
+
+\item Find a \bigo{h^3} approximation to $\sin{h}.$
+\item Find a \bigo{h^4} approximation to $\ln(1+h).$  Compare the approximate
+value to the actual when $h=0.1$.  How does this approximation compare to the
+\bigo{h^3} approximate from \bkexref{lnexp} for $h=0.1$?
+
+\item Suppose that $f \in \bigo{h^k}$.  Can you show that $f' \in
+\bigo{h^{k-1}}$?
+\item Rewrite $\sqrt{x+1} - \sqrt{1}$ to get rid of subtractive cancellation
+when $x\approx0$.
+\item Rewrite $\sqrt{x+1} - \sqrt{x}$ to get rid of subtractive cancellation
+when $x$ is very large.
+
+\item Use a Taylor's expansion to rid the expression $1 - \cos x$ of
+subtractive cancellation for $x$ small.  Use a \bigo{x^5} approximate.
+\item Use a Taylor's expansion to rid the expression $1 - \cos^2 x$ of
+subtractive cancellation for $x$ small.  Use a \bigo{x^6} approximate.
+\item Calculate $\cos(\pi/2 + 0.001)$ to within $8$
+decimal places by using the Taylor's expansion.
+
+\item Prove that if \vect{x} is an eigenvector of $\Mtx{A}$ then
+$\alpha \vect{x}$ is also an eigenvector of $\Mtx{A},$ for the same eigenvalue.
+Here $\alpha$ is a nonzero real number.
+\item Prove, by induction, that if $\lambda$ is an eigenvalue of $\Mtx{A}$ then
+$\lambda^k$ is an eigenvalue of $\Mtx{A}^k$ for integer $k>1.$
+The base case was done in \bkexpref{eigsq}.
+%\item Prove that if $\lambda_a$ is an eigenvalue of \Mtx{A}, and $\lambda_b$
+%is an eigenvalue of \Mtx{B} \emph{for the same eigenvector}, then $\lambda_a + \lambda_b$ is an eigenvalue of
+%the matrix $\Mtx{A} + \Mtx{B}.$
+\item Let $\Mtx{B} = \sum_{i=0}^k \alpha_i \Mtx{A}^i,$ where $\Mtx{A}^0 =
+\Mtx{I}.$  Prove that if $\lambda$ is an eigenvalue of \Mtx{A}, then 
+$\sum_{i=0}^k \alpha_i \lambda^i$ is an eigenvalue of \Mtx{B}.
+Thus for polynomial $p(x)$, $p(\lambda)$ is an eigenvalue of $p(\Mtx{A}).$
+\item Suppose \Mtx{A} is an invertible matrix with eigenvalue $\lambda.$  Prove
+that $\lambda^{-1}$ is an eigenvalue for $\invs{\Mtx{A}}.$
+
+\item Suppose that the eigenvalues of \Mtx{A} are $1,10,100.$  Give the
+eigenvalues of $\Mtx{B} = 3\Mtx{A}^3 - 4\Mtx{A}^2 + \Mtx{I}.$ Show that \Mtx{B}
+is singular.
+
+\item Show that if $\dltwo{\vect{x}}=r,$ then \vect{x} is on a sphere centered at the origin of radius $r,$ in \reals{n}.
+\item If $\norm{\vect{x}} = 0,$ what does this say about vector \vect{x}?
+\item Letting $\vect{x} = \trans{\Bracks{3\,\,4\,\,12}},$ what is \dltwo{\vect{x}}?
+\item What is the norm of 
+\[\Mtx{A} = 
+  \left[\begin{array}{ccccc} 
+	 1 & 0 & 0 & \cdots & 0 \\
+	 0 & 1/2 & 0 & \cdots & 0 \\
+	 0 & 0 & 1/3 & \cdots & 0 \\
+	 \vdots & \vdots & \vdots & \ddots & \vdots \\
+	 0 & 0 & 0 & \cdots & 1/n
+  \end{array}\right]?\]
+
+
+
+\item Show that $\dltwo{\Mtx{A}} = 0$ implies that \Mtx{A} is the matrix of all
+zeros.
+
+\item Show that \dltwo{\invs{\Mtx{A}}} equals $\oneBy{\abs{\lambda_{min}}},$
+where $\lambda_{min}$ is the smallest, in absolute value, eigenvalue of \Mtx{A}.
+
+\item Suppose there is some $\mu > 0$ such that, for a given \Mtx{A},
+\[\dltwo{\Mtx{A}\vect{v}} \ge \mu\dltwo{\vect{v}},\] 
+for all vectors \vect{v}.  
+	\begin{compactenum}
+	\item Show that $\mu \le \dltwo{\Mtx{A}}.$ (Should be very simple.)
+	\item Show that \Mtx{A} is nonsingular. (\emph{Recall:} \Mtx{A} is singular if
+	there is some $\vect{x} \ne \vect{0}$ such that $\Mtx{A}\vect{x} =
+	\vect{0}.$)
+	\item Show that $\dltwo{\invs{\Mtx{A}}} \le \oneBy{\mu}.$ 
+	\end{compactenum}
+\item If \Mtx{A} is singular, is it necessarily the case that
+$\dltwo{\Mtx{A}} = 0$?
+\item If $\dltwo{\Mtx{A}} \ge \mu > 0$ does it follow that \Mtx{A} is
+nonsingular?
+
+\item Towards proving the equality in \bkexpref{maxeig}, prove that
+if $\Lambda$ is the set of eigenvalues of $\Mtx{A},$ then
+\[
+\dabs{\Mtx{A}} \ge \max\limits_{\lambda\in\Lambda} \abs{\lambda},
+\]
+where \dabs{\cdot} is \emph{any} subordinate matrix norm.
+The inequality in the other direction holds when the norm is \dltwo{\cdot}, but
+is difficult to prove.
+\end{bkexs}
+%UNFOLD
+%for vim modeline: (do not edit)
+% vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=%%s:tags=tags;:syntax=tex:filetype=tex:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:

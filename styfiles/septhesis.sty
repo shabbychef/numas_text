@@ -1,0 +1,135 @@
+
+%cvs%stuff%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLDUP
+% $Id: septhesis.sty 3 2005-11-08 20:56:42Z spav $
+% $Log: septhesis.sty,v $
+% Revision 1.3  2005/03/17 18:11:39  spav
+% minor cosmetic changes
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%UNFOLD
+
+\typeout{-- reading septhesis.sty}
+\typeout{-- CVSId: $Id: septhesis.sty 3 2005-11-08 20:56:42Z spav $}
+
+\providecommand{\bigU}{\ensuremath{\mathcal{U}}\xspace}
+\providecommand{\bigUh}{\ensuremath{\mathcal{U}_h}\xspace}
+
+\providecommand{\sitei}[1][i]{\ensuremath{s_{#1}}\xspace}
+\providecommand{\site}{\sitei[{}]}
+\providecommand{\si}{\sitei[i]}
+\providecommand{\sj}{\sitei[j]}
+\providecommand{\sites}{\ensuremath{\mathcal{S}}\xspace}
+%\providecommand{\dfn}[1]{\ensuremath{\operatorname{d}\wrapNeParens{#1}}\xspace}
+%\providecommand{\vor}[1]{\ensuremath{\operatorname{Vor}_{\dfn{}}\wrapNeParens{#1}}\xspace}
+\providecommand{\dfn}[1]{\abs{#1}}
+\providecommand{\vor}[1]{\ensuremath{\operatorname{Vor}\wrapNeParens{#1}}\xspace}
+
+\providecommand{\crc}[1]{\ensuremath{\mtP{#1}{\mathcal{C}}{\mathcal{C}_{#1}}}\xspace}
+
+%Steiner points:
+\providecommand{\spm}{\ensuremath{\pnts_m}\xspace}
+\providecommand{\spt}{\ensuremath{\pnts_t}\xspace}
+
+\providecommand{\ess}[1]{\ensuremath{\operatorname{ess}\left(#1\right)}\xspace}
+
+
+%\providecommand{\nlf}[1]{\ensuremath{\mathrm{lfs}'\left(#1\right)}\xspace}
+\providecommand{\nlf}[1]{\BTLF{}{\prime}{#1}}
+\providecommand{\tlf}[1]{\BTLF{\tris}{}{#1}}
+\providecommand{\ptlf}[2][{}]{\BTLF{\tris}{#1}{#2}}
+
+\providecommand{\done}[1]{\BTDF{1}{}{#1}}
+\providecommand{\np}[1]{\ensuremath{\mathcal{NP}\wrapNeParens{#1}}\xspace}
+
+\providecommand{\ccom}[3][\lambda]{\ensuremath{P_{#1}\tuple{#2,#3}}\xspace}
+\providecommand{\acp}[1]{\ensuremath{\mathcal{F}\left(#1\right)}\xspace}
+
+\providecommand{\ang}{\ensuremath{\theta}\xspace}
+\providecommand{\anh}{\ensuremath{\phi}\xspace}
+\providecommand{\ani}{\ensuremath{\psi}\xspace}
+
+\providecommand{\anin}{\ensuremath{\theta^*}\xspace}
+\providecommand{\anout}{\ensuremath{\kappa}\xspace}
+\providecommand{\aanout}{\ensuremath{\hat{\kappa}}\xspace}
+%\providecommand{\anout}{\ensuremath{\alpha}\xspace}
+%\providecommand{\aanout}{\ensuremath{\hat{\alpha}}\xspace}
+\providecommand{\mang}{\ensuremath{\alpha}\xspace}
+\providecommand{\Mang}{\ensuremath{\omega}\xspace}
+% DEPRECATED:
+%\providecommand{\amin}{\ensuremath{\ang_{out}}\xspace}
+\providecommand{\amax}{\ensuremath{\pi - 2\Mang}\xspace}
+
+
+\providecommand{\toler}{\ensuremath{\epsilon}\xspace}
+\providecommand{\indom}{\ensuremath{\Omega}\xspace}
+
+\providecommand{\blbound}[1]{\ensuremath{\arcsin \left(\frac{\sin \half[#1]}{\sqrt{2}}\right)}\xspace}
+\providecommand{\smooshblbound}[1]{\ensuremath{\arcsin\left[\sin\left(\half[#1]\right)/\sqrt{2}\right]}\xspace}
+\providecommand{\smooshblboundtwo}[1]{\ensuremath{\arcsin\left[\left(\sqrt{3}/2\right)\sin\left(\half[#1]\right)\right]}\xspace}
+\providecommand{\lbound}[1]{\ensuremath{\arctan \left(\frac{\sin #1}{2 - \cos #1}\right)}\xspace}
+\providecommand{\smooshlbound}[1]{\ensuremath{\arctan \left[\wrapparens{\sin #1}/\wrapparens{2 - \cos #1}\right]}\xspace}
+\providecommand{\frabs}[2]{\ensuremath{\frac{\abs{#1}}{\abs{#2}}}\xspace}
+
+%the MINimum of #1 and nINTY degrees is MINTY!
+\providecommand{\minty}[1]{\ensuremath{\left(#1 \wedge \pi/2\right)}\xspace}
+
+\providecommand{\thehyp}{Encroachment Sequence Bound Hypothesis\xspace}
+\providecommand{\theghyp}{Generalized \thehyp}
+\providecommand{\thealg}{Delaunay Refinement Algorithm\xspace}
+\providecommand{\theaalg}{Adaptive \thealg}
+\providecommand{\rupalg}{Ruppert's Algorithm\xspace}
+\providecommand{\BRA}{Bounded Reduction Augmenter\xspace}
+\providecommand{\FSA}{Feature Size Augmenter\xspace}
+
+\providecommand{\conf}[1][{}]{{\sc (Conformality\wrapNeMath{#1})}\xspace}
+\providecommand{\qual}[1][{}]{{\sc (Quality\wrapNeMath{#1})}\xspace}
+
+\providecommand{\asnt}{\ensuremath{\arcsin \oneby{3}}\xspace}
+\providecommand{\smooshasntwo}[1][1]{\ensuremath{\arcsin \Parens{#1 / 2 \sqrt{2}}}\xspace}
+\providecommand{\asntwo}{\ensuremath{\arcsin \oneby{2 \sqrt{2}}}\xspace}
+\providecommand{\asntwoo}{\ensuremath{\arcsin \oneby{\sqrt{2}}}\xspace}
+\providecommand{\acstwo}{\ensuremath{\arccos \oneby{2 \sqrt{2}}}\xspace}
+\providecommand{\asnsix}{\ensuremath{\arcsin 2^{-7/6}}\xspace}
+\providecommand{\asnfiv}{\ensuremath{\arcsin 5^{-1/2}}\xspace}
+\providecommand{\asnsiix}{\ensuremath{\arcsin 2^{-1/6}}\xspace}
+\providecommand{\sixroot}{\ensuremath{\sqrt[6]{2}}\xspace}
+\providecommand{\asnsqth}{\ensuremath{\arcsin \half[\sqrt{3}-1]}\xspace}
+
+%\providecommand{\kr}[1][i]{\ensuremath{cr_{#1}}\xspace}
+\providecommand{\kr}[1][i]{\ensuremath{\tilde{r}_{#1}}\xspace}
+
+%FOLDUP
+%from optimality
+
+\providecommand{\ereg}{\ensuremath{E}\xspace}
+
+
+\providecommand{\zone}[1]{\ensuremath{\mathrm{zone}\wrapparens{#1}}\xspace}
+
+\def\@OPedgeseries#1{\ifcase#1\or e \or f \or g\else\@ctrerr\fi\relax}
+\providecommand{\ed}[1]{\ensuremath{\@OPedgeseries{#1}}\xspace}
+
+\providecommand{\whrl}[1][\mang]{\ensuremath{{#1}}-whirl\xspace}
+\providecommand{\wrl}{whirl\xspace}
+\providecommand{\Wrl}{Whirl\xspace}
+\providecommand{\WR}[2]{\ensuremath{\mathcal{W}\Parens{#1,#2}}\xspace}
+\providecommand{\Wr}[2]{\ensuremath{\mathcal{W}\Parens{#1,#2}}\xspace}
+
+\providecommand{\gf}[2][\mang]{\ensuremath{g_{#1}\wrapparens{#2}}\xspace}
+\providecommand{\hf}[1][\mang]{\ensuremath{h_{#1}}\xspace}
+\providecommand{\fr}[2][\lambda,\an2]{\ensuremath{f_{#1}\wrapparens{#2}}\xspace}
+\providecommand{\ja}[2][\mang]{\ensuremath{j_{#1}\wrapparens{#2}}\xspace}
+\providecommand{\jai}[2][\mang]{\ensuremath{j_{#1}^{-1}\wrapparens{#2}}\xspace}
+\providecommand{\atah}[1][\mang]{\ensuremath{\arctan\hf[#1]}\xspace}
+\providecommand{\ataih}[1][\mang]{\ensuremath{\arctan\oneby{\hf[#1]}}\xspace}
+
+\providecommand{\kf}[2][\an3]{\ensuremath{k_{#1}\Parens{#2}}\xspace}
+
+\providecommand{\fz}[1]{\fr[\lambda,0]{#1}}
+\providecommand{\mn}[1]{\ensuremath{mn\wrapparens{#1}}\xspace}
+
+\def\@SMconstseries#1{\ifcase#1\or \beta \or \rho \or \gamma \or \sigma \or
+\eta \or \mu \or \zeta \or \nu \or \tau \else\@ctrerr\fi\relax}
+\providecommand{\co}[1]{\ensuremath{\@SMconstseries{#1}}\xspace}
+
+%UNFOLD

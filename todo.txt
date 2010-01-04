@@ -1,0 +1,37 @@
+
+ORGANIZATIONAL
+
+- a branch for octave vs sage vs maple? are they different texts? 1 text?
+- make sure the copyright is all clear; notices included in the right places,
+	etc.
+- roadmap for the project;
+- make the structure conform more to the FCLA build? is there a general-purpose
+	textbook skeleton we can wedge this into to not reinvent the wheel?
+- merging content with other FDL texts? 
+- recruiting coauthors;
+
+TECHNICAL
+
+- compiler switches for octave vs sage vs maple vs etc?
+- make it easier to regenerate figures & the dependency graph
+- autoconfig for the makefile? (ack)
+- or move to latexmk? (ack)
+
+CONTENT
+
+- linear algebra party tricks everyone should know: Strassen's algo;
+	Sherman-Morrison-Woodbury formula.
+- eigenvalues: power method; deflation; Rayleigh-Ritz?
+- finding zeros; Dekker's method;
+- finite difference methods for PDE;
+- Fishers LDA; basic classification (not a classical topic)
+- Latent factor analysis: PCA.
+- basic univariate optimization; multivariate optimization?
+- more references: (ongoing)
+	- other texts
+	- online content;
+- more homework problems; (ongoing)
+- answers to some homework problems;
+- projects;
+
+

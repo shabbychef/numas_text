@@ -1,0 +1,1797 @@
+%%%%(c) COPYRIGHT NOTICE%FOLDUP
+%%%%(c)
+%%%%(c)  This file is a portion of the source for the textbook
+%%%%(c)
+%%%%(c)    Numerical Methods Course Notes,
+%%%%(c)    Copyright 2004-2010 by Steven E. Pav
+%%%%(c)
+%%%%(c)  See the file COPYING.txt for copying conditions
+%%%%(c)
+%%%%(c)%UNFOLD
+
+
+%%throat clearing%FOLDUP
+\typeout{-- linearsys.tex}
+\typeout{-- N© 2004-2010 Steven E. Pav}
+%UNFOLD
+
+%%local commands%FOLDUP
+\providecommand{\avecUL}[3]{\ensuremath{\neUL{\vect{#1}}{#2}{#3}}\xspace}
+\providecommand{\thex}[1]{\avecUL{x}{\wrapNeParens{#1}}{}}
+\providecommand{\they}[1]{\avecUL{y}{\wrapNeParens{#1}}{}}
+\providecommand{\thez}[1]{\avecUL{z}{\wrapNeParens{#1}}{}}
+\providecommand{\thexi}[2]{\avecUL{x}{\wrapNeParens{#1}}{#2}}
+\providecommand{\thee}[1]{\avecUL{e}{\wrapNeParens{#1}}{}}
+\providecommand{\thexc}{\avecUL{x}{*}{}}
+\providecommand{\ther}[1]{\avecUL{r}{\wrapNeParens{#1}}{}}
+
+\providecommand{\UU}[2]{\ensuremath{U^{#2}_{#1}}\xspace}
+
+\providecommand{\dee}[1]{\ensuremath{\mathcal{D}_{#1}}\xspace}
+\providecommand{\pee}[1]{\ensuremath{\mathcal{P}_{#1}}\xspace}
+%UNFOLD
+
+\chapter{Solving Linear Systems}
+\label{chap:linearsys}
+
+A number of problems in numerical analysis can be reduced to, or approximated
+by, a system of linear equations. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gaussian Elimination with \Naive Pivoting}%FOLDUP
+\label{sec:gaussianE}
+
+\index{Gaussian Elimination, \Naive}
+Our goal is the automatic solution of systems of linear equations:
+\[
+\begin{array}{cccccccccccc}
+a_{11} x_1 & + & a_{12} x_2 & + & a_{13} x_3 & + & \cdots & + & a_{1n} x_n & = & b_1\\
+a_{21} x_1 & + & a_{22} x_2 & + & a_{23} x_3 & + & \cdots & + & a_{2n} x_n & = & b_2\\
+a_{31} x_1 & + & a_{32} x_2 & + & a_{33} x_3 & + & \cdots & + & a_{3n} x_n & = & b_3\\
+\vdots & & \vdots & & \vdots & & \ddots & & \vdots & & \vdots \\
+a_{n1} x_1 & + & a_{n2} x_2 & + & a_{n3} x_3 & + & \cdots & + & a_{nn} x_n & = & b_n
+\end{array}
+\]
+
+In these equations, the $a_{ij}$ and $b_i$ are given real numbers.  We also
+write this as
+\[\Mtx{A} \vect{x} = \vect{b},\]
+where \Mtx{A} is a matrix, whose element in the \kth{i} row and \kth{j} column
+is $a_{ij},$ and \vect{b} is a column vector, whose \kth{i} entry is $b_i.$
+
+This gives the easier way of writing this equation:
+\begin{eqnarray}
+\Bracks{\begin{array}{ccccc}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n}\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n}\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
+\end{array}}
+\Bracks{\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n\end{array}}
+= \Bracks{\begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{array}}
+\label{eqn:thelinearsys}
+\end{eqnarray}
+
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Elementary Row Operations}%FOLDUP
+
+You may remember that one way to solve linear equations is by applying
+\emph{elementary row operations} \index{elementary row operations} 
+to a given equation of the system.  For
+example, if we are trying to solve the given system of equations, they should
+have the same solution as the following system:
+
+\[
+\Bracks{\begin{array}{ccccc}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n}\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n}\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+\kappa a_{i1} & \kappa a_{i2} & \kappa a_{i3} & \cdots & \kappa a_{in}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
+\end{array}}
+\Bracks{\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_i \\ \vdots \\ x_n\end{array}}
+= \Bracks{\begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ \kappa b_i \\ \vdots \\ b_n\end{array}}
+\]
+
+where $\kappa$ is some given number which is \emph{not zero}.
+It suffices to solve this system of linear equations, as it has the same
+solution(s) as our original system.  Multiplying a row of the system by a
+nonzero constant is one of the elementary row operations.  
+
+The second elementary row operation is to replace a row by the sum of that row
+and a constant times another.  Thus, for example, the following system of equations
+has the same solution as the original system:
+
+
+\[
+\Bracks{\begin{array}{ccccc}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n}\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n}\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{(i-1)1} & a_{(i-1)2} & a_{(i-1)3} & \cdots & a_{(i-1)n}\\
+a_{i1} + \beta a_{j1} & a_{i2} + \beta a_{j2} & a_{i3} + \beta a_{j3} & \cdots
+& a_{in} + \beta a_{jn}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
+\end{array}}
+\Bracks{\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_{(i-1)} \\ x_i \\ \vdots \\ x_n\end{array}}
+= \Bracks{\begin{array}{c} b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_{(i-1)} \\ b_i +
+\beta b_j \\ \vdots \\ b_n\end{array}}
+\]
+
+We have replaced the \kth{i} row by the \kth{i} row plus $\beta$ times the
+\kth{j} row.
+
+The third elementary row operation is to switch rows:
+\[
+\Bracks{\begin{array}{ccccc}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n}\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n}\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
+\end{array}}
+\Bracks{\begin{array}{c} x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n\end{array}}
+= \Bracks{\begin{array}{c} b_1 \\ b_3 \\ b_2 \\ \vdots \\ b_n\end{array}}
+\]
+We have here switched the second and third rows.  The purpose of this e.r.o. is
+mainly to make things look nice.  
+
+Note that none of the e.r.o.'s change the structure of the solution vector
+\vect{x}.  For this reason, it is customary to drop the solution vector
+entirely and to write the matrix \Mtx{A} and the vector \vect{b} together in
+\emph{augmented form}:
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} & b_1\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} & b_2\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n} & b_3\\
+\vdots & \vdots & \vdots & \ddots & \vdots &\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn} & b_n
+\end{array}}
+\]
+
+The idea of Gaussian Elimination is to use the elementary row operations to
+put a system into \emph{upper triangular form} then use \emph{back
+substitution}.  We'll give an example here:
+
+\begin{bkexprob}%stolen from mcQuarrie p 412, then altered enough?%FOLDUP
+Solve the set of linear equations:
+\begin{align*}
+x_1 + x_2 - x_3 &= 2\\
+-3 x_1 - 4 x_2 + 4 x_3 &= -7\\
+2 x_1 + 1 x_2 + 1 x_3 &= 7
+\end{align*}
+\begin{bksolution}
+We start by rewriting in the augmented form:
+\[
+\Parens{\begin{array}{rrr|r}
+1 & 1 & -1 & 2\\
+-3 & -4 & 4 & -7\\
+2 & 1 & 1 & 7
+\end{array}}
+\]
+We add $3$ times the first row to the second, and $-2$ times the first row to
+the third to get:
+\[
+\Parens{\begin{array}{rrr|r}
+1 & 1 & -1 & 2\\
+0 & -1 & 1 & -1\\
+0 & -1 & 3 & 3 
+\end{array}}
+\]
+We now add $-1$ times the second row to the third row to get:
+\[
+\Parens{\begin{array}{rrr|r}
+1 & 1 & -1 & 2\\
+0 & -1 & 1 & -1 \\
+0 & 0 & 2 & 4
+\end{array}}
+\]
+The matrix is now in upper triangular form: there are no nonzero entries below
+the diagonal.  This corresponds to the set of equations:
+\begin{align*}
+x_1 + x_2 - x_3 &= 2\\
+- x_2 + x_3 &= -1\\
+2 x_3 &= 4
+\end{align*}
+We now solve this by back substitution.  Because the matrix is in upper
+triangular form, we can solve $x_3$ by looking only at the last equation;
+namely $x_3 = 2.$  However, once $x_3$ is known, the second equation involves
+only one unknown, $x_2,$ and can be solved only by $x_2 = 3.$  Then the first
+equation has only one unknown, and is solved by $x_1 = 1.$
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+All sorts of funny things can happen when you attempt Gaussian Elimination: it
+may turn out that your system has no solution, or has a single solution (as
+above), or an infinite number of solutions.  We should expect that an algorithm
+for automatic solution of systems of equations should detect these problems.
+
+%UNFOLD
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algorithm Terminology}%FOLDUP
+
+The method outlined above is fine for solving small systems.  We should like to
+devise an algorithm for doing the same thing which can be applied to large
+systems of equations.  The algorithm will take the system (in augmented form):
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} & b_1\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} & b_2\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n} & b_3\\
+\vdots & \vdots & \vdots & \ddots & \vdots &\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn} & b_n
+\end{array}}
+\]
+The algorithm then selects the first row as the \emph{pivot equation} or
+\emph{pivot row}, and the
+first element of the first row, $a_{11}$ is the \emph{pivot element}.  The
+algorithm then \emph{pivots} on the pivot element to get the system:
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} & b_1\\
+0 & a'_{22} & a'_{23} & \cdots & a'_{2n} & b'_2\\
+0 & a'_{32} & a'_{33} & \cdots & a'_{3n} & b'_3\\
+\vdots & \vdots & \vdots & \ddots & \vdots &\\
+0 & a'_{n2} & a'_{n3} & \cdots & a'_{nn} & b'_n
+\end{array}}
+\]
+Where
+\[
+\left.\begin{array}{ccc}
+a'_{ij} &= a_{ij} - \Parens{\frac{a_{i1}}{a_{11}}} a_{1j}\\
+b'_{i} &= b_{i} - \Parens{\frac{a_{i1}}{a_{11}}} b_1
+\end{array} \right\} \qquad \Parens{2 \le i \le n, \, 1 \le j \le n}
+\]
+Effectively we are carrying out the e.r.o. of replacing the \kth{i} row by the
+\kth{i} row minus $\Parens{\frac{a_{i1}}{a_{11}}}$ times the first row.  The
+quantity $\Parens{\frac{a_{i1}}{a_{11}}}$ is the \emph{multiplier} \index{multiplier} 
+for the \kth{i} row.
+
+Hereafter the algorithm will not alter the first row or first column of the
+system.  Thus, the algorithm could be written recursively.  By pivoting on the
+second row, the algorithm then generates the system:
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} & b_1\\
+0 & a'_{22} & a'_{23} & \cdots & a'_{2n} & b'_2\\
+0 & 0 & a''_{33} & \cdots & a''_{3n} & b''_3\\
+\vdots & \vdots & \vdots & \ddots & \vdots &\\
+0 & 0 & a''_{n3} & \cdots & a''_{nn} & b''_n
+\end{array}}
+\]
+In this case
+\[
+\left.\begin{array}{ccc}
+a''_{ij} &=& a'_{ij} - \Parens{\frac{a'_{i2}}{a'_{22}}} a'_{2j}\\
+b''_{i} &=& b'_{i} - \Parens{\frac{a'_{i2}}{a'_{22}}} b'_2
+\end{array} \right\} \qquad \Parens{3 \le i \le n, \, 1 \le j \le n}
+\]
+%UNFOLD
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algorithm Problems}%FOLDUP
+
+The pivoting strategy we examined in this section is called `\naive' because a
+real algorithm is a bit more complicated.  The algorithm we have outlined is
+far too rigid--it always chooses to pivot on the \kth{k} row during the \kth{k}
+step.  This would be bad if the pivot element were zero; in this case all the
+multipliers $\frac{a_{ik}}{a_{kk}}$ are not defined.
+
+Bad things can happen if $a_{kk}$ is merely small instead of zero.  Consider
+the following example:
+
+\begin{bkexample}%idea stolen from conte and deboor%FOLDUP
+Solve the system of equations given by the augmented form:
+\[
+\Parens{\begin{array}{rr|r}
+-0.0590 & 0.2372 & -0.3528\\
+0.1080 & -0.4348 & 0.6452
+\end{array}}
+\]
+Note that the exact solution of this system is $x_1 = 10,\,x_2 = 1.$
+Suppose, however, that the algorithm uses only 4 significant figures for its 
+calculations.  The algorithm, \naively, pivots on the first equation.  The multiplier for the second row
+is
+\[
+\frac{0.1080}{-0.0590} \approx -1.830508...,
+\]
+which will be rounded to $-1.831$ by the algorithm.
+
+The second entry in the matrix is replaced by
+\[
+-0.4348 - (-1.831)(0.2372) = -0.4348 + 0.4343 = -0.0005,
+\]
+where the arithmetic is rounded to four significant figures each time.
+There is some serious subtractive cancellation going on here. We have lost
+three figures with this subtraction.  The errors get worse from here.
+Similarly, the second vector entry becomes:
+\[
+0.6452 - (-1.831)(-0.3528) = 0.6452 - 0.6460 = -0.0008,
+\]
+where, again, intermediate steps are rounded to four significant figures, and
+again there is subtractive cancelling.
+This puts the system in the form
+\[
+\Parens{\begin{array}{rr|r}
+-0.0590 & 0.2372 & -0.3528\\
+0 & -0.0005 & -0.0008
+\end{array}}
+\]
+When the algorithm attempts back substitution, it gets the value 
+\[x_2 = \frac{-0.0008}{-0.0005} = 1.6.\]
+This is a bit off from the actual value of $1$.  The algorithm now finds
+\[x_1 = 
+%\Parens{1.569 - 1.566 x_2}/0.0003 = 
+\Parens{-0.3528 - 0.2372 \cdot 1.6} / -0.059 =
+\Parens{-0.3528 - 0.3795}/ -0.059 = 
+\Parens{-0.7323}/ - 0.059 = 12.41,\]
+where each step has rounding to four significant figures. This is also a bit
+off.
+
+\end{bkexample}%UNFOLD
+%\begin{bkexample}%stolen from conte and deboor%FOLDUP
+%Solve the system of equations given by the augmented form:
+%\[
+%\Parens{\begin{array}{rr|c}
+%0.0003 & 1.566 & 1.569\\
+%0.3454 & -2.436 & 1.018
+%\end{array}}
+%\]
+%Note that the exact solution of this system is $x_1 = 10,\,x_2 = 1.$
+%Suppose, however, that the algorithm uses only 4 significant figures for its 
+%calculations.  The algorithm, \naively, pivots on the first equation.  The multiplier for the second row
+%is
+%\[
+%\frac{0.3454}{0.0003} = 1151.3\bar{3},
+%\]
+%which will be rounded to $1151$ by the algorithm.
+%
+%The second entry in the matrix is replaced by
+%\[
+%-2.436 - (1151)(1.566) = -2.436 - 1802 = -1804,
+%\]
+%where the arithmetic is rounded to four significant figures each time.
+%Similarly, the second vector entry becomes:
+%\[
+%1.018 - (1151)(1.569) = 1.018 - 1806 = -1805,
+%\]
+%so the system is in the form
+%\[
+%\Parens{\begin{array}{rr|c}
+%0.0003 & 1.566 & 1.569\\
+%0 & -1804 & -1805
+%\end{array}}
+%\]
+%When the algorithm attempts back substitution, the value 
+%\[x_2 = \frac{-1805}{-1804} \approx 1.0000554324\]
+%is rounded to $1.001$.  This is not so far off. However, it
+%now computes
+%\[x_1 = 
+%%\Parens{1.569 - 1.566 x_2}/0.0003 = 
+%\Parens{1.569 - 1.566 \cdot 1.001}/0.0003 = 
+%\Parens{1.569 - 1.568}/0.0003 = 
+%\Parens{0.001}/0.0003 = 3.3\bar{3},\]
+%which the computer rounds to $3.333$.  This is far from the right answer.
+%Looks like there was some subtractive cancelling in the last part which made
+%things bad.
+%
+%\end{bkexample}%UNFOLD
+%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pivoting Strategies for Gaussian Elimination}%FOLDUP
+\label{sec:gaussianP}
+\depson{sec:gaussianE}{sec:gaussianP}
+
+Gaussian Elimination can fail when performed in the wrong order.  If the
+algorithm selects a zero pivot, the multipliers are undefined, which is no
+good.  We also saw that a pivot small in magnitude can cause failure. As here:
+\begin{align*}
+\epsilon x_1 + x_2 &= 1\\
+x_1 + x_2 &= 2
+\end{align*}
+
+The \naive algorithm solves this as
+\begin{align*}
+x_2 & = \frac{2-\oneby{\epsilon}}{1-\oneby{\epsilon}} = 1 - \frac{\epsilon}{1-\epsilon}\\
+x_1 & = \frac{1-x_2}{\epsilon} = \oneby{1-\epsilon}
+\end{align*}
+If $\epsilon$ is very small, then \oneby{\epsilon} is enormous compared to both
+$1$ and $2.$  With poor rounding, the algorithm solves $x_2$ as $1.$  Then it
+solves $x_1 = 0.$  This is nearly correct for $x_2,$ but is an awful
+approximation for $x_1.$  Note that this choice of $x_1,x_2$ satisfies the
+first equation, but not the second.
+
+Now suppose the algorithm changed
+the order of the equations, then solved:
+\begin{align*}
+x_1 + x_2 &= 2\\
+\epsilon x_1 + x_2 &= 1
+\end{align*}
+The algorithm solves this as
+\begin{align*}
+x_2 & = \frac{1-2\epsilon}{1 - \epsilon}\\
+x_1 & = 2-x_2
+\end{align*}
+There's no problem with rounding here.
+
+The problem is not the small entry \emph{per se}:  Suppose we use an e.r.o. to
+scale the first equation, then use \naive G.E.:
+\begin{align*}
+x_1 + \oneby{\epsilon} x_2 &= \oneby{\epsilon}\\
+x_1 + x_2 &= 2
+\end{align*}
+This is still solved as 
+\begin{align*}
+x_2 & = \frac{2-\oneby{\epsilon}}{1-\oneby{\epsilon}}\\
+x_1 & = \frac{1-x_2}{\epsilon},
+\end{align*}
+and rounding is still a problem.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scaled Partial Pivoting}%FOLDUP
+
+The \naive G.E. algorithm uses the rows \onetox{n-1} in order as pivot
+equations.  As shown above, this can cause errors.  Better is to pivot first on
+row $\ell_1,$ then row $\ell_2,$ etc, until finally pivoting on row
+$\ell_{n-1},$ for some permutation \setBIdx{\ell_i}{i=1}{n} of the integers
+\onetox{n}.  The strategy of \emph{scaled partial pivoting} is to compute this
+permutation so that G.E. works well.  
+
+In light of our example, we want to pivot on an element which is not small
+compared to other elements in its row.  So our algorithm first determines
+``smallness'' by calculating a scale, row-wise:
+\[
+s_i = \max_{1\le j \le n} \abs{a_{ij}}.
+\]
+The scales are only computed once.
+
+Then the first pivot, $\ell_1$, is chosen to be the $i$ such that 
+\[
+\frac{\abs{a_{i,1}}}{s_i}
+\]
+is maximized.  The algorithm pivots on row $\ell_1,$ producing a bunch of zeros
+in the first column.  Note that the algorithm should \emph{not} rearrange the
+matrix--this takes too much work.
+
+The second pivot, $\ell_2$, is chosen to be the $i$ such that 
+\[
+\frac{\abs{a_{i,2}}}{s_i}
+\]
+is maximized, but without choosing $\ell_2 = \ell_1.$  The algorithm pivots on row $\ell_2,$ producing a bunch of zeros
+in the second column.  
+
+In the \kth{k} step $\ell_k$ is chosen to be the $i$ not among
+$\ell_1,\ell_2,\ldots,\ell_{k-1}$ such that 
+\[
+\frac{\abs{a_{i,k}}}{s_i}
+\]
+is maximized.  The algorithm pivots on row $\ell_k,$ producing a bunch of zeros
+in the \kth{k} column.  
+
+The slick way to implement this is to first set $\ell_i = i$ for
+$i=\onetox{n}.$ Then rearrange this vector in a kind of ``bubble sort'': when
+you find the index that should be $\ell_1,$ swap them, \ie find the $j$ such
+that $\ell_j$ should be the first pivot and switch the values of
+$\ell_1,\ell_j.$
+
+Then at the \kth{k} step, search only those indices in the tail of this vector:
+\ie only among $\ell_j$ for $k \le j \le n,$ and perform a swap.
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{An Example}%FOLDUP
+
+We present an example of using {scaled partial pivoting} with G.E.
+It's hard to come up with an example where the numbers do not come out as ugly
+fractions.  We'll look at a homework question.  
+
+\[
+\Parens{\begin{array}{rrrr|c}
+2 & -1 & 3 & 7 & 15\\
+4 & 4 & 0 & 7 & 11\\
+2 & 1 & 1 & 3 & 7\\
+6 & 5 & 4 & 17 & 31 
+\end{array}}
+\]
+
+The scales are as follows: $s_1 = 7, s_2 = 7, s_3 = 3, s_4 = 17.$
+
+We pick $\ell_1.$ It should be the index which maximizes $\abs{a_{i1}}/s_i.$
+These values are:
+\[
+\frac{2}{7},\frac{4}{7},\frac{2}{3},\frac{6}{17}.
+\]
+We pick $\ell_1 = 3,$ and pivot:
+
+\[
+\Parens{\begin{array}{rrrr|c}
+0 & -2 & 2 & 4 & 8\\
+0 & 2 & -2 & 1 & -3\\
+2 & 1 & 1 & 3 & 7\\
+0 & 2 & 1 & 8 & 10 
+\end{array}}
+\]
+
+We pick $\ell_2.$ It should \emph{not} be $3,$ and should be the index which maximizes $\abs{a_{i2}}/s_i.$
+These values are:
+\[
+\frac{2}{7},\frac{2}{7},\frac{2}{17}.
+\]
+We have a tie.  In this case we pick the second row, \ie $\ell_2 = 2.$ We
+pivot:
+
+\[
+\Parens{\begin{array}{rrrr|c}
+0 & 0 & 0 & 5 & 5\\
+0 & 2 & -2 & 1 & -3\\
+2 & 1 & 1 & 3 & 7\\
+0 & 0 & 3 & 7 & 13 
+\end{array}}
+\]
+
+The matrix is in permuted upper triangular form.  We could proceed, but would
+get a zero multiplier, and no changes would occur.  
+
+If we did proceed we would have $\ell_3 = 4.$  Then $\ell_4 = 1.$ Our row
+permutation is $3,2,4,1.$  When we do back substitution, we work in this order
+\emph{reversed} on the rows, solving $x_4,$ then $x_3,x_2,x_1.$
+
+We get $x_4 = 1,$ so 
+\begin{align*}
+x_3 &= \oneby{3}\Parens{13 - 7*1} = 2\\
+x_2 &= \oneby{2}\Parens{-3 - 1*1 + 2*2} = 0\\
+x_1 &= \oneby{2}\Parens{7 - 3*1 - 1*2 - 1*0} = 1
+\end{align*}
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Another Example and A Real Algorithm}%FOLDUP
+
+Sometimes we want to solve 
+\[\Mtx{A}\vect{x} = \vect{b}\]
+for a number of different vectors \vect{b}.  It turns out we can run G.E. on
+the matrix \Mtx{A} alone and come up with all the multipliers, which can then
+be used multiple times on different vectors \vect{b}.  We illustrate with an
+example:
+\[
+\Mtx{M_0} = \Parens{\begin{array}{rrrr}
+1 & 2 & 4 & 1 \\
+4 & 2 & 1 & 2 \\
+2 & 1 & 2 & 3 \\
+1 & 3 & 2 & 1 
+\end{array}},
+\quad 
+\vect{\ell} = \Bracks{\begin{array}{c}1 \\ 2 \\ 3 \\ 4\end{array}}.
+\]
+
+The scale vector is $\vect{s} = \trans{\Bracks{\begin{array}{cccc}4& 4& 3&
+3\end{array}}}$.  
+
+%FIX: we should have the multipliers, not their negatives
+%in the boxes. this makes the following section easier.
+%
+Our scale choices are $\frac{1}{4},\frac{4}{4},\frac{2}{3},\frac{1}{3}.$  We
+choose $\ell_1 = 2,$ and swap $\ell_1,\ell_2.$  In the places where there would
+be zeros in the real matrix, we will put the multipliers.  We will illustrate
+them here boxed:
+\[
+\Mtx{M_1} = \Parens{\begin{array}{rrrr}
+\boxed{\oneby{4}} & \frac{3}{2} & \frac{15}{4} & \half \\
+4 & 2 & 1 & 2 \\
+\boxed{\oneby{2}} & 0 & \frac{3}{2} & 2 \\
+\boxed{\oneby{4}} & \frac{5}{2} & \frac{7}{4} & \half 
+\end{array}},
+\quad 
+\vect{\ell} = \Bracks{\begin{array}{c}2 \\ 1 \\ 3 \\ 4\end{array}}.
+\]
+
+Our scale choices are $\frac{3}{8},\frac{0}{3},\frac{5}{6}.$  We
+choose $\ell_2 = 4,$ and so swap $\ell_2,\,\ell_4$:
+\[
+\Mtx{M_2} = \Parens{\begin{array}{rrrr}
+\boxed{\oneby{4}} & \boxed{\frac{3}{5}} & \frac{27}{10} & \oneby{5}\\
+4 & 2 & 1 & 2 \\
+\boxed{\oneby{2}} & \boxed{0} & \frac{3}{2} & 2 \\
+\boxed{\oneby{4}} & \frac{5}{2} & \frac{7}{4} & \half 
+\end{array}},
+\quad 
+\vect{\ell} = \Bracks{\begin{array}{c}2 \\ 4 \\ 3 \\ 1\end{array}}.
+\]
+
+Our scale choices are $\frac{27}{40},\frac{1}{2}.$  We
+choose $\ell_3 = 1,$ and so swap $\ell_3,\ell_4$:
+\[
+\Mtx{M_3} = \Parens{\begin{array}{rrrr}
+\boxed{\oneby{4}} & \boxed{\frac{3}{5}} & \frac{27}{10} & \oneby{5}\\
+4 & 2 & 1 & 2 \\
+\boxed{\oneby{2}} & \boxed{0} & \boxed{\frac{5}{9}} & \frac{17}{9} \\
+\boxed{\oneby{4}} & \frac{5}{2} & \frac{7}{4} & \half 
+\end{array}},
+\quad 
+\vect{\ell} = \Bracks{\begin{array}{c}2 \\ 4 \\ 1 \\ 3\end{array}}.
+\]
+
+Now suppose we had to solve the linear system for 
+$\vect{b} = \trans{\Bracks{\begin{array}{cccc}-1& 8& 2& 1\end{array}}}$.  
+
+We scale $\vect{b}$ by the multipliers in order: $\ell_1 = 2,$ so, we sweep
+through the first column of \Mtx{M_3}, picking off the boxed numbers (your
+computer doesn't really have boxed variables), and scaling \vect{b}
+appropriately:
+\[\Bracks{\begin{array}{c}-1 \\ 8 \\ 2 \\ 1\end{array}} 
+\Rightarrow \Bracks{\begin{array}{c} -3 \\ 8 \\ -2 \\ -1\end{array}} 
+\]
+This continues:
+\[\Bracks{\begin{array}{c} -3 \\ 8 \\ -2 \\ -1\end{array}} 
+\Rightarrow \Bracks{\begin{array}{c} -\frac{12}{5} \\ 8 \\ -2 \\ -1\end{array}} 
+\Rightarrow \Bracks{\begin{array}{c} -\frac{12}{5} \\ 8 \\ -\frac{2}{3} \\-1\end{array}} 
+\]
+
+We then perform a permuted backwards substitution on the augmented system
+\[
+\Parens{\begin{array}{*{4}{c}|c}
+0 & 0 & \frac{27}{10} & \oneby{5} & -\frac{12}{5}\\
+4 & 2 & 1 & 2 & 8\\
+0 & 0 & 0 & \frac{17}{9} & -\frac{2}{3}\\
+0 & \frac{5}{2} & \frac{7}{4} & \half & -1
+\end{array}}
+\]
+This proceeds as 
+\begin{align*}
+x_4 &= \frac{-2}{3}\frac{9}{17} = \frac{-6}{17}\\
+x_3 &= \frac{10}{27}\Parens{-\frac{12}{5} - \oneby{5}\frac{-6}{17}} = \ldots\\
+x_2 &= \frac{2}{5}\Parens{-1 - \half \frac{-6}{17} - \frac{7}{4} x_3} = \ldots\\
+x_1 &= \frac{1}{4}\Parens{8 - 2 \frac{-6}{17} - x_3 - 2 x_2} = \ldots
+\end{align*}
+Fill in your own values here.
+
+%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{LU Factorization}%FOLDUP
+\label{sec:LUfact}
+\depson{sec:gaussianP}{sec:LUfact}
+
+We examined G.E. to solve the system
+\[\Mtx{A} \vect{x} = \vect{b},\]
+where \Mtx{A} is a matrix:
+\[
+\Mtx{A} = \Bracks{\begin{array}{ccccc}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n}\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n}\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
+\end{array}}.
+\]
+We want to show that G.E. actually factors \Mtx{A} into lower and upper
+triangular parts, that is $\Mtx{A} = \Mtx{L}\Mtx{U},$ where
+\[
+\Mtx{L} = \Bracks{\begin{array}{ccccc}
+1 & 0 & 0 & \cdots & 0\\
+\ell_{21} & 1 & 0 & \cdots & 0\\
+\ell_{31} & \ell_{32} & 1 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+\ell_{n1} & \ell_{n2} & \ell_{n3} & \cdots & 1
+\end{array}}, \qquad 
+\Mtx{U} = \Bracks{\begin{array}{ccccc}
+u_{11} & u_{12} & u_{13} & \cdots & u_{1n}\\
+0 & u_{22} & u_{23} & \cdots & u_{2n}\\
+0 & 0 & u_{33} & \cdots & u_{3n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & u_{nn}
+\end{array}}.
+\]
+We call this a \emph{LU Factorization} of \Mtx{A}.
+\index{LU Factorization}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{An Example}%FOLDUP
+
+We consider solution of the following augmented form:
+\begin{eqnarray}
+\Parens{\begin{array}{rrrr|c}
+2 & 1 & 1 & 3 & 7\\
+4 & 4 & 0 & 7 & 11\\
+6 & 5 & 4 & 17 & 31\\
+2 & -1 & 0 & 7 & 15
+\end{array}}\label{eqn:ourEx}
+\end{eqnarray}
+The \naive G.E. reduces this to 
+\[
+\Parens{\begin{array}{rrrr|c}
+2 & 1 & 1 & 3 & 7\\
+0 & 2 & -2 & 1 & -3\\
+0 & 0 & 3 & 7 & 13\\
+0 & 0 & 0 & 12 & 18
+\end{array}}
+\]
+We are going to run the \naive G.E., and see how it is a LU Factorization.
+Since this is the \naive version, we first pivot on the first row.  Our
+multipliers are $2,3,1.$  We pivot to get
+
+\[
+\Parens{\begin{array}{rrrr|c}
+2 & 1 & 1 & 3 & 7\\
+0 & 2 & -2 & 1 & -3\\
+0 & 2 & 1 & 8 & 10\\
+0 & -2 & -1 & 4 & 8
+\end{array}}
+\]
+Careful inspection shows that we've merely multiplied \Mtx{A} and \vect{b} by a
+lower triangular matrix \Mtx{M_1}:
+\[
+\Mtx{M_1} = \Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+-2 & 1 & 0 & 0\\
+-3 & 0 & 1 & 0\\
+-1 & 0 & 0 & 1
+\end{array}}
+\]
+The entries in the first column are the negative e.r.o. multipliers for each row.  Thus after
+the first pivot, it is like we are solving the system
+\[\Mtx{M_1} \Mtx{A} \vect{x} = \Mtx{M_1} \vect{b}.\]
+We pivot on the second row to get:
+\[
+\Parens{\begin{array}{rrrr|c}
+2 & 1 & 1 & 3 & 7\\
+0 & 2 & -2 & 1 & -3\\
+0 & 0 & 3 & 7 & 13\\
+0 & 0 & -3 & 5 & 5
+\end{array}}
+\]
+The multipliers are $1,-1.$  We can view this pivot as a multiplication by
+$\Mtx{M_2},$ with 
+\[
+\Mtx{M_2} = \Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & -1 & 1 & 0\\
+0 & 1 & 0 & 1
+\end{array}}
+\]
+We are now solving
+\[\Mtx{M_2} \Mtx{M_1} \Mtx{A} \vect{x} = \Mtx{M_2} \Mtx{M_1} \vect{b}.\]
+
+We pivot on the third row, with a multiplier of $-1.$  Thus we get
+\[
+\Parens{\begin{array}{rrrr|c}
+2 & 1 & 1 & 3 & 7\\
+0 & 2 & -2 & 1 & -3\\
+0 & 0 & 3 & 7 & 13\\
+0 & 0 & 0 & 12 & 18
+\end{array}}
+\]
+We have multiplied by $\Mtx{M_3}:$ 
+\[
+\Mtx{M_3} = \Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 1 & 1
+\end{array}}
+\]
+We are now solving
+\[\Mtx{M_3}\Mtx{M_2}\Mtx{M_1}\Mtx{A} \vect{x} = \Mtx{M_3}\Mtx{M_2}\Mtx{M_1} \vect{b}.\]
+But we have an upper triangular form, that is, if we let
+\[
+\Mtx{U} = \Bracks{\begin{array}{rrrr}
+2 & 1 & 1 & 3 \\
+0 & 2 & -2 & 1 \\
+0 & 0 & 3 & 7 \\
+0 & 0 & 0 & 12 
+\end{array}}
+\]
+Then we have
+\begin{align*}
+\Mtx{M_3}\Mtx{M_2}\Mtx{M_1}\Mtx{A} &= \Mtx{U},\\
+\Mtx{A} &= \invs{\Parens{\Mtx{M_3}\Mtx{M_2}\Mtx{M_1}}} \Mtx{U},\\
+\Mtx{A} &= \invs{\Mtx{M_1}}\invs{\Mtx{M_2}}\invs{\Mtx{M_3}} \Mtx{U},\\
+\Mtx{A} &= \Mtx{L} \Mtx{U}.
+\end{align*}
+We are hoping that \Mtx{L} is indeed lower triangular, and has ones on the
+diagonal.  It turns out that the inverse of each \Mtx{M_i} matrix has a nice
+form (See \chexref{invM}).  We write them here:
+\begin{align*}
+\Mtx{L} &=
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+2 & 1 & 0 & 0\\
+3 & 0 & 1 & 0\\
+1 & 0 & 0 & 1
+\end{array}}
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 1 & 1 & 0\\
+0 & -1 & 0 & 1
+\end{array}}
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & -1 & 1
+\end{array}}\\
+&=
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+2 & 1 & 0 & 0\\
+3 & 1 & 1 & 0\\
+1 & -1 & -1 & 1
+\end{array}}
+\end{align*}
+This is really crazy: the matrix \Mtx{L} looks to be composed of ones on the
+diagonal and multipliers under the diagonal.
+
+Now we check to see if we made any mistakes:
+\begin{align*}
+\Mtx{L} \Mtx{U} &=
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+2 & 1 & 0 & 0\\
+3 & 1 & 1 & 0\\
+1 & -1 & -1 & 1
+\end{array}}
+\Bracks{\begin{array}{rrrr}
+2 & 1 & 1 & 3 \\
+0 & 2 & -2 & 1 \\
+0 & 0 & 3 & 7 \\
+0 & 0 & 0 & 12 
+\end{array}}\\
+&=
+\Bracks{\begin{array}{rrrr}
+2 & 1 & 1 & 3 \\
+4 & 4 & 0 & 7 \\
+6 & 5 & 4 & 17 \\
+2 & -1 & 0 & 7 
+\end{array}} = \Mtx{A}.
+\end{align*}
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Using LU Factorizations}%FOLDUP
+
+We see that the G.E. algorithm can be used to actually calculate the LU
+factorization.  We will look at this in more detail in another example.
+We now examine how we can use the LU factorization to solve the equation
+\[\Mtx{A} \vect{x} = \vect{b},\]
+Since we have $\Mtx{A} = \Mtx{L}\Mtx{U},$ we first solve
+\[\Mtx{L} \vect{z} = \vect{b},\]
+then solve
+\[\Mtx{U} \vect{x} = \vect{z}.\]
+Since \Mtx{L} is lower triangular, we can solve for \vect{z} with a
+\emph{forward} substitution.  Similarly, since \Mtx{U} is upper triangular, we
+can solve for \vect{x} with a back substitution.  We drag out the previous
+example (which we never got around to solving):
+\[
+\Parens{\begin{array}{rrrr|c}
+2 & 1 & 1 & 3 & 7\\
+4 & 4 & 0 & 7 & 11\\
+6 & 5 & 4 & 17 & 31\\
+2 & -1 & 0 & 7 & 15
+\end{array}}
+\]
+We had found the LU factorization of \Mtx{A} as 
+
+\begin{align*}
+\Mtx{A} &=
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+2 & 1 & 0 & 0\\
+3 & 1 & 1 & 0\\
+1 & -1 & -1 & 1
+\end{array}}
+\Bracks{\begin{array}{rrrr}
+2 & 1 & 1 & 3 \\
+0 & 2 & -2 & 1 \\
+0 & 0 & 3 & 7 \\
+0 & 0 & 0 & 12 
+\end{array}}
+\end{align*}
+So we solve 
+\[
+\Bracks{\begin{array}{rrrr}
+1 & 0 & 0 & 0\\
+2 & 1 & 0 & 0\\
+3 & 1 & 1 & 0\\
+1 & -1 & -1 & 1
+\end{array}}\vect{z} = 
+\Bracks{\begin{array}{r} 7\\ 11\\ 31\\ 15 \end{array}}
+\]
+We get
+\[
+\vect{z} = \Bracks{\begin{array}{r} 7\\ -3\\ 13\\ 18 \end{array}}
+\]
+Now we solve
+\[
+\Bracks{\begin{array}{rrrr}
+2 & 1 & 1 & 3 \\
+0 & 2 & -2 & 1 \\
+0 & 0 & 3 & 7 \\
+0 & 0 & 0 & 12 
+\end{array}}\vect{x} = \Bracks{\begin{array}{r} 7\\ -3\\ 13\\ 18 \end{array}}
+\]
+We get the ugly solution
+\[
+\vect{z} = \Bracks{\begin{array}{c} \frac{37}{24}\\ \frac{-17}{12}\\
+\frac{5}{6}\\ \frac{3}{2} \end{array}}
+\]
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Some Theory}%FOLDUP
+
+We aren't doing much proving here.  The following theorem has an ugly proof in
+the Cheney \& Kincaid \cite{KdCw1999}.
+\begin{bktheorem}
+If \Mtx{A} is an $n \times n$ matrix, and \naive Gaussian Elimination does not
+encounter a zero pivot, then the algorithm generates a LU factorization of
+\Mtx{A}, where \Mtx{L} is the lower triangular part of the output matrix, and
+\Mtx{U} is the upper triangular part.
+\end{bktheorem}
+
+This theorem relies on us using the fancy version of G.E., which saves the
+multipliers in the spots where there should be zeros.  If correctly
+implemented, then, \Mtx{L} is the lower triangular part but with ones put on
+the diagonal.
+
+This theorem is proved in Cheney \& Kincaid \cite{KdCw1999}.  This appears to
+me to be a case of something which can be better illustrated with an example or
+two and some informal investigation.  The proof is an unillustrating
+index-chase--read it at your own risk.
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Computing Inverses}%FOLDUP
+
+We consider finding the inverse of \Mtx{A}.  Since
+\[\Mtx{A} \invs{\Mtx{A}} = \Mtx{I},\]
+then the \kth{j} column of the inverse \invs{\Mtx{A}} solves the equation
+\[\Mtx{A} \vect{x} = \vect{e_j},\]
+where \vect{e_j} is the column matrix of all zeros, but with a one in the \kth{j}
+position.
+
+Thus we can find the inverse of \Mtx{A} by running $n$ linear solves.
+Obviously we are only going to run G.E. once, to put the matrix in LU form,
+then run $n$ solves using forward and backward substitutions.
+
+%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Iterative Solutions}%FOLDUP
+\label{sec:iterative}
+
+\depson{sec:eiegenvalues}{sec:iterative}
+
+Recall we are trying to solve 
+\[\Mtx{A} \vect{x} = \vect{b}.\label{eqn:theeq}\]
+We examine the computational cost of Gaussian Elimination 
+to motivate the search for an alternative algorithm.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{An Operation Count for Gaussian Elimination}%FOLDUP
+
+We consider the number of floating point operations (``flops'') required to
+solve the system $\Mtx{A} \vect{x} = \vect{b}.$  Gaussian Elimnation first
+uses row operations to transform the problem into an equivalent problem of the
+form $\Mtx{U} \vect{x} = \vect{b'},$ where \Mtx{U} is upper triangular.   Then
+back substitution is used to solve for \vect{x}.
+
+First we look
+at how many floating point operations are required to reduce 
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} & b_1\\
+a_{21} & a_{22} & a_{23} & \cdots & a_{2n} & b_2\\
+a_{31} & a_{32} & a_{33} & \cdots & a_{3n} & b_3\\
+\vdots & \vdots & \vdots & \ddots & \vdots &\\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn} & b_n
+\end{array}}
+\]
+to 
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} & b_1\\
+0 & a'_{22} & a'_{23} & \cdots & a'_{2n} & b'_2\\
+0 & a'_{32} & a'_{33} & \cdots & a'_{3n} & b'_3\\
+\vdots & \vdots & \vdots & \ddots & \vdots &\\
+0 & a'_{n2} & a'_{n3} & \cdots & a'_{nn} & b'_n
+\end{array}}
+\]
+
+First a multiplier is computed for each row.  Then in each row the algorithm
+performs $n$ multiplies and $n$ adds.  This gives a total of $(n-1) + (n-1)n$
+multiplies (counting in the computing of the multiplier in each of the $(n-1)$
+rows) and $(n-1)n$ adds.  In total this is $2n^2 - n - 1$ floating point
+operations to do a single pivot on the $n$ by $n$ system. 
+
+Then this has to be done recursively on the lower right subsystem,
+which is an $(n-1)$ by $(n-1)$ system.  This requires $2(n-1)^2 - (n-1) - 1$
+operations.  Then this has to be done on the next subsystem, requiring
+$2(n-2)^2 - (n-2) - 1$ operations, and so on.
+
+In total, then, we use $I_n$ total floating point operations, with
+\[I_n = 2 \sum_{j=1}^n j^2  - \sum_{j=1}^n j - \sum_{j=1}^n 1.\]
+
+Recalling that 
+\[\sum_{j=1}^n j^2 = \oneby{6}(n)(n+1)(2n+1),\quad\text{and}\quad
+\sum_{j=1}^n j = \oneby{2}(n)(n+1),\]
+We find that
+\[I_n = \oneby{6}(4n-1)n(n+1) - n \approx \frac{2}{3}n^3.\]
+
+Now consider the costs of back substitution.  To solve 
+\[
+\Parens{\begin{array}{ccccc|c}
+a_{11} & \cdots & a_{1,n-2} & a_{1,n-1} & a_{1n} & b_1\\
+\vdots & \ddots & \vdots & \vdots & \vdots & \vdots\\
+ 0     & \cdots & a_{n-2,n-2} & a_{n-2,n-1} & a_{n-2,n} & b_{n-2}\\
+ 0     & \cdots &    0   & a_{n-1,n-1} & a_{n-1,n} & b_{n-1}\\
+ 0     & \cdots &    0   & 0      & a_{nn} & b_n
+\end{array}}
+\]
+for $x_n$ requires only a single division.  Then to solve for $x_{n-1}$ we
+compute
+\[x_{n-1} = \oneby{a_{n-1,n-1}} \Bracks{b_{n-1} - a_{n-1,n} x_{n}},\]
+and requires 3 flops.  Similarly, solving for $x_{n-2}$ requires $5$ flops.  
+Thus in total back substitution requires $B_n$ total floating point operations
+with \[B_n = \sum_{j=1}^n 2j - 1 = n(n-1) - n = n(n-2) \approx n^2\]
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dividing by Multiplying}%FOLDUP
+We saw that Gaussian Elimination requires around $\frac{2}{3}n^3$ operations
+just to find the LU factorization, then about $n^2$ operations to solve the
+system, when \Mtx{A} is $n\times n$.  When $n$ is large, this may take too long
+to be practical.  Additionally, if \Mtx{A} is sparse (has few nonzero elements
+per row), we would like the complexity of our computations to scale with the
+sparsity of \Mtx{A}.  Thus we look for an alternative algorithm. 
+
+First we consider the simplest case, $n=1.$  Suppose we are to solve the
+equation
+\[A x = b.\]
+for scalars $A,b.$  We solve this by
+\[x = \oneby{A} b = \oneby{\omega A} \omega b =
+\oneby{1 - (1 - \omega A)} \omega b 
+= \oneby{1-r} \omega b,\]
+where $\omega \ne 0$ is some real number chosen to ``weight'' the problem
+appropriately, and $r = 1 - \omega A.$  
+Now suppose that $\omega$ is chosen such that $\abs{r} < 1.$ This can be done
+so long as $A \ne 0,$ which would have been a problem anyway.
+Now use the geometric expansion:
+\[\oneby{1 - r} = 1 + r + r^2 + r^3 + \ldots\]
+Because of the assumption $\abs{r} < 1,$ the terms $r^n$ converge
+to zero as $n\to\infty.$  This gives the approximate solution to our one
+dimensional problem as 
+\begin{align*}
+x &\approx \Bracks{ 1 + r + r^2 + r^3 + \ldots + r^k }\omega b\\
+  &= \omega b + \Bracks{ r + r^2 + r^3 + \ldots + r^k }\omega b\\
+  &= \omega b + r \Bracks{ 1 + r + r^2 + \ldots + r^{k-1} }\omega b
+\end{align*}
+This suggests an \emph{iterative} approach to solving $Ax=b.$  First let
+$x^{(0)} = \omega b,$ then let 
+\[x^{(k)} = \omega b + r x^{(k-1)}.\]
+The iterates $x^{(k)}$ will converge to the solution of $Ax=b$ if $\abs{r} <
+1.$
+
+You should now convince yourself that because $r^n \to 0,$ that the
+choice of the initial iterate $x^{(0)}$ was immaterial, \ie that under
+\emph{any} choice of initial iterate convergence is guaranteed.
+
+We now translate this scalar result into the vector case. The algorithm
+proceeds as follows:  first fix some initial estimate of the solution,
+\thex{0}.  A good choice might be $\omega \vect{b},$ but this is not necessary.
+Then calculate successive approximations to the actual solution by updates of
+the form 
+\[\thex{k} = \omega\vect{b} + \Parens{\Mtx{I} - \omega\Mtx{A}}\thex{k-1}.\]
+
+It turns out that we can consider a slightly more general form of the
+algorithm, one in which successive iterates are defined \emph{implicitly}.
+That is we consider iterates of the form
+\begin{empheq}[innerbox=\widefbox]{equation}
+\Mtx{Q}\thex{k+1} = \Parens{\Mtx{Q} - \omega \Mtx{A}}\thex{k} + \omega \vect{b},
+\label{eqn:iterativeupdate}
+\end{empheq}
+for some matrix \Mtx{Q}, and some scaling factor $\omega.$  Note that this
+update relies on vector additions and possibly by premultiplication of a vector
+by \Mtx{A} or \Mtx{Q}.  In the case where these two matrices are sparse, such
+an update can be relatively cheap.
+
+Now suppose that as $k \to \infty,$ \thex{k} converges to some vector \thexc,
+which is a fixed point of the iteration.
+Then 
+\begin{align*}
+\Mtx{Q}\thexc &= \Parens{\Mtx{Q} - \omega\Mtx{A}}\thexc + \omega \vect{b},\\
+\Mtx{Q}\thexc &= \Mtx{Q}\thexc - \omega\Mtx{A}\thexc + \omega\vect{b},\\
+\omega\Mtx{A}\thexc &= \omega\vect{b},\\
+\Mtx{A}\thexc &= \vect{b}.
+\end{align*}
+
+We have some freedom in choosing \Mtx{Q}, but there are two considerations we
+should keep in mind:
+\begin{compactenum}
+\item Choice of \Mtx{Q} affects convergence and speed of convergence of the
+method.  In particular, we want \Mtx{Q} to be similar to \Mtx{A}.
+\item Choice of \Mtx{Q} affects ease of computing the update.  That is, given 
+\[\vect{z} = \Parens{\Mtx{Q} - \Mtx{A}}\thex{k} + \vect{b},\]
+we should pick \Mtx{Q} such that the equation
+\[\Mtx{Q} \thex{k+1} = \vect{z}\] is easy to solve exactly.
+\end{compactenum}
+These two goals conflict with each other.  At one end of the spectrum is the
+so-called ``impossible iteration,'' at the other is the Richardsons.
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Impossible Iteration}%FOLDUP
+I made up the term ``impossible iteration.''  But consider the method which
+takes \Mtx{Q} to be \Mtx{A}.  This seems to be the best choice for satisfying
+the first goal.  Letting $\omega = 1,$ our method becomes
+\[
+\Mtx{A}\thex{k+1} = \Parens{\Mtx{A} - \Mtx{A}}\thex{k} + \vect{b} = \vect{b}.
+\]
+This method should clearly converge in one step.  However, the second goal is
+totally ignored.  Indeed, we are considering iterative methods because we
+cannot easily solve this linear equation in the first place.
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Richardson Iteration}%FOLDUP
+
+At the other end of the spectrum is the Richardson Iteration, which chooses
+\Mtx{Q} to be the identity matrix.  Solving the system \[\Mtx{Q} \thex{k+1} =
+\vect{z}\] is trivial: we just have $\thex{k+1} = \vect{z}.$
+
+\begin{bkexprob}\label{bkexp:richbadomega}%FOLDUP
+Use Richardson Iteration with $\omega = 1$ on the system 
+\[
+\Mtx{A} = \Bracks{\begin{array}{rrr}
+6 & 1 & 1 \\
+2 & 4 & 0 \\
+1 & 2 & 6 
+\end{array}},\qquad 
+\Mtx{b} = \Bracks{\begin{array}{c} 12\\0\\6 \end{array}}.
+\]
+\begin{bksolution}
+We let
+\[
+\Mtx{Q} = \Bracks{\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{array}},\qquad 
+\Parens{\Mtx{Q} - \Mtx{A}} = \Bracks{\begin{array}{rrr}
+-5 & -1 & -1 \\
+-2 & -3 & 0 \\
+-1 & -2 & -5 
+\end{array}}.
+\]
+We start with an arbitrary \thex{0}, say $\thex{0} = \trans{\Bracks{2\; 2\; 2}}.$
+We get $\thex{1} = \trans{\Bracks{-2\;-10\;-10}},$ and $\thex{2} =
+\trans{\Bracks{42\;34\;78}}.$  
+
+Note the real solution is $\vect{x} = \trans{\Bracks{2\;-1\;1}}.$ 
+The Richardson Iteration does not appear to converge for this example, unfortunately.
+\end{bksolution}
+\end{bkexprob}
+%UNFOLD
+\begin{bkexprob}\label{bkexp:richgoodomega}%FOLDUP
+Apply Richardson Iteration with $\omega = 1/6$ on the previous system.
+\begin{bksolution}
+Our iteration becomes
+\[
+\thex{k+1} = 
+\Bracks{\begin{array}{rrr}
+0 & -1/6 & -1/6 \\
+-1/3 & 1/3 & 0 \\
+-1/6 & -1/3 & 0 
+\end{array}}
+\thex{k} + 
+\Bracks{\begin{array}{c} 2\\0\\1 \end{array}}.
+\]
+
+We start with the same \thex{0} as previously, $\thex{0} = \trans{\Bracks{2\; 2\; 2}}.$
+We get $\thex{1} = \trans{\Bracks{4/3 \; 0 \;0}},$ 
+$\thex{2} = \trans{\Bracks{2 \; -4/9 \; 7/9}},$ and finally
+$\thex{12} = \trans{\Bracks{2 \; -0.99998 \; 0.99998}}.$
+
+Thus, the choice of $\omega$ has some affect on convergence.
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+We can rethink the Richardson Iteration as 
+\[
+\thex{k+1} = \Parens{\Mtx{I} - \omega\Mtx{A}}\thex{k} + \omega \vect{b} = \thex{k} +
+\omega \Parens{\vect{b} - \Mtx{A}\thex{k}}.
+\]
+Thus at each step we are adding some scaled version of the \emph{residual},
+defined as $\vect{b} - \Mtx{A}\thex{k}$, to the iterate.
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Jacobi Iteration}%FOLDUP
+
+The Jacobi Iteration chooses \Mtx{Q} to be the matrix consisting
+of the diagonal of \Mtx{A}.  This is more similar to \Mtx{A} than the identity
+matrix, but nearly as simple to invert.
+
+\begin{bkexprob}%FOLDUP
+Use Jacobi Iteration, with $\omega = 1,$ to solve the system 
+\[
+\Mtx{A} = \Bracks{\begin{array}{rrr}
+6 & 1 & 1 \\
+2 & 4 & 0 \\
+1 & 2 & 6 
+\end{array}},\qquad 
+\Mtx{b} = \Bracks{\begin{array}{c} 12\\0\\6 \end{array}}.
+\]
+\begin{bksolution}
+We let
+\[
+\Mtx{Q} = \Bracks{\begin{array}{rrr}
+6 & 0 & 0 \\
+0 & 4 & 0 \\
+0 & 0 & 6 
+\end{array}},\qquad 
+\Parens{\Mtx{Q} - \Mtx{A}} = \Bracks{\begin{array}{rrr}
+0 & -1 & -1 \\
+-2 & 0 & 0 \\
+-1 & -2 & 0 
+\end{array}},\qquad 
+\invs{\Mtx{Q}} = \Bracks{\begin{array}{rrr}
+\oneby{6} & 0 & 0 \\
+0 & \oneby{4} & 0 \\
+0 & 0 & \oneby{6}
+\end{array}}.
+\]
+We start with an arbitrary \thex{0}, say $\thex{0} = \trans{\Bracks{2\; 2\; 2}}.$
+We get $\thex{1} = \trans{\Bracks{\frac{4}{3}\;-1\;0}}.$ 
+Then $\thex{2} = \trans{\Bracks{\frac{13}{6}\;-\frac{2}{3}\;\frac{10}{9}}}.$ 
+Continuing, we find that $\thex{5} \approx
+\trans{\Bracks{1.987\;-1.019\;0.981}}.$
+
+Note the real solution is $\vect{x} = \trans{\Bracks{2\;-1\;1}}.$ 
+\end{bksolution}
+\end{bkexprob}
+%UNFOLD
+%
+There is an alternative way to describe the Jacobi Iteration for $\omega = 1.$
+By considering the update elementwise, we see that the operation can be
+described by
+\[\thexi{k+1}{j} = \oneby{a_{jj}} \Parens{b_j - \sum_{i=1, i\ne j}^{n} a_{ji} \thexi{k}{i}}.\]
+Thus an update takes less than $2n^2$ operations.  In fact, if \Mtx{A} is
+sparse, with less than $k$ nonzero entries per row, the update should take less
+than $2nk$ operations.
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gauss Seidel Iteration}%FOLDUP
+
+The Gauss Seidel Iteration chooses \Mtx{Q} to be lower triangular part of
+\Mtx{A}, including the diagonal.  In this case solving the system \[\Mtx{Q} \thex{k+1} = \vect{z}\]
+is performed by forward substitution.  Here the \Mtx{Q} is more like \Mtx{A}
+than for Jacobi Iteration, but involves more work for inverting.
+
+\begin{bkexprob}%FOLDUP
+Use Gauss Seidel Iteration to again solve for
+\[
+\Mtx{A} = \Bracks{\begin{array}{rrr}
+6 & 1 & 1 \\
+2 & 4 & 0 \\
+1 & 2 & 6 
+\end{array}},\qquad 
+\Mtx{b} = \Bracks{\begin{array}{c} 12\\0\\6 \end{array}}.
+\]
+\begin{bksolution}
+We let
+\[
+\Mtx{Q} = \Bracks{\begin{array}{rrr}
+6 & 0 & 0 \\
+2 & 4 & 0 \\
+1 & 2 & 6 
+\end{array}},\qquad 
+\Parens{\Mtx{Q} - \Mtx{A}} = \Bracks{\begin{array}{rrr}
+0 & -1 & -1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 
+\end{array}}.
+\]
+We start with an arbitrary \thex{0}, say $\thex{0} = \trans{\Bracks{2\, 2\, 2}}.$
+We get $\thex{1} = \trans{\Bracks{\frac{4}{3}\,-\frac{2}{3}\,1}}.$ 
+Then $\thex{2} = \trans{\Bracks{\frac{35}{18}\,-\frac{35}{36}\,1}}.$ 
+
+Already this is fairly close to the actual solution $\vect{x} = \trans{\Bracks{2\,-1\,\,1}}.$ 
+\end{bksolution}
+\end{bkexprob}
+%UNFOLD
+%
+
+Just as with Jacobi Iteration, there is an easier way to describe the Gauss
+Seidel Iteration.  In this case we will keep a single vector \vect{x} and overwrite it, element by element.  Thus for $j=\onetox{n},$ we set
+\[
+x_j \leftarrow \oneby{a_{jj}} \Parens{b_j - \sum_{i=1,i \ne j}^n a_{ji}x_i}.
+\]
+This looks exactly like the Jacobi update. However, in the sum on the right
+there are some ``old'' values of $x_i$ and some ``new'' values; the new values
+are those $x_i$ for which $i < j.$
+
+Again this takes less than $2n^2$ operations. Or less than $2nk$ if \Mtx{A} is
+sufficiently sparse.
+
+An alteration of the Gauss Seidel Iteration is to make successive ``sweeps'' of
+this redefinition, one for $j=\onetox{n},$ the next for $j=n,n-1,\ldots,2,1.$
+This amounts to running Gauss Seidel once with \Mtx{Q} the lower triangular
+part of \Mtx{A}, then running it with \Mtx{Q} the upper triangular part.  This
+iterative method is known as ``red-black Gauss Seidel.''
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Successive Overelaxation Iteration (SOR)}%FOLDUP
+%
+%%We can view Successive Overrelaxation (SOR) as a modification of the main method,%FOLDUP
+%%using the Gauss Seidel Iteration matrix.  The SOR method is parametrized by $\omega \in \coinv{1}{2}.$ The iteration can be described as follows:
+%%\begin{eqnarray*}
+%%\Mtx{Q_g}\thez{k+1} &=& \Parens{\Mtx{Q_g} - \Mtx{A}}\thex{k} + \vect{b},\\
+%%\thex{k+1} &=& \omega \thez{k+1} + \Parens{1-\omega} \thex{k}.
+%%\end{eqnarray*}
+%%Where \Mtx{Q_g} is the matrix of the Gauss Seidel Iteration.  In the case that
+%%$\omega=1,$ we see that we regain the Gauss Seidel Iteration.  Otherwise we can
+%%write
+%%\begin{eqnarray*}
+%%\thex{k+1} &=& \omega \invs{\Mtx{Q_g}} \Bracks{\Parens{\Mtx{Q_g} -
+%%\Mtx{A}}\thex{k} + \vect{b}} + \Parens{1-\omega}\thex{k}.
+%%\end{eqnarray*}
+%%This works out to
+%%\begin{eqnarray*}
+%%\oneby{\omega}\Mtx{Q_g}\thez{k+1} &=& \Parens{\oneby{\omega}\Mtx{Q_g} - \Mtx{A}}\thex{k} + \vect{b},
+%%\end{eqnarray*}
+%%so the matrix \Mtx{Q} for the SOR iteration, call it \Mtx{Q_s} is defined as
+%%\[\Mtx{Q_s} = \oneby{\omega}\Mtx{Q_g}.\]%UNFOLD
+%
+%The Successive Overelaxation (SOR) Iteration chooses \Mtx{Q} to be lower
+%triangular part of \Mtx{A}, but with the diagonal divided by a relaxation
+%factor, $\omega.$ In this case solving the system \[\Mtx{Q} \thex{k+1} = \vect{z}\]
+%is performed by forward substitution.
+%
+%\begin{bkexample}
+%Use SOR Iteration with $\omega = 1.5$ to again solve for
+%\begin{eqnarray*}
+%\Mtx{A} = \Bracks{\begin{array}{rrr}
+%6 & 1 & 1 \\
+%2 & 4 & 0 \\
+%1 & 2 & 6 
+%\end{array}},\qquad 
+%\Mtx{b} = \Bracks{\begin{array}{c} 12\\0\\6 \end{array}}.
+%\end{eqnarray*}
+%We let
+%\begin{eqnarray*}
+%\Mtx{Q} = \Bracks{\begin{array}{rrr}
+%4 & 0 & 0 \\
+%2 & \frac{8}{3} & 0 \\
+%1 & 2 & 4 
+%\end{array}},\qquad 
+%\Parens{\Mtx{Q} - \Mtx{A}} = \Bracks{\begin{array}{rrr}
+%-2 & -1 & -1 \\
+%0 & -\frac{4}{3} & 0 \\
+%0 & 0 & -2
+%\end{array}}.
+%\end{eqnarray*}
+%We start with an arbitrary \thex{0}, say $\thex{0} = \trans{\Bracks{2\, 2\, 2}}.$
+%We get $\thex{1} = \trans{\Bracks{1\,-\frac{7}{4}\,\frac{9}{8}}}.$ 
+%
+%\end{bkexample}
+%
+%%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Error Analysis}%FOLDUP
+
+Suppose that \vect{x} is the solution to \eqnref{theeq}.  Define the error
+vector:
+\[\thee{k} = \thex{k} - \vect{x}.\]
+Now notice that
+\begin{align*}
+\thex{k+1} &= \invs{\Mtx{Q}}\Parens{\Mtx{Q} - \omega\Mtx{A}}\thex{k} +
+	\invs{\Mtx{Q}}\omega\vect{b},\\
+\thex{k+1} &= \invs{\Mtx{Q}}\Mtx{Q} \thex{k} -
+	\omega\invs{\Mtx{Q}}\Mtx{A}\thex{k} + \omega\invs{\Mtx{Q}}\Mtx{A}\vect{x},\\
+\thex{k+1} &= \thex{k} - \omega\invs{\Mtx{Q}}\Mtx{A}\Parens{\thex{k} - \vect{x}},\\
+\thex{k+1} - \vect{x} &= \thex{k} - \vect{x} - \omega\invs{\Mtx{Q}}\Mtx{A}\Parens{\thex{k} - \vect{x}},\\
+\thee{k+1} &= \thee{k} - \omega\invs{\Mtx{Q}}\Mtx{A}\thee{k},\\
+\thee{k+1} &= \Parens{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}\thee{k}.
+\end{align*}
+
+Reusing this relation we find that
+\begin{align*}
+\thee{k} &= \Parens{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}\thee{k-1},\\
+				&= \Parens{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}^2\thee{k-2},\\
+				&= \Parens{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}^k\thee{0}.
+\end{align*}
+We want to ensure that \thee{k+1} is ``smaller'' than \thee{k}.  
+To do this we recall matrix and vector norms from \subsecref{matrixnorms}.
+\begin{align*}
+\dltwo{\thee{k}} &= \dltwo{\Parens{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}^k\thee{0}}
+\le \dltwo{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}^k \dltwo{\thee{0}}.
+\end{align*}
+(See \bkexpref{mnormCS}.)
+
+Thus our iteration converges (\thee{k} goes to the zero vector, \ie $\thex{k}
+\to \thex{}$) if \[\dltwo{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}} < 1.\]
+This gives the theorem:
+\begin{bktheorem}\label{thm:iterconvg}
+An iterative solution scheme converges for any starting \thex{0} if and only if
+all eigenvalues of $\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}$ are less than $1$ in
+absolute value, \ie if and only if 
+\[\dltwo{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}} < 1\]
+\end{bktheorem}
+Another way of saying this is ``the spectral radius of $\Mtx{I} -
+\omega\invs{\Mtx{Q}}\Mtx{A}$ is less than $1$.''  
+
+In fact, the \emph{speed} of convergence is decided by the spectral radius of
+the matrix--convergence is faster for smaller values. 
+Recall our introduction to iterative methods in the scalar case, where the
+result relied on $\omega$ being chosen such that $\abs{1-\omega A} < 1$.  
+You should now think about how eigenvalues generalize the absolute value of a
+scalar, and how this relates to the norm of matrices.
+
+Let \they{} be an eigenvector for $\invs{\Mtx{Q}}\Mtx{A},$ with corresponding
+eigenvalue $\lambda.$  Then
+\[
+\Parens{\Mtx{I} - \omega\invs{\Mtx{Q}}\Mtx{A}}\they{} = \they{} - \omega
+\invs{\Mtx{Q}}\Mtx{A}\they{} = \they{} - \omega\lambda \they{} =
+\Parens{1-\omega\lambda}\they{}.
+\]
+
+This relation may allow us to pick the optimal $\omega$ for given
+\Mtx{A},\Mtx{Q}.  It can also show us that sometimes no choice of $\omega$ will
+give convergence of the method.  There are a number of different related
+results that show when various methods will work for certain choices of
+$\omega.$  We leave these to the exercises.
+
+\begin{bkexprob}\label{bkexp:richbestomega}%FOLDUP
+Find conditions on $\omega$ which guarantee convergence of Richardson's
+Iteration for finding approximate iterative solutions to the system
+$\Mtx{A}\vect{x} = \vect{b},$ where
+\[
+\Mtx{A} = \Bracks{\begin{array}{rrr}
+6 & 1 & 1 \\
+2 & 4 & 0 \\
+1 & 2 & 6 
+\end{array}},\qquad 
+\Mtx{b} = \Bracks{\begin{array}{c} 12\\0\\6 \end{array}}.
+\]
+\begin{bksolution}
+By \thmref{iterconvg}, with \Mtx{Q} the identity matrix, we have convergence if
+and only if 
+\[\dltwo{\Mtx{I} - \omega\Mtx{A}} < 1\]
+We now use the fact that ``eigenvalues commute with polynomials;'' that is if
+$f(x)$ is a polynomial and $\lambda$ is an eigenvalue of a matrix \Mtx{A}, then
+$f(\lambda)$ is an eigenvalue of the matrix $f(\Mtx{A}).$  In this case the
+polynomial we consider is $f(x) = x^0 - \omega x^1.$  Using octave or Matlab
+you will find that the eigenvalues of \Mtx{A} are approximately
+$7.7321,4.2679,$ and $4$.  Thus the eigenvalues of $\Mtx{I} - \omega\Mtx{A}$
+are approximately
+\[1 - 7.7321 \omega,\,1- 4.2679 \omega,\,1-4\omega.\]
+With some work it can be shown that all three of these values will be less than
+one in absolute value if and only if 
+\[ 0 < \omega < \frac{3}{7.7321} \approx 0.388\]
+(See also \chexref{richardseigen}.)
+
+Compare this to the results of \bkexpref{richbadomega}, where for this system,
+$\omega = 1$ apparently did not lead to convergence, while for
+\bkexpref{richgoodomega}, with $\omega = 1/6,$ convergence was observed.
+
+%best omega is around 0.318107283098466 ...
+\end{bksolution}
+\end{bkexprob}%UNFOLD
+
+%Note that not all matrices with spectral radius less than $1$ are diagonally
+%dominant.   For example:
+%\[\Mtx{A} = \Bracks{\begin{array}{cc} 0 & \oneby{4}\\1 & 0\end{array}}.\]
+%This matrix is not diagonally dominant, but has spectral radius of \half.
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{A Free Lunch?}\label{subsec:freelunch}%FOLDUP
+
+The analysis leading to \thmref{iterconvg} leads to an interesting possible
+variant of the iterative scheme.  For simplicity we will only consider an
+alteration of Richardson's Iteration.  In the altered algorithm we presuppose
+the existence, via some oracle, of a sequence of weightings, $\omega_i,$ which
+we use in each iterative update.  Thus our algorithm becomes:
+\begin{compactenum}
+\item Select some initial iterate \thex{0}.
+\item Given iterate \thex{k-1}, define
+\[\thex{k} = \Parens{\Mtx{I} - \omega_k \Mtx{A}} \thex{k-1} + \omega_k
+\vect{b}.\]
+\end{compactenum}
+
+Following the analysis for \thmref{iterconvg}, it can be shown that
+\[\thee{k} = \Parens{\Mtx{I} - \omega_k \Mtx{A}} \thee{k-1}\]
+where, again, $\thee{k} = \thex{k} - x,$ with $x$ the actual solution to the
+linear system.   Expanding \thee{k-1} similarly gives
+\begin{align*}
+\thee{k} &= 
+  \Parens{\Mtx{I} - \omega_k\Mtx{A}} \Parens{\Mtx{I} ­ \omega_{k-1}\Mtx{A}} \thee{k-2}\\
+	&=  \Parens{\prod_{i=1}^k \Mtx{I} - \omega_i \Mtx{A}} \thee{0}.
+\end{align*}
+
+Remember that we want \thee{k} to be small in magnitude, or, better yet, to be
+zero.  One way to guarantee that \thee{k} is zero, regardless of the choice of
+\thee{0} it to somehow ensure that the matrix
+\[\Mtx{B} = {\prod_{i=1}^k \Mtx{I} - \omega_i \Mtx{A}}\]
+has all zero eigenvalues.  
+
+We again make use of the fact that eigenvalues ``commute'' with polynomials to
+claim that if $\lambda_j$ is an eigenvalue of \Mtx{A}, then 
+\[{\prod_{i=1}^k 1 - \omega_i \lambda_j }\]
+is an eigenvalue of \Mtx{B}.  This eigenvalue is zero if one of the
+$\omega_i$ for $1\le i\le k$ is $1/\lambda_j.$  This suggests how we are to
+pick the weightings: let them be the inverses of the eigenvalues of \Mtx{A}.
+
+In fact, if \Mtx{A} has a small number of distinct eigenvalues, say $m$
+eigenvalues, then convergence to the exact solution could be guaranteed after
+only $m$ iterations, regardless of the \emph{size} of the matrix.  
+
+As you may have guessed from the title of this subsection, this is not exactly
+a practical algorithm.  The problem is that it is not simple to find, for a
+given arbitrary matrix \Mtx{A}, one, some, or all its eigenvalues.  This
+problem is of sufficient complexity to outweigh any savings to be gotten from
+our ``free lunch'' algorithm.  
+
+However, in some limited situations this algorithm might be practical if the
+eigenvalues of \Mtx{A} are known \apriori.
+
+%UNFOLD
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Exercises}%FOLDUP
+\begin{bkexs}
+
+
+\item Find the LU decomposition of the following matrices, using \naive
+Gaussian Elimination
+\begin{inparaenum}
+\item $\threebythree3{-1}{-2}9{-1}{-4}{-6}{10}{13}$
+\item $\threebythree8{24}{16}1{12}{11}4{13}{19}$
+\item $\threebythree{-3}{6}{0}{1}{-2}{0}{-4}{5}{-8}$
+\end{inparaenum}
+
+\item Perform back substitution to solve the equation
+\[\left[\begin{array}{cccc} 
+	1 & 3 & 5 & 3\\
+	0 & 2 & 4 & 3\\
+	0 & 0 & 2 & 1\\
+	0 & 0 & 0 & 2\end{array}\right] \vect{x} = 
+\left[\begin{array}{c} 
+-1 \\ -1 \\ 1 \\ 2\end{array}\right]\]
+
+\item Perform \Naive Gaussian Elimination to prove Cramer's rule for the 2D
+case. That is, prove that the solution to
+\[
+\Bracks{\begin{array}{cc}
+a & b \\
+c & d \\
+\end{array}}
+\Bracks{\begin{array}{c}
+x \\
+y \\
+\end{array}}
+=
+\Bracks{\begin{array}{c}
+f \\
+g \\
+\end{array}}
+\]
+is given by 
+\[
+y = \frac{\det \Bracks{\begin{array}{cc} a & f \\ c & g \end{array}}}
+{\det \Bracks{\begin{array}{cc} a & b \\ c & d \end{array}}}
+\quad\text{and}\quad
+x = \frac{\det \Bracks{\begin{array}{cc} f & b \\ g & d \end{array}}}
+{\det \Bracks{\begin{array}{cc} a & b \\ c & d \end{array}}}
+\]
+\label{chex:cramer}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Implement Cramer's rule to solve a pair of linear equations in $2$
+variables.  Your m-file should have header line like:
+\begin{verbatim}
+function x = cramer2(A,b)
+\end{verbatim}
+where \texttt{A} is a $2\cross2$ matrix, and \texttt{b} and \texttt{x} are
+$2\cross1$ vectors.  Your code should find the \texttt{x} such that 
+$\mathtt{A x} = \mathtt{b}.$ (See \chexref{cramer})
+
+Test your code on the following (augmented) systems:\\
+	\begin{inparaenum}
+	\item \,$\Parens{\begin{array}{rr|r}3 & -2 & 1\\ 4 & -3 & -1 \end{array}}$\,%
+	\item \,$\Parens{\begin{array}{rr|r}1.24 &-3.48 & 1\\-0.744 &2.088 & 2
+	\end{array}}$\,%
+	\item \,$\Parens{\begin{array}{rr|r}1.24 &-3.48 & 1\\-0.744 &2.088 &
+	-0.6\end{array}}$\,\\%
+	\item \,$\Parens{\begin{array}{rr|r} -0.0590 & 0.2372 & -0.3528\\
+	 0.1080 & -0.4348 & 0.6452\end{array}}$\,%
+	\end{inparaenum}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Given two lines parametrized by $\vect{f}(t) = \vect{a} t + \vect{b},$ and
+$\vect{g}(s) = \vect{c} s + \vect{d},$ set up a linear $2\cross2$ system of
+equations to find the $t,s$ at the point of intersection of the two lines.
+If you were going to write a program to detect the intersection of two lines,
+how would you detect whether they are parallel?  How is this related to the
+form of the solution to a system of two linear equations? (See
+\chexref{cramer})
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Prove that the inverse of the matrix
+\[
+\Bracks{\begin{array}{ccccc}
+1 & 0 & 0 & \cdots & 0\\
+a_{2} & 1 & 0 & \cdots & 0\\
+a_{3} & 0 & 1 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{n} & 0 & 0 & \cdots & 1
+\end{array}}
+\]
+is the matrix
+\[
+\Bracks{\begin{array}{ccccc}
+1 & 0 & 0 & \cdots & 0\\
+- a_{2} & 1 & 0 & \cdots & 0\\
+- a_{3} & 0 & 1 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+- a_{n} & 0 & 0 & \cdots & 1
+\end{array}}
+\]
+\begin{bkhint}Multiply them together.\end{bkhint}
+\label{chex:invM}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Under the strategy of scaled partial pivoting,
+which row of the following matrix will be the first pivot row?
+\[\left[\begin{array}{ccccc} 
+	  10 &  17 & -10 & 0.1 & 0.9 \\
+	 - 3 &   3 &  -3 & 0.3 & - 4 \\
+	 0.3 & 0.1 & 0.01& - 1 & 0.5 \\
+	   2 &   3 &   4 &  -3 &   5 \\
+	  10 & 100 &   1 & 0.1 &   0 \\
+  \end{array}\right]\]
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Let \Mtx{A} be a symmetric positive definite $n\cross n$ matrix with $n$
+distinct eigenvalues. Letting $\they{0} = \vect{b}/\norm{\vect{b}},$ consider the iteration
+\[\they{k+1} = \frac{\Mtx{A}\they{k}}{\norm{\Mtx{A} \they{k}}}.\]
+	\begin{compactenum}
+	\item What is \norm{\they{k}}?
+	\item Show that $\they{k} = \Mtx{A}^k \vect{b} / \norm{\Mtx{A}^k \vect{b}}.$
+	\item Show that as $k\to\infty$, \they{k} converges to the (normalized) eigenvector
+	associated with the largest eigenvalue of \Mtx{A}.
+	\end{compactenum}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Consider the equation
+\[\left[\begin{array}{ccc} 
+	1 & 3 & 5 \\
+	-2 & 2 & 4 \\
+	4 & -3 & -4 \end{array}\right] \vect{x} = 
+\left[\begin{array}{c} 
+-5 \\ -6 \\ 10\end{array}\right]\]
+Letting $\thex{0} = \trans{\Bracks{1\,\,1\,\,0}},$ find the iterate \thex{1} by one
+step of Richardson's Method.  And by one step of Jacobi Iteration. And by Gauss Seidel.
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Let \Mtx{A} be a symmetric $n\cross n$ matrix with eigenvalues in the
+interval \ccinv{\alpha}{\beta}, with $0 < \alpha \le \beta,$ and
+$\alpha+\beta\ne0.$
+Consider Richardson's Iteration
+\[\thex{k+1} = \Parens{\Mtx{I} - \omega\Mtx{A}} \thex{k} + \omega\vect{b}.\]
+	Recall that $\thee{k+1} = \Parens{\Mtx{I} - \omega\Mtx{A}} \thee{k}.$
+	\begin{compactenum}
+	\item Show that the eigenvalues of $\Mtx{I} - \omega\Mtx{A}$ are in 
+	the interval \ccinv{1-\omega\beta}{1-\omega\alpha}.  
+	\item Prove that 
+	\[\max\sngtn{\abs{\lambda} : 1-\omega\beta \le \lambda \le 1-\omega\alpha}\]
+	is minimized when we choose $\omega$ such that $1 - \omega\beta =
+	-\Parens{1-\omega\alpha}.$ 
+	\begin{bkhint}It may help to look at the graph of something versus
+	$\omega$.\end{bkhint}
+	\item Show that this relationship is satisfied by $\omega = 2/\Parens{\alpha
+	+ \beta}$.
+	\item For this choice of $\omega$ show that the spectral radius of $\Mtx{I} -
+	\omega\Mtx{A}$ is 
+	\[\frac{\abs{\alpha - \beta}}{\abs{\alpha + \beta}}.\]
+	\item Show that when $0 < \alpha,$ this quantity is always smaller than $1.$
+	\item Prove that if \Mtx{A} is positive definite, then there is an $\omega$
+	such that Richardson's Iteration with this $\omega$ will converge for any
+	choice of \thex{0}.
+	\item For which matrix do you expect faster convergence of Richardson's
+	Iteration: 
+	\Mtx{A_1} with eigenvalues in \ccinv{10}{20} or
+	\Mtx{A_2} with eigenvalues in \ccinv{1010}{1020}? Why?
+	\end{compactenum}
+\label{chex:richardseigen}
+
+
+%
+%An easier condition to check is \emph{diagonal dominance}.   The matrix \Mtx{A}
+%is said to be diagonally dominant if for $j=\onetox{n},$
+%\[\abs{a_{jj}} > \sum_{i=1,i\ne j}^n \abs{a_{ji}}.\]
+%Thus in a diagonally dominant matrix, a diagonal element is larger, in absolute
+%value, than the sum of the absolute values of the rest of the row.  
+%A diagonally dominant matrix plus the right choice of \Mtx{Q} gives the right
+%eigenvalues, as the following theorem asserts:
+%
+%\begin{bktheorem}
+%If the matrix \Mtx{A} is diagonally dominant, then the Jacobi and Gauss Seidel 
+%iterative solution schemes converge for any starting \thex{0}.
+%\end{bktheorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Implement Richardson's Iteration to solve the system $\Mtx{A}\vect{x} =
+\vect{b}.$  Your m-file should have header line like:
+\begin{verbatim}
+function xk = richardsons(A,b,x0,w,k)
+\end{verbatim}
+Your code should return \thex{k} based on the iteration
+\[\thex{j+1} = \thex{j} - \omega \Parens{\Mtx{A}\thex{j} - \vect{b}}.\]
+Let \texttt{w} take the place of $\omega,$ and let \texttt{x0} be the initial
+iterate \thex{0}.  Test your code for $\Mtx{A},\vect{b}$ for which you know the
+actual solution to the problem. 
+\begin{bkhint}Start with \Mtx{A} and the
+solution \thex{} and \emph{generate} \vect{b}.\end{bkhint}
+Test your code on the following matrices:
+	\begin{compactitem}
+	\item Let \Mtx{A} be the \emph{Hilbert Matrix}\index{Hilbert Matrix}.  This
+	is generated by the octave command \texttt{A = hilb(10)}, or whatever
+	(smallish) integer.
+	Try different values of $\omega,$ including $\omega = 1.$
+	\item Let \Mtx{A} be a \emph{Toeplitz} matrix of the form:
+	\[
+	\Mtx{A} = \Bracks{\begin{array}{ccccc}
+	-2 & 1 & 0 & \cdots & 0\\
+	1 & -2 & 1 & \cdots & 0\\
+	0 & 1 & -2 & \cdots & 0\\
+	\vdots & \vdots & \vdots & \ddots & \vdots\\
+	0 & 0 & 0 & \cdots & -2
+	\end{array}}
+	\]
+	These can be generated by the 
+	octave command \texttt{A = toeplitz([-2 1 0 0 0 0 0 0])}.
+	Try different values of $\omega,$ including $\omega = -1/2.$
+	\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\item Let \Mtx{A} be a nonsingular $n\cross n$ matrix.  We wish to solve
+$\Mtx{A}\vect{x} = \vect{b}.$  Let \thex{0} be some
+starting vector, let \dee{k} be
+$\operatorname{span}\sngtn{\ther{0},\Mtx{A}\ther{0},\ldots,\Mtx{A}^{k}\ther{0}},$
+and let \pee{k} be the set of polynomials, $p(x)$ of degree $k$ with $p(0) =
+1.$
+
+Consider the following iterative method:  Let \thex{k+1} be the \thex{} that solves
+\[\min\limits_{\thex{} \in \thex{0} + \dee{k}} \norm{\vect{b} - \Mtx{A}\thex{}}.\]
+Let $\ther{k} = \vect{b} - \Mtx{A}\thex{k}.$
+
+	\begin{compactenum}
+	\item Show that if $\thex{} \in \thex{0} + \dee{k},$ then $\vect{b} -
+	\Mtx{A}\thex{} = p(\Mtx{A}) \ther{0}$ for some $p \in \pee{k}.$
+	\item Prove that, conversely, for any $p \in \pee{k}$ there is some
+	$\thex{} \in \thex{0} + \dee{k},$ such that $\vect{b} -
+	\Mtx{A}\thex{} = p(\Mtx{A}) \ther{0}.$ 
+	\item Argue that 
+	\[\norm{\ther{k+1}} = \min\limits_{p \in \pee{k}} \norm{p(\Mtx{A})\ther{0}}.\]
+	\item Prove that this iteration converges in at most $n$ steps.
+	\begin{bkhint}Argue for the existence of a polynomial in \pee{n} that
+	vanishes at all the eigenvalues of \Mtx{A}.  Use this polynomial to show that 
+	$\norm{\ther{n}} \le 0$.\end{bkhint}
+
+	\end{compactenum}
+
+\end{bkexs}
+%UNFOLD
+%for vim modeline: (do not edit)
+% vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=%%s:tags=tags;:syntax=tex:filetype=tex:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:

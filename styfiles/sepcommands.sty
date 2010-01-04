@@ -1,0 +1,548 @@
+
+%cvs%stuff%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLDUP
+% $Id: sepcommands.sty 97 2006-02-07 23:55:09Z spav $
+% $Log: sepcommands.sty,v $
+% Revision 1.14  2005/05/12 18:32:51  spav
+% adding bibs
+%
+% Revision 1.13  2005/04/19 23:00:10  spav
+% some changes
+%
+% Revision 1.12  2005/03/23 06:50:58  spav
+% minor fixes
+%
+% Revision 1.11  2005/03/17 18:11:39  spav
+% minor cosmetic changes
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%UNFOLD
+
+\typeout{-- reading sepcommands.sty}
+\typeout{-- CVSId: $Id: sepcommands.sty 97 2006-02-07 23:55:09Z spav $}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% operators%FOLDUP
+
+\def\@SEPCmathwrap#1{\ensuremath{#1}\xspace}
+\providecommand{\MATHIT}[1]{\ensuremath{#1}\xspace}
+
+\providecommand{\nePAIR}[2]{#1\lMr{#2}}
+\providecommand{\neSUB}[2]{\mtP{#2}{#1}{{{#1}_{#2}}}}
+\providecommand{\neSUP}[2]{\mtP{#2}{#1}{{{#1}^{#2}}}}
+%\providecommand{\neUL}[3]{\neSUB{\neSUP{#1}{#2}}{#3}}
+\providecommand{\neUL}[3]{\mtP{#2}{\mtP{#3}{#1}{{#1}_{#3}}}{\mtP{#3}{{#1}^{#2}}{{#1}^{#2}_{#3}}}}
+
+\providecommand{\mathSUB}[2]{\MATHIT{\neSUB{#1}{#2}}}
+\providecommand{\mathSUP}[2]{\MATHIT{\neSUP{#1}{#2}}}
+\providecommand{\mathUL}[3]{\MATHIT{\neUL{#1}{#2}{#3}}}
+
+%\neSUB{\neSUP{#1}{#2}}{#3}}
+
+% how to make an alternate something or other.
+\def\@SEPCaltseries#1#2{\ifcase#1\or \tilde{#2} \or \hat{#2} \or {#2}' \or
+{#2}^{\sharp} \or {#2}^{\natural} \else\@ctrerr\fi\relax}
+\providecommand{\alt}[2]{\ensuremath{{\@SEPCaltseries{#1}{#2}}}\xspace}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% greek constant series%FOLDUP
+
+% all lowercase greeks except epsilon,delta,iota,o,pi which have overriding
+% outside meanings or are typographically yucko
+% 1-19 regular series
+% 20-29 angly ones (repeats
+% 30-39 errory ones (some repeats)
+%
+\def\@SEPCgreekseries#1{\ifcase#1\or \alpha \or \beta \or \gamma \or \zeta \or \eta 
+\or \theta \or \kappa \or \lambda \or \mu \or 
+\nu \or \xi \or \rho \or \sigma \or \tau \or 
+\upsilon \or \phi \or \chi \or \psi \or \omega \or 
+\theta \or \phi \or \psi \or \upsilon \or \xi \or
+\vartheta \or \varphi \or \varsigma \or \tau \or \varpi \or
+\epsilon \or \zeta \or \eta \or \nu \or \omega \or
+\epsilon \or \zeta \or \eta \or \nu \or \omega 
+\else\@ctrerr\fi\relax}
+\providecommand{\grUL}[3]{\ensuremath{\neUL{\@SEPCgreekseries{#1}}{#2}{#3}}\xspace}
+\providecommand{\gru}[2]{\grUL{#1}{#2}{}}
+\providecommand{\grl}[2]{\grUL{#1}{}{#2}}
+\providecommand{\gr}[1]{\grUL{#1}{}{}}
+
+% all uppercase greeks except those indistinguishable from the latin uppercase.
+\def\@SEPCGreekseries#1{\ifcase#1\or \Gamma \or \Delta \or \Theta \or \Lambda
+\or \Xi \or \Pi \or \Sigma \or \Upsilon \or \Phi \or \Psi \or \Omega \else\@ctrerr\fi\relax}
+\providecommand{\GrUL}[3]{\ensuremath{\neUL{\@SEPCGreekseries{#1}}{#2}{#3}}\xspace}
+\providecommand{\Gru}[2]{\GrUL{#1}{#2}{}}
+\providecommand{\Grl}[2]{\GrUL{#1}{}{#2}}
+\providecommand{\Gr}[1]{\GrUL{#1}{}{}}
+
+% what do you call a random angle?
+\def\@SEPCangleseries#1{\ifcase#1\or \theta \or \phi \or \psi \or \omega \or
+\tau \or \sigma \or \chi \else\@ctrerr\fi\relax}
+\providecommand{\anUL}[3]{\ensuremath{\neUL{\@SEPCangleseries{#1}}{#2}{#3}}\xspace}
+\providecommand{\anu}[2]{\anUL{#1}{#2}{}}
+\providecommand{\anl}[2]{\anUL{#1}{}{#2}}
+\providecommand{\an}[1]{\anUL{#1}{}{}}
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% wrap commands%FOLDUP
+
+\providecommand{\wrapCeils}[1]{\left\lceil#1\right\rceil}
+\providecommand{\wrapFloors}[1]{\left\lfloor#1\right\rfloor}
+
+\providecommand{\wrapParens}[1]{\left(#1\right)}
+\providecommand{\wrapBraces}[1]{\left\{#1\right\}}
+\providecommand{\wrapBracks}[1]{\left[#1\right]}
+\providecommand{\wrapAngles}[1]{\left<#1\right>}
+\providecommand{\wrapparens}[1]{(#1)}
+\providecommand{\wrapbraces}[1]{\{#1\}}
+\providecommand{\wrapbracks}[1]{[#1]}
+\providecommand{\wrapangles}[1]{<#1>}
+
+\providecommand{\Parens}[1]{\wrapParens{#1}}
+\providecommand{\Braces}[1]{\wrapBraces{#1}}
+\providecommand{\Bracks}[1]{\wrapBracks{#1}}
+\providecommand{\Angles}[1]{\wrapAngles{#1}}
+
+\providecommand{\ceil}[1]{\ensuremath{\lceil#1\rceil}\xspace}
+\providecommand{\floor}[1]{\ensuremath{\lfloor#1\rfloor}\xspace}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% meta commands%FOLDUP
+
+%if something is nonempty, wrap it in parens, braces, etc
+\providecommand{\wrapNeMath}[1]{\mtP{#1}{}{${#1}$}}
+\providecommand{\wrapNeCeils}[1]{\mtP{#1}{}{\wrapCeils{#1}}}
+\providecommand{\wrapNeFloors}[1]{\mtP{#1}{}{\wrapFloors{#1}}}
+\providecommand{\wrapNeParens}[1]{\mtP{#1}{}{\wrapParens{#1}}}
+\providecommand{\wrapNeBraces}[1]{\mtP{#1}{}{\wrapBraces{#1}}}
+\providecommand{\wrapNeBracks}[1]{\mtP{#1}{}{\wrapBracks{#1}}}
+\providecommand{\wrapNeAngles}[1]{\mtP{#1}{}{\wrapAngles{#1}}}
+\providecommand{\wrapNeparens}[1]{\mtP{#1}{}{\wrapparens{#1}}}
+\providecommand{\wrapNebraces}[1]{\mtP{#1}{}{\wrapbraces{#1}}}
+\providecommand{\wrapNebracks}[1]{\mtP{#1}{}{\wrapbracks{#1}}}
+\providecommand{\wrapNeangles}[1]{\mtP{#1}{}{\wrapangles{#1}}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% general math%FOLDUP
+
+\providecommand{\Hz}{Hz}
+
+\providecommand{\defeq}{=_{\text{df}}}
+\providecommand{\kth}[1]{\ensuremath{#1^{\text{th}}}}
+\providecommand{\st}[1]{\ensuremath{#1^{\text{st}}}}
+\providecommand{\nd}[1]{\ensuremath{#1^{\text{nd}}}}
+\providecommand{\rd}[1]{\ensuremath{#1^{\text{rd}}}}
+\def\@SEPCsmartkth#1{\ifcase#1\or\st{1}\or\nd{2}\or\rd{3}\else\kth{#1}\fi\relax}
+\providecommand{\skth}[1]{\@SEPCsmartkth{#1}}
+
+\providecommand{\ND}[1]{\ensuremath{#1}D\xspace}
+\providecommand{\dgry}{\ensuremath{^\circ}}
+\providecommand{\abs}[1]{\ensuremath{\left| #1 \right|}}
+\providecommand{\half}[1][1]{\ensuremath{\frac{#1}{2}}\xspace}
+\providecommand{\haLf}[1][1]{\ensuremath{\wrapParens{{#1} / 2}}\xspace}
+\providecommand{\haLF}[1][1]{\ensuremath{{{#1} / 2}}\xspace}
+\providecommand{\oneby}[1]{\ensuremath{\frac{1}{#1}}\xspace}
+\providecommand{\onebyp}[1]{\ensuremath{\wrapParens{#1}^{-1}}\xspace}
+\providecommand{\oneBy}[1]{\ensuremath{\wrapParens{1 / {#1}}}\xspace}
+
+\providecommand{\sign}[1]{\ensuremath{\operatorname{sign}\wrapNeParens{#1}}\xspace}
+
+\providecommand{\onetox}[1]{1, 2, \ldots, #1}
+\providecommand{\oneto}{1, 2, \ldots}
+\providecommand{\zerotox}[1]{0, 1, \ldots, #1}
+\providecommand{\zeroto}{0, 1, \ldots}
+\providecommand{\zlist}{0, \pm 1, \pm 2, \ldots}
+\providecommand{\itoj}[2]{\ensuremath{#1, \ldots, #2}\xspace}
+
+\providecommand{\finiteseq}[2]{\ensuremath{{#1}_1, {#1}_2, \ldots, {#1}_{#2}}\xspace}
+\providecommand{\infiniteseq}[1]{\ensuremath{{#1}_1, {#1}_2, \ldots}\xspace}
+\providecommand{\finiteseries}[2]{\ensuremath{{#1}_1 + {#1}_2 + \ldots + {#1}_{#2}}}
+\providecommand{\infiniteseries}[1]{\ensuremath{{#1}_1 + {#1}_2 + \ldots }}
+
+\providecommand{\setBIdx}[3]{\ensuremath{\left\{#1\right\}_{#2}^{#3}}\xspace}
+\providecommand{\seqSetBIdx}[4][i]{\setBIdx{{#2}_#1}{#1=#3}{#1=#4}}
+\providecommand{\expseqSetBIdx}[4][i]{\ensuremath{\left\{#2\right\}_{#1=#3}^{#1=#4}}\xspace}
+%deprecated:
+\providecommand{\finiteseqSet}[3][i]{\seqSetBIdx[#1]{#2}{1}{#3}}
+\providecommand{\finiteseqSetZero}[3][i]{\seqSetBIdx[#1]{#2}{0}{#3}}
+\providecommand{\infiniteseqSet}[2][i]{\finiteseqSet[#1]{#2}{\infty}}
+
+%set functions
+\providecommand{\sngtn}[1]{\ensuremath{\left\{ #1 \right\}}\xspace}
+
+\providecommand{\setwo}[2]{\ensuremath{\left\{ #1 \left|\; {#2} \right.\right\}}\xspace}
+\providecommand{\tuple}[1]{\ensuremath{\left( #1 \right)}\xspace}
+\providecommand{\seq}[1]{\ensuremath{\left< #1 \right>}\xspace}
+\providecommand{\ngon}[1]{\ensuremath{#1}\xspace}
+
+%binary max & min
+\providecommand{\bmax}{\vee}
+\providecommand{\bmin}{\wedge}
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abbreviations %FOLDUP
+
+\providecommand{\Naive}{Na\"{\i}ve\xspace}
+\providecommand{\Naive}{Na\"{\i}ve\xspace}
+\providecommand{\naive}{na\"{\i}ve\xspace}
+\providecommand{\naively}{na\"{\i}vely\xspace}
+\providecommand{\apriori}{\emph{a priori}\xspace}
+\providecommand{\aposteriori}{\emph{a posteriori}\xspace}
+\providecommand{\adhoc}{\emph{ad hoc}\xspace}
+\providecommand{\ie}{\emph{i.e.},\xspace}
+\providecommand{\aka}{a.k.a.\xspace}
+\providecommand{\ca}{\emph{ca.}\xspace}
+\providecommand{\viz}{\emph{viz.}\xspace}
+\providecommand{\vicev}{\emph{vice versa}\xspace}
+\providecommand{\eg}{\emph{e.g.},\xspace}
+\providecommand{\etc}{\emph{etc.}\xspace}
+\providecommand{\cf}{\emph{cf.}\xspace}
+\providecommand{\wrt}{\emph{w.r.t.}\xspace}
+\providecommand{\mm}{\emph{mutatis mutandis}\xspace}
+\providecommand{\nb}{\emph{n.b.}\xspace}
+\providecommand{\etal}{\emph{et al.}\xspace}
+\providecommand{\tfae}{the following are equivalent}
+\providecommand{\WLOG}{without loss of generality, }
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%regular logical functions%FOLDUP
+
+\providecommand{\IFF}{\ensuremath{\ \text{iff} \ }}
+\providecommand{\st}{\ensuremath{\ \text{such that} \ }}
+\providecommand{\ST}{\ensuremath{\ \text{s.t.} \ }}
+\providecommand{\for}{\ensuremath{\ \text{for} \ }}
+\providecommand{\ow}{\ensuremath{\ \text{otherwise} \ }}
+\providecommand{\foreach}{\ensuremath{\forall}}
+\providecommand{\eye}{\ensuremath{I}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% plain old numbers%FOLDUP
+
+%\providecommand{\tenex}[2]{\ensuremath{{#1} \times 10^{#2}}\xspace}
+\providecommand{\tenex}[2]{\ensuremath{\mtP{#1}{}{{#1} \times }10^{#2}}\xspace}
+% coordinates, i.e. (x,y) or (x,y,z). you supply the commas, bub.
+\providecommand{\crd}[1]{\ensuremath{\left( #1 \right)}\xspace}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graph theory%FOLDUP
+
+\providecommand{\edge}[2]{\ensuremath{(#1, #2)}\xspace}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% algorithms%FOLDUP
+
+\providecommand{\bigo}[1]{\ensuremath{\mathcal{O}\wrapParens{#1}}\xspace}
+\providecommand{\lilo}[1]{\ensuremath{\mathcal{o}\wrapParens{#1}}\xspace}
+\providecommand{\omeg}[1]{\ensuremath{\Omega\wrapParens{#1}}\xspace}
+\providecommand{\bigtheta}[1]{\ensuremath{\Theta\wrapParens{#1}}\xspace}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% topology%FOLDUP
+
+\providecommand{\reals}[1]{\ensuremath{\SEPbbb{R}^{#1}}}
+\providecommand{\naturals}[1]{\ensuremath{\SEPbbb{N}^{#1}}}
+\providecommand{\integers}[1]{\ensuremath{\SEPbbb{Z}^{#1}}}
+\providecommand{\complexes}[1]{\ensuremath{\SEPbbb{C}^{#1}}}
+\providecommand{\comps}[1]{\complexes{#1}}
+
+\providecommand{\ccinv}[2]{\ensuremath{\left[#1, #2\right]}\xspace}
+\providecommand{\ooinv}[2]{\ensuremath{\left(#1, #2\right)}\xspace}
+\providecommand{\coinv}[2]{\ensuremath{\left[#1, #2\right)}\xspace}
+\providecommand{\ocinv}[2]{\ensuremath{\left(#1, #2\right]}\xspace}
+
+\providecommand{\crray}[1]{\coinv{#1}{\infty}}
+\providecommand{\orray}[1]{\ooinv{#1}{\infty}}
+\providecommand{\clray}[1]{\ocinv{- \infty}{#1}}
+\providecommand{\olray}[1]{\ooinv{- \infty}{#1}}
+\providecommand{\clinv}[2]{\ensuremath{\left[#1, #2\right]}\xspace}
+\providecommand{\opinv}[2]{\ensuremath{\left(#1, #2\right)}\xspace}
+
+\providecommand{\dist}[1][\cdot,\cdot]{\ensuremath{\operatorname{d}\wrapParens{#1}}}
+\providecommand{\ds}[1][\cdot,\cdot]{\ensuremath{\operatorname{d}\wrapParens{#1}}}
+
+\providecommand{\basis}[1]{\ensuremath{\mathcal{B}_{#1}}}
+\providecommand{\subbasis}[1]{\ensuremath{\mathcal{S}_{#1}}}
+\providecommand{\clsr}[1]{\ensuremath{\overline{#1}}}
+\providecommand{\intr}[1]{\ensuremath{\overset{ \circ }{#1}}}
+
+\providecommand{\interior}{\ensuremath{\operatorname{Int}}}
+\providecommand{\boundary}{\ensuremath{\operatorname{Bd}}}
+\providecommand{\border}[1]{\ensuremath{\partial#1}\xspace}
+\providecommand{\bord}[1]{\border{#1}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%fourier and wavelets?%FOLDUP
+
+%fourier transform
+\providecommand{\Fryay}[1]{\MATHIT{\mathcal{F}\wrapNeParens{#1}}}
+\providecommand{\iFryay}[1]{\MATHIT{\mathcal{F}^{-1}\wrapNeParens{#1}}}
+%convolution operator
+%\providecommand{\conv}{\star}
+\providecommand{\conv}{\ast}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%stupid old geometry%FOLDUP
+
+%why don't these work?
+%\providecommand{\Cr}[1]{\ensuremath{\ifthenelse{\equal{#1}{}}{C}{C_{#1}}}\xspace}
+%\providecommand{\Sg}[1]{\ensuremath{\ifthenelse{\equal{#1}{}}{S}{S_{#1}}}\xspace}
+
+%a circle
+\providecommand{\Cr}[1]{\ensuremath{C_{#1}}\xspace}
+%a segment
+\providecommand{\Sg}[1]{\ensuremath{S_{#1}}\xspace}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%analysis%FOLDUP
+
+\renewcommand{\exp}[1]{\ensuremath{e^{#1}}}
+\providecommand{\longexp}[1]{\ensuremath{\operatorname{exp}\wrapNeParens{#1}}}
+\providecommand{\invs}[1]{\ensuremath{#1^{-1}}}
+\providecommand{\neinvs}[1]{\mtP{#1}{}{\invs{#1}}}
+
+\providecommand{\limto}[2]{\ensuremath{ \underset{#1 \rightarrow #2}{\lim} }}
+\providecommand{\infsum}[1]{\sum_{#1}^{\infty}}
+\providecommand{\sigalg}{\ensuremath{\sigma\ \text{algebra}}}
+\providecommand{\ball}[2]{\ensuremath{B(#1, #2)}}
+
+\providecommand{\eval}[2]{\ensuremath{\left.{#1}\right|_{#2}}\xspace}
+\providecommand{\dubeval}[3]{\ensuremath{\left.{\rule[-0.1\baselineskip]{0cm}{1.1\baselineskip}#1}\right|_{#2}^{#3}}\xspace}
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%derivatives mess%FOLDUP
+
+\providecommand{\dirac}[1]{\MATHIT{\delta\wrapNeParens{#1}}}
+\providecommand{\heavi}[1]{\MATHIT{\mathcal{H}\wrapNeParens{#1}}}
+
+
+
+\def\@SEPCdiffl{\mathrm{d}}
+\def\@SEPCpartl{\partial}
+%deprecated
+\providecommand{\DIFFERENTIAL}{\mathrm{d}}
+\providecommand{\PARTIAL}{\partial}
+
+\providecommand{\dx}[1][x]{\MATHIT{\,\@SEPCdiffl{#1}}}
+\providecommand{\px}[1][x]{\MATHIT{\@SEPCpartl{#1}}}
+%deprecated:
+\providecommand{\dpx}[1][x]{\MATHIT{\@SEPCpartl{#1}}}
+
+\def\@SEPCtopfrac#1#2#3#4#5{\MATHIT{\frac{\neUL{#1}{#2}{#3} {#4}}{#5}}}
+
+%1 to power 2  3 by 4
+\def\@SEPCrby#1#2#3#4{\@SEPCtopfrac{#1}{#2}{}{#3}{#4}}
+%1 to power 2  3 by (1 4) to power 2
+\def\@SEPCrbyr#1#2#3#4{\@SEPCrby{#1}{#2}{#3}{\neUL{#1 #4}{#2}{}}}
+
+%with differentials d^1 2 / 3
+\providecommand{\drby}[3][{}]{\@SEPCrby{\@SEPCdiffl}{#1}{#2}{#3}}
+%with differentials d^1 2 / (d 3)^1
+\providecommand{\drbydr}[3][{}]{\@SEPCrbyr{\@SEPCdiffl}{#1}{#2}{#3}}
+\providecommand{\dbyd}[3][{}]{\@SEPCrbyr{\@SEPCdiffl}{#1}{#2}{#3}}
+\providecommand{\dydx}{\dbyd{y}{x}}
+
+%with partials d^1 2 / 3
+\providecommand{\prby}[3][{}]{\@SEPCrby{\@SEPCpartl}{#1}{#2}{#3}}
+%with partials d^1 2 / (d 3)^1
+\providecommand{\prbypr}[3][{}]{\@SEPCrbyr{\@SEPCpartl}{#1}{#2}{#3}}
+\providecommand{\pbyp}[3][{}]{\@SEPCrbyr{\@SEPCpartl}{#1}{#2}{#3}}
+
+%20E?
+%jacobian determinant
+\providecommand{\jacdet}[2]{\ensuremath{\prby{\tuple{#1}}{\px[\tuple{#2}]}}\xspace}
+\providecommand{\tcross}[2]{\ensuremath{\vect{T}_{#1}\cross\vect{T}_{#2}}\xspace}
+
+%deprecated:
+%\providecommand{\DPBYDP}[4]{\MATHIT{\frac{{#1}^{#2} {#3}}{#4}}}
+%\providecommand{\DBYD}[3]{\DPBYDP{#1}{}{#2}{#3}}
+
+%deprecated:
+%\providecommand{\dpbydp}[3][{}]{\DPBYDP{\PARTIAL}{#1}{#2}{{\PARTIAL #3}^{#1}}}
+%\providecommand{\dpbyd}[3][{}]{\DPBYDP{\PARTIAL}{#1}{#2}{#3}}
+%\providecommand{\dbydp}[3][{}]{\DPBYDP{\PARTIAL}{#1}{#2}{#3}}
+%replace \dpbydp[#1]{#2}{#3} with \prbypr[#1]{#2}{#3}
+%replace \dpbyd[#1]{#2}{#3} with \prby[#1]{#2}{#3}
+%replace \dbydp[#1]{#2}{#3} with \prby[#1]{#2}{#3}
+\typeout{-- sepcommands deprecation: replace dpbydp with prbypr}
+\typeout{-- sepcommands deprecation: replace dbydp with prby}
+\typeout{-- sepcommands deprecation: replace dbyd with prby}
+
+\providecommand{\del}{\nabla}
+
+%\providecommand{\dbyd}[2]{\ensuremath{\frac{\DIFFERENTIAL #1}{\DIFFERENTIAL #2}}}
+%\providecommand{\dbydp}[3][{}]{\ensuremath{\frac{\partial^{#1} #2}{\partial #3}}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% linear algebra%FOLDUP
+
+%Kronecker, Hadamard products and Hadamard divides.
+\providecommand{\kron}{\otimes}
+\providecommand{\hadm}{\odot}
+\providecommand{\hadd}{\oslash}
+
+%which to use?
+\providecommand{\Matx}[1]{\MATHIT{\mathbf{#1}}}
+\providecommand{\Mtx}[1]{\MATHIT{\mathsf{#1}}}
+\providecommand{\vect}[1]{\MATHIT{\boldsymbol{#1}}}
+
+\providecommand{\MtxUL}[3]{\mathUL{\Mtx{#1}}{#2}{#3}}
+\providecommand{\vectUL}[3]{\mathUL{\vect{#1}}{#2}{#3}}
+
+\providecommand{\MtxpUL}[3]{\mathUL{\Mtx{#1}}{\wrapNeParens{#2}}{#3}}
+\providecommand{\vectpUL}[3]{\mathUL{\vect{#1}}{\wrapNeParens{#2}}{#3}}
+
+
+
+\providecommand{\transym}{\top}
+\providecommand{\intransym}{-\transym}
+
+\providecommand{\trans}[1]{\ensuremath{#1^{\transym}}\xspace}
+\providecommand{\intrans}[1]{\ensuremath{#1^{\intransym}}\xspace}
+
+\providecommand{\smooshvec}[1]{\trans{\Bracks{#1}}}
+\providecommand{\threebythree}[9]{\Bracks{\begin{array}{ccc}{#1}&{#2}&{#3}\\{#4}&{#5}&{#6}\\{#7}&{#8}&{#9}\end{array}}}
+\providecommand{\twotwosys}[6]{\Bracks{\begin{array}{cc|c}{#1}&{#2}&{#3}\\{#4}&{#5}&{#6}\end{array}}}
+\providecommand{\twobytwo}[4]{\Bracks{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\end{array}}}
+\providecommand{\twobyone}[2]{\Bracks{\begin{array}{r}{#1}\\{#2}\end{array}}}
+\providecommand{\twobythree}[6]{\Bracks{\begin{array}{ccc}{#1}&{#2}&{#3}\\{#4}&{#5}&{#6}\end{array}}}
+\providecommand{\threebytwo}[6]{\Bracks{\begin{array}{cc}{#1}&{#2}\\{#3}&{#4}\\{#5}&{#6}\end{array}}}
+\providecommand{\threebyone}[3]{\Bracks{\begin{array}{r}{#1}\\{#2}\\{#3}\end{array}}}
+\providecommand{\onebytwo}[2]{\Bracks{\begin{array}{rr}{#1}&{#2}\end{array}}}
+
+\providecommand{\mlrmat}[2][{}]{\invs{\Parens{\trans{#2}\neinvs{#1} {#2}}}
+\trans{#2}\neinvs{#1}}
+
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%combinatorics/maths functions%FOLDUP
+
+\typeout{-- warning: choose is changed to LaTeX standard}
+\providecommand{\nchoosek}[2]{\MATHIT{#1\choose#2}}
+%\renewcommand{\choose}[2]{\ensuremath{aa\left(\begin{array}{c}#1\\#2\end{array} \right)}\xspace}
+
+\providecommand{\function}[3]{\ensuremath{#1 \colon #2 \rightarrow #3}}
+\providecommand{\functions}[2]{\setwo{f}{\function{f}{#1}{#2}}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%optimization and whatall%FOLDUP
+
+\providecommand{\argmin}{\operatornamewithlimits{arg\,min}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% regular set functions%FOLDUP
+
+\providecommand{\card}[1]{\ensuremath{\left| #1 \right|}}
+
+\providecommand{\union}{\bigcup}
+\providecommand{\intersect}{\bigcap}
+
+\providecommand{\Union}[2]{\bigcup_{#1}^{#2}}
+\providecommand{\Joins}[2]{\bigcap_{#1}^{#2}}
+\providecommand{\cross}{\times}
+\providecommand{\pset}[1]{\ensuremath{\mathcal{P}( #1 )}}
+\providecommand{\cmp}[1]{\ensuremath{#1^c}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TSA commands%FOLDUP
+
+\providecommand{\cspan}[1]{\ensuremath{\overline{\operatorname{sp}} \{#1\} }}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% probability%FOLDUP
+
+\renewcommand{\Pr}[1]{\ensuremath{\operatorname{Pr}\left\{#1\right\}}}
+\providecommand{\Prcon}[2]{\ensuremath{\operatorname{Pr}\left\{#1 \left|\; {#2} \right.\right\}}}
+\providecommand{\E}[1]{\ensuremath{\operatorname{E}\left[#1\right]}}
+\providecommand{\Econ}[2]{\ensuremath{\operatorname{E}\left[#1 \left|\; {#2} \right.\right]}}
+\providecommand{\VAR}[1]{\ensuremath{\operatorname{var}(#1)}}
+\providecommand{\COV}[1]{\ensuremath{\operatorname{cov}(#1)}}
+\providecommand{\RV}[1]{random variable#1}
+\providecommand{\indicator}[1]{\ensuremath{\chi_{\left\{#1\right\}}}\xspace}
+\providecommand{\indic}[1]{\indicator{#1}}
+
+%distributions
+\providecommand{\dsNormal}[2]{\MATHIT{\mathcal{N}\tuple{#1,#2}}}
+\providecommand{\dsUniform}[2]{\MATHIT{\textsc{unif}\tuple{#1,#2}}}
+\providecommand{\dsExp}[1]{\MATHIT{\textsc{exp}\tuple{#1}}}
+\providecommand{\dsCauchy}[2]{\MATHIT{\textsc{cau}\tuple{#1,#2}}}
+
+%\providecommand{\sensibleFig}[1]{ \psfull \psfig{file=#1,width=3.3in,rwidth=0.76\linewidth,rheight=3.3in,clip=,silent=} \psfull    }
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% regular vector space stuff?%FOLDUP
+
+\providecommand{\fldsetrep}{\ensuremath{\mathcal{F}}\xspace}
+\providecommand{\fld}{\fldsetrep}
+\providecommand{\vecsetrep}{\ensuremath{\mathcal{V}}\xspace}
+\providecommand{\vecs}{\vecsetrep}
+\providecommand{\polys}[1]{\ensuremath{\mathcal{P}_{#1}}\xspace}
+
+%double norm, upper, lower
+\providecommand{\dNormUL}[3]{\ensuremath{\neUL{\left\|{#3}\right\|}{#1}{#2}}\xspace}
+\providecommand{\dNormU}[2]{\dNormUL{#1}{}{#2}}
+\providecommand{\dNormL}[2]{\dNormUL{}{#1}{#2}}
+\providecommand{\dlone}[1]{\dNormUL{}{1}{#1}}
+\providecommand{\dltwo}[1]{\dNormUL{}{2}{#1}}
+\providecommand{\dlinf}[1]{\dNormUL{}{\infty}{#1}}
+\providecommand{\dabs}[1]{\dNormUL{}{}{#1}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% hardcore crud theory%FOLDUP
+
+%domain, bilinear form, norm, norm, class, etc
+\providecommand{\DOMAIN}{\Omega}
+\providecommand{\BIFO}[2]{\ensuremath{\left({#2}\right)_{#1}}\xspace}
+\providecommand{\NORM}[2]{\ensuremath{\left|{#2}\right|_{#1}}\xspace}
+\providecommand{\NORMM}[2]{\ensuremath{\left\|{#2}\right\|_{#1}}\xspace}
+\providecommand{\CCLASS}[4][{}]{\ensuremath{{#2}^{#3}_{#4}\wrapNeParens{#1}}\xspace}
+\providecommand{\BCLASS}[4][{}]{\ensuremath{{#2}^{#3}_{#4}\wrapNeBracks{#1}}\xspace}
+
+
+\providecommand{\Bv}[1][\DOMAIN]{\CCLASS[#1]{BV}{}{}}
+\providecommand{\bv}[2][\DOMAIN]{\NORM{\Bv[#1]}{#2}}
+
+\providecommand{\Cn}[2][]{\CCLASS[#1]{\operatorname{C}}{#2}{}}
+\providecommand{\Cndom}[2][\DOMAIN]{\CCLASS[#1]{\operatorname{C}}{#2}{}}
+
+\providecommand{\Czero}[1][\DOMAIN]{\protect\CCLASS[#1]{C}{0}{}}
+\providecommand{\czero}[2][\DOMAIN]{\NORM{\Czero[#1]}{#2}}
+\providecommand{\Coalpha}[1][\DOMAIN]{\CCLASS[#1]{C}{0,\alpha}{}}
+\providecommand{\coalpha}[2][\DOMAIN]{\NORM{\Coalpha[#1]}{#2}}
+
+\providecommand{\Hone}[1][\DOMAIN]{\CCLASS[#1]{H}{1}{}}
+\providecommand{\hone}[2][\DOMAIN]{\NORM{\Hone[#1]}{#2}}
+\providecommand{\Hmone}[1][\DOMAIN]{\CCLASS[#1]{H}{-1}{}}
+\providecommand{\hmone}[2][\DOMAIN]{\NORM{\Hmone[#1]}{#2}}
+
+\providecommand{\Honeo}[1][\DOMAIN]{\CCLASS[#1]{H}{1}{0}}
+\providecommand{\honeo}[2][\DOMAIN]{\NORM{\Honeo[#1]}{#2}}
+
+\providecommand{\Lnum}[2][\DOMAIN]{\CCLASS[#1]{L}{#2}{}}
+
+\providecommand{\Lone}[1][\DOMAIN]{\CCLASS[#1]{L}{1}{}}
+\providecommand{\lone}[2][\DOMAIN]{\NORM{\Lone[#1]}{#2}}
+\providecommand{\Ltwo}[1][\DOMAIN]{\CCLASS[#1]{L}{2}{}}
+\providecommand{\ltwo}[2][\DOMAIN]{\NORM{\Ltwo[#1]}{#2}}
+\providecommand{\Linf}[1][\DOMAIN]{\CCLASS[#1]{L}{\infty}{}}
+\providecommand{\linf}[2][\DOMAIN]{\NORM{\Linf[#1]}{#2}}
+
+\providecommand{\lbifo}[3][\DOMAIN]{\BIFO{\Lnum[#1]{#2}}{#3}}
+
+\providecommand{\Lq}[1][\DOMAIN]{\CCLASS[#1]{L}{q}{}}
+\providecommand{\lq}[2][\DOMAIN]{\NORM{\Lq[#1]}{#2}}
+\providecommand{\Lp}[1][\DOMAIN]{\CCLASS[#1]{L}{p}{}}
+\providecommand{\lp}[2][\DOMAIN]{\NORM{\Lp[#1]}{#2}}
+\providecommand{\Lpp}[1][\DOMAIN]{\CCLASS[#1]{L}{p'}{}}
+\providecommand{\lpp}[2][\DOMAIN]{\NORM{\Lpp[#1]}{#2}}
+
+\providecommand{\norm}[2][2]{\NORMM{#1}{#2}}
+%UNFOLD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%miscellaneous%FOLDUP
+%a circle
+\providecommand{\frabs}[2]{\ensuremath{\frac{\abs{#1}}{\abs{#2}}}\xspace}
+%UNFOLD
+

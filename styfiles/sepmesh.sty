@@ -1,0 +1,212 @@
+
+%cvs%stuff%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLDUP
+% $Id: sepmesh.sty 3 2005-11-08 20:56:42Z spav $
+% $Log: sepmesh.sty,v $
+% Revision 1.10  2005/04/19 23:00:10  spav
+% some changes
+%
+% Revision 1.9  2005/03/17 18:11:39  spav
+% minor cosmetic changes
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%UNFOLD
+
+\typeout{-- reading sepmesh.sty}
+\typeout{-- CVSId: $Id: sepmesh.sty 3 2005-11-08 20:56:42Z spav $}
+
+% series for graph edges
+\def\@MSHedgeseries#1{\ifcase#1\or e \or f \or g\else\@ctrerr\fi\relax}
+\providecommand{\edUL}[3]{\ensuremath{\neUL{\@MSHedgeseries{#1}}{#2}{#3}}\xspace}
+
+% series for graph points
+\def\@MSHpointseries#1{\ifcase#1\or p \or q \or t\else\@ctrerr\fi\relax}
+\providecommand{\ptUL}[3]{\ensuremath{\neUL{\@MSHpointseries{#1}}{#2}{#3}}\xspace}
+
+% respectively, the DT, line segment, local feature size, simplicial set,
+% three kinds of polytopes, simplex and bound for skinnyes.
+\providecommand{\DLNY}{{D}elaunay\xspace}
+\providecommand{\DR}{\DLNY Refinement\xspace}
+\providecommand{\DT}{\DLNY Triangulation\xspace}
+\providecommand{\DTs}{\DLNY Triangulations\xspace}
+\providecommand{\CDT}{Constrained \DT}
+\providecommand{\CDTs}{Constrained \DTs}
+\providecommand{\CoDT}{Conforming \DT}
+\providecommand{\CoDTs}{Conforming \DTs}
+\providecommand{\DTet}{\DLNY Tetrahedralization\xspace}
+\providecommand{\DTets}{\DLNY Tetrahedralizations\xspace}
+\providecommand{\CoDTet}{Conforming \DTet}
+\providecommand{\CoDTets}{Conforming \DTets}
+%\providecommand{\VRNOI}{{V}orono\"{\i}\xspace}
+\providecommand{\VRNOI}{{V}oronoi\xspace}
+\providecommand{\VD}{\VRNOI Diagram\xspace}
+
+\providecommand{\lseg}[2]{\ensuremath{\wrapParens{#1, #2}}}
+\providecommand{\cseg}[2]{\ensuremath{\widetilde{#1, #2}}}
+%\providecommand{\lseg}[2]{\ensuremath{\overline{#1 #2}}\xspace}
+\providecommand{\CD}[1]{\ensuremath{\left(#1\right)}\xspace}
+
+\providecommand{\sset}[1][l]{\ensuremath{\mathcal{T}_{#1}}\xspace}
+\providecommand{\ptope}[1][l]{\ensuremath{\mathcal{P}_{#1}}\xspace}
+\providecommand{\qtope}[1][l]{\ensuremath{\mathcal{Q}_{#1}}\xspace}
+\providecommand{\rtope}[1][l]{\ensuremath{\mathcal{R}_{#1}}\xspace}
+\providecommand{\xtope}[1][l]{\ensuremath{\mathcal{P}_{#1}^*}\xspace}
+\providecommand{\ntope}[2][l]{\ensuremath{\mathcal{P}_{#1}^{#2}}\xspace}
+\providecommand{\smplx}[1][l]{\ensuremath{S_{#1}}\xspace}
+\providecommand{\splx}{\smplx[]}
+\providecommand{\tmplx}[1][l]{\ensuremath{T_{#1}}\xspace}
+\providecommand{\xmplx}[1][l]{\ensuremath{S_{#1}^*}\xspace}
+\providecommand{\nmplx}[2][l]{\ensuremath{S_{#1}^{#2}}\xspace}
+\providecommand{\cmplx}[1][]{\ensuremath{\mathscr{S}_{#1}}\xspace}
+\providecommand{\pgon}[1][]{\ensuremath{\mathscr{P}_{#1}}\xspace}
+\providecommand{\skbd}[1][l]{\ensuremath{\rho_{#1}}\xspace}
+\providecommand{\link}[2][\cmplx]{\ensuremath{\operatorname{link}_{#1}\left(#2\right)}\xspace}
+
+%Bottom,Top,LocalFeature size: BTLF
+\providecommand{\BTLF}[3]{\ensuremath{\mathrm{lfs}_{#1}^{#2}\wrapNeParens{#3}}\xspace}
+\providecommand{\ulf}[2][{}]{\BTLF{}{#1}{#2}}
+\providecommand{\Lf}[2][{}]{\BTLF{*}{#1}{#2}}
+\providecommand{\lf}[2][{}]{\BTLF{#1}{}{#2}}
+\providecommand{\lfs}[1][l]{\BTLF{#1}{}{}}
+\providecommand{\nlf}[2][{}]{\BTLF{#1}{\prime}{#2}}
+\providecommand{\nnlf}[2][{}]{\BTLF{#1}{\prime\prime}{#2}}
+
+%Bottom,Top,NearestFeatureDistance: BTNF
+\providecommand{\BTNF}[3]{\ensuremath{\mathrm{nfd}_{#1}^{#2}\wrapNeParens{#3}}\xspace}
+\providecommand{\unf}[2][{}]{\BTNF{}{#1}{#2}}
+\providecommand{\Nf}[2][{}]{\BTNF{*}{#1}{#2}}
+\providecommand{\nf}[2][{}]{\BTNF{#1}{}{#2}}
+\providecommand{\nfd}[1][l]{\BTNF{#1}{}{}}
+\providecommand{\nnf}[2][{}]{\BTNF{#1}{\prime}{#2}}
+\providecommand{\nnnf}[2][{}]{\BTNF{#1}{\prime\prime}{#2}}
+
+%Bottom,Top,Nearest Neighbor: BTNN
+\providecommand{\BTNN}[3]{\ensuremath{\mathrm{nn}_{#1}^{#2}\!\wrapNeParens{#3}}\xspace}
+\providecommand{\nn}[2][{}]{\BTNN{#1}{}{#2}}
+
+%Bottom,Top,distance function: BTDF
+\providecommand{\BTDF}[3]{\ensuremath{\mathrm{d}_{#1}^{#2}\wrapNeParens{#3}}\xspace}
+
+% rays, power of sphere and point, circumboll, border, cylinder
+%\providecommand{\psD}[2]{\ensuremath{\operatorname{d}\left(#1,#2\right)}}
+\providecommand{\ray}[1]{\ensuremath{\stackrel{\rightarrow}{#1}}\xspace}
+\providecommand{\segray}[2]{\ray{\lseg{1}{2}}}
+\providecommand{\hnorm}[1]{\ensuremath{\eta(#1)}\xspace}
+
+\providecommand{\psD}[2]{\ensuremath{\mathscr{P}\left(#1,#2\right)}\xspace}
+\providecommand{\bDom}[2]{\ensuremath{\left\{#1 \sqsubset #2\right\}}\xspace}
+\providecommand{\bDomeq}[2]{\ensuremath{\left\{#1 \sqsubseteq #2\right\}}\xspace}
+\providecommand{\cDom}[2]{\bDom{\cball{#1}}{\cball{#2}}}
+\providecommand{\cDomeq}[2]{\bDomeq{\cball{#1}}{\cball{#2}}}
+
+\providecommand{\beq}[2]{\ensuremath{\left\{#1 = #2\right\}}\xspace}
+\providecommand{\radax}[2]{\beq{#1}{#2}}
+\providecommand{\cball}[1]{\ensuremath{\mathscr{C}\wrapNeParens{#1}}\xspace}
+\providecommand{\smpball}[1][l]{\cball{\smplx[#1]}}
+\providecommand{\tmpball}[1][l]{\cball{\tmplx[#1]}}
+\providecommand{\xmpball}[1][l]{\cball{\xmplx[#1]}}
+\providecommand{\nmpball}[2][l]{\cball{\nmplx[#1]{#2}}}
+
+\providecommand{\cyl}[1]{\ensuremath{\operatorname{Cyl}(#1)}\xspace}
+\providecommand{\cylG}[2]{\ensuremath{\operatorname{Cyl}_{#2}(#1)}\xspace}
+\providecommand{\cylp}[1]{\ensuremath{\operatorname{Cyl}^{+}(#1)}\xspace}
+\providecommand{\cyln}[1]{\ensuremath{\operatorname{Cyl}^{-}(#1)}\xspace}
+\providecommand{\cylGp}[2]{\ensuremath{\operatorname{Cyl}_{#2}^{+}(#1)}\xspace}
+\providecommand{\cylGn}[2]{\ensuremath{\operatorname{Cyl}_{#2}^{-}(#1)}\xspace}
+\providecommand{\cylpp}[1]{\ensuremath{\operatorname{Cyl}^{++}(#1)}\xspace}
+\providecommand{\cylnn}[1]{\ensuremath{\operatorname{Cyl}^{--}(#1)}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% laguerre/voronoi dominating region
+\providecommand{\LVdom}[2][\Balset]{\ensuremath{\operatorname{Dom}_{#1}(#2)}\xspace}
+\providecommand{\LVR}[2][\Balset]{\ensuremath{\operatorname{LR}_{#1}(#2)}\xspace}
+\providecommand{\chull}[1]{\ensuremath{\mathcal{CH}\left(#1\right)}\xspace}
+\providecommand{\bptope}[1][l-j]{\rtope[#1]}
+\providecommand{\bptopes}[1][j]{\ensuremath{\Delta_{#1}}\xspace}
+\providecommand{\bsmplx}[1][l-j]{\tmplx[#1]}
+\providecommand{\bsmplxs}[1][j]{\ensuremath{\Sigma_{#1}}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% representatives for various things
+\providecommand{\HSSrep}{\ensuremath{\mathcal{H}}\xspace}
+\providecommand{\Ssetsrep}{\ensuremath{\mathbf{\bar{T}}}\xspace}
+\providecommand{\ConfQrep}{\ensuremath{\mathcal{Q}}\xspace}
+\providecommand{\Scmprep}{\ensuremath{\mathscr{S}}\xspace}
+%\providecommand{\Qsprep}{\ensuremath{\mathcal{Q}}\xspace}
+%\providecommand{\Ssprep}{\ensuremath{\mathcal{S}}\xspace}
+%\providecommand{\Ruprep}{\ensuremath{\mathcal{R}}\xspace}
+%\providecommand{\VtxTabrep}{\ensuremath{\mathcal{V}}\xspace}
+\providecommand{\SknyTrep}{\ensuremath{\mathcal{X}}\xspace}
+\providecommand{\BassTrep}{\ensuremath{\mathcal{B}}\xspace}
+\providecommand{\PLSrep}{\ensuremath{\mathscr{W}}\xspace}
+\providecommand{\PLCrep}{\ensuremath{\mathscr{W}}\xspace}
+\providecommand{\ptoperep}{\ensuremath{\mathcal{P}}}
+\providecommand{\trirep}{\ensuremath{\mathcal{T}}}
+\providecommand{\skelrep}{\ensuremath{\mathscr{S}}\xspace}
+%polytope, edge, segs, triangles, faces, arcs sets
+\providecommand{\ptpsetrep}{\ensuremath{\mathscr{B}}\xspace}
+\providecommand{\edgsetrep}{\ensuremath{\mathscr{E}}\xspace}
+\providecommand{\segsetrep}{\ensuremath{\mathscr{S}}\xspace}
+\providecommand{\trisetrep}{\ensuremath{\mathscr{T}}\xspace}
+\providecommand{\facsetrep}{\ensuremath{\mathscr{F}}\xspace}
+\providecommand{\arcsetrep}{\ensuremath{\mathscr{A}}\xspace}
+%vertex, point, curve sets.
+\providecommand{\vtxsetrep}{\ensuremath{\mathscr{V}}\xspace}
+\providecommand{\pntsetrep}{\ensuremath{\mathscr{P}}\xspace}
+\providecommand{\crvsetrep}{\ensuremath{\mathscr{C}}\xspace}
+%circles?, trns?
+\providecommand{\crcsetrep}{\ensuremath{\mathscr{C}}\xspace}
+\providecommand{\trnsetrep}{\ensuremath{\mathscr{T}}\xspace}
+
+\providecommand{\pnts}{\pntsetrep}
+\providecommand{\segs}{\segsetrep}
+\providecommand{\tris}{\trisetrep}
+\providecommand{\crvs}{\crvsetrep}
+\providecommand{\trng}{\trnsetrep}
+\providecommand{\ptps}{\ptpsetrep}
+\providecommand{\vtxs}{\vtxsetrep}
+\providecommand{\edgs}{\edgsetrep}
+\providecommand{\facs}{\facsetrep}
+\providecommand{\crcs}{\crcsetrep}
+\providecommand{\arcs}{\arcsetrep}
+\providecommand{\pls}{\PLSrep}
+\providecommand{\plc}{\PLCrep}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%input degree, point neighbor, fans, fanlengths, fanrings.
+\providecommand{\idg}[2][{}]{\ensuremath{\operatorname{dg}_{#1}\left(#2\right)}\xspace}
+\providecommand{\pnbr}[2][{}]{\ensuremath{\mathcal{N}_{#1}\left(#2\right)}\xspace}
+%\providecommand{\fan}[2][{}]{\ensuremath{\mathscr{F}_{#1}\left(#2\right)}\xspace}
+%\providecommand{\fln}[1]{\ensuremath{\operatorname{Fl}\left(#1\right)}\xspace}
+%\providecommand{\frng}[2][0]{\ensuremath{\mathcal{FR}_{#1}\left(#2\right)}\xspace}
+\providecommand{\fan}[3][{}]{\ensuremath{\mathscr{F}_{#1}^{#2}\left(#3\right)}\xspace}
+\providecommand{\fln}[2]{\ensuremath{\operatorname{Fl}^{#1}\left(#2\right)}\xspace}
+\providecommand{\frng}[3][0]{\ensuremath{\mathcal{FR}_{#1}^{#2}\left(#3\right)}\xspace}
+
+\providecommand{\Bals}{\ensuremath{\mathcal{B}}\xspace}
+\providecommand{\Balset}{\ensuremath{\Omega}\xspace}
+
+\providecommand{\HSSvtxs}{\ensuremath{\mathcal{V}_{\HSSrep}}\xspace}
+\providecommand{\smpvtxs}{\ensuremath{\mathcal{V}_s}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%typical vertex set, and minimum distance?
+\providecommand{\vtxSet}[1]{\ensuremath{\mathbf{V}\left(#1\right)}\xspace}
+\providecommand{\minToVtx}[2]{\ensuremath{\mathfrak{m}\left(#1, #2\right)}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%the delaunay operator, and cavity junk
+\providecommand{\dt}[1][{}]{\ensuremath{\mathcal{D}\wrapNeParens{#1}}\xspace}
+\providecommand{\vd}[1][{}]{\ensuremath{\mathcal{V}\wrapNeParens{#1}}\xspace}
+\providecommand{\cavt}{\ensuremath{\mathcal{C}}\xspace}
+\providecommand{\cavtb}{\ensuremath{\mathcal{C}_b}}
+\providecommand{\cavtS}{\ensuremath{\mathcal{C}_S}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% parent relation
+\providecommand{\prnt}[2]{\ensuremath{\left(#1\right) \stackrel{b}{\leadsto} \left(#2\right)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% angle stuff
+
+\providecommand{\Minin}[1][{}]{\ensuremath{\anUL{1}{*}{#1}}\xspace}
+\providecommand{\minin}[2]{\Minin[#1\lMr{#2}]}

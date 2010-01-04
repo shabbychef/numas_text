@@ -1,0 +1,187 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sepmath}[2005/03/17 v0.1 (s.e.pav)]
+
+%copyright%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLDUP
+% sepmath.sty
+% s.e.pav
+% 2003-2005
+%
+% all of my macros in some style files.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%UNFOLD
+
+%cvs%stuff%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLDUP
+% $Id: sepmath.sty 44 2005-12-15 02:33:17Z spav $
+% $Log: sepmath.sty,v $
+% Revision 1.11  2005/04/19 23:00:10  spav
+% some changes
+%
+% Revision 1.10  2005/03/17 18:11:39  spav
+% minor cosmetic changes
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%UNFOLD
+
+\typeout{-- reading sepmath.sty file}
+\typeout{-- N© 2003--2005 s.e.p.}
+\typeout{-- CVSId: $Id: sepmath.sty 44 2005-12-15 02:33:17Z spav $}
+
+\RequirePackage{ifthen}
+\RequirePackage{xspace}
+
+\newboolean{SEP@nonstandard}
+\newboolean{SEP@environments}
+\newboolean{SEP@commands}
+\newboolean{SEP@meshstuff}
+\newboolean{SEP@shortcuts}
+\newboolean{SEP@thesis}
+\newboolean{SEP@refs}
+
+\DeclareOption{nonstandard}{\setboolean{SEP@nonstandard}{true}}
+\DeclareOption{environments}{\setboolean{SEP@environments}{true}}
+\DeclareOption{commands}{\setboolean{SEP@commands}{true}}
+\DeclareOption{meshstuff}{\setboolean{SEP@meshstuff}{true}}
+\DeclareOption{shortcuts}{\setboolean{SEP@shortcuts}{true}}
+\DeclareOption{thesis}{\setboolean{SEP@thesis}{true}}
+\DeclareOption{refs}{\setboolean{SEP@refs}{true}}
+
+\DeclareOption*{\setboolean{SEP@\CurrentOption}{false}}
+
+%\ExecuteOptions{commands}
+\ProcessOptions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% meta meta commands
+% emptyP if 1 is empty give 2 else give 3
+%\providecommand{\mtP}[3]{\ifx\@empty#1\@empty#2\else#3\fi}
+\def\mtP#1#2#3{\ifx\@empty#1\@empty#2\else#3\fi}
+% listmore if 1 is empty give 1 else give `,1'
+\def\lMr#1{\ifx\@empty#1\@empty\relax\else{,#1}\fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% load appropriate substyles
+
+\ifthenelse{\boolean{SEP@nonstandard}}
+	{	
+		\typeout{-- warning: sepmath using nonstandard style file}
+		\providecommand{\SEPbbb}[1]{\mathbb{#1}}
+		\RequirePackage{amsmath}
+		\RequirePackage{amsfonts}
+		\PassOptionsToPackage{mathscr}{eucal}
+		\RequirePackage{eucal}
+	}
+	{   
+		\providecommand{\SEPbbb}[1]{\Bbb{#1}}
+		\PassOptionsToPackage{leqno,fleqn,intlimits}{empheq}
+		\RequirePackage{empheq}
+%		superseded by empheq
+		\RequirePackage{amsmath}
+		\RequirePackage{amsfonts}
+		\RequirePackage{amsthm}
+		%for bold symbol vectors?:
+		\RequirePackage{amsbsy}
+		\PassOptionsToPackage{mathscr}{eucal}
+		\RequirePackage{eucal}
+
+		\renewcommand{\Bbb}[1]{\mathbb{#1}}
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		% make a nude footnote. i.e. one without a marker.
+		% harder than you would think.
+		
+		\RequirePackage{float}
+		\floatstyle{plain}
+		\newfloat{fakefoot}{b}{}
+		\newlength{\oldtfsep}
+		
+		\newenvironment{blankfoot}{%
+			\setlength{\oldtfsep}{\textfloatsep}
+			\setlength{\textfloatsep}{1.1ex plus0.7ex minus0.2ex}
+			\begin{fakefoot}}{%
+			\end{fakefoot}\setlength{\textfloatsep}{\oldtfsep}}
+		
+		\newenvironment{nudefoot}{%
+			\begin{blankfoot}\footnoterule\footnotesize}{\end{blankfoot}}
+		
+		\newenvironment{NudeFoot}{%
+			\begin{blankfoot}\footnoterule\normalsize}{\end{blankfoot}}
+
+		\providecommand{\sidenote}[2][{}]{\footnotemark\marginpar[#1]{\footnotesize\thefootnote{}.{} {#2}}}
+		\providecommand{\ssidenote}[2][{}]{\footnotemark\marginpar[#1]{\scriptsize\thefootnote{}.{} {#2}}}
+		\providecommand{\tsidenote}[2][{}]{\footnotemark\marginpar[#1]{\tiny\thefootnote{}.{} {#2}}}
+	}
+\ifthenelse{\boolean{SEP@environments}}
+	{\InputIfFileExists{sepenviro.sty}{}{%
+		\PackageError{sepmath}{file sepenviro.sty not found}{}}}
+	{}
+\ifthenelse{\boolean{SEP@commands}}
+	{\InputIfFileExists{sepcommands.sty}{}{%
+		\PackageError{sepmath}{file sepcommands.sty not found}{}}}
+	{}
+\ifthenelse{\boolean{SEP@meshstuff}}
+	{\InputIfFileExists{sepmesh.sty}{}{%
+		\PackageError{sepmath}{file sepmesh.sty not found}{}}}
+	{}
+\ifthenelse{\boolean{SEP@shortcuts}}
+	{\InputIfFileExists{sepcuts.sty}{}{%
+		\PackageError{sepmath}{file sepcuts.sty not found}{}}}
+	{}
+\ifthenelse{\boolean{SEP@thesis}}
+	{\InputIfFileExists{septhesis.sty}{}{%
+		\PackageError{sepmath}{file septhesis.sty not found}{}}}
+	{}
+\ifthenelse{\boolean{SEP@refs}}
+	{\InputIfFileExists{seprefs.sty}{}{%
+		\PackageError{sepmath}{file seprefs.sty not found}{}}}
+	{}
+
+%FOLDUP
+\let\c@@grid\count@
+\def\@vgrid(#1,#2)#3#4#5{%
+  \setcounter{@grid}{#1}%
+  \multiput(#1,#2)(#3,0){#4}{\line(0,1){#5}}%
+  \multiput(#1,#2)(#3,0){#4}{\@vgridnumber{#3}}}
+\def\@vgridnumber#1{%
+  \makebox(0,0)[t]{%
+    \shortstack{\rule{0pt}{10pt}\\\arabic{@grid}}}%
+  \addtocounter{@grid}{#1}}
+\def\@nonumvgrid(#1,#2)#3#4#5{%
+  \multiput(#1,#2)(#3,0){#4}{\line(0,1){#5}}}
+\def\@hgrid(#1,#2)#3#4#5{%
+  \setcounter{@grid}{#2}%
+  \multiput(#1,#2)(0,#3){#4}{\line(1,0){#5}}%
+  \multiput(#1,#2)(0,#3){#4}{\@hgridnumber{#3}}}
+\def\@hgridnumber#1{%
+  \makebox(0,0)[r]{\arabic{@grid}\hspace{10pt}}%
+  \addtocounter{@grid}{#1}}
+\def\@nonumhgrid(#1,#2)#3#4#5{%
+  \multiput(#1,#2)(0,#3){#4}{\line(1,0){#5}}}
+\newcommand\graphpoop[2][10]{\leavevmode\@grid{#1}{#2}}
+\def\@grid#1#2(#3,#4)#5{\@grid@i{#1}{#2}{#3}{#4}(}
+\def\@grid@i#1#2#3#4(#5,#6){%
+  \@tempcnta=#5\relax
+  \divide\@tempcnta#1\relax
+  \advance\@tempcnta1\relax
+   {\thinlines\@nonumvgrid(#3,#4){#1}{\@tempcnta}{#6}
+    \@tempcnta#5\relax
+    \divide\@tempcnta#2\relax
+    \divide\@tempcnta#1\relax
+    \advance\@tempcnta1\relax
+    \@tempcntb#2\relax
+    \multiply\@tempcntb#1\relax
+    \thicklines\@vgrid(#3,#4){\@tempcntb}{\@tempcnta}{#6}
+    \@tempcnta#6\relax
+    \divide\@tempcnta #1\relax
+    \advance\@tempcnta1\relax
+    \thinlines\@nonumhgrid(#3,#4){#1}{\@tempcnta}{#5}
+    \@tempcnta#6\relax
+    \divide\@tempcnta#2\relax
+    \divide\@tempcnta#1\relax
+    \advance\@tempcnta1\relax
+    \thicklines\@hgrid(#3,#4){\@tempcntb}{\@tempcnta}{#5}}%
+  \ignorespaces}
+%%
+%% End of file `graphpap.sty'.
+
+%UNFOLD
+
+\typeout{-- done reading sepmath.sty file}
