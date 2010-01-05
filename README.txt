@@ -25,9 +25,13 @@ notes, under the terms of the FDL license.
 
 BUILDING:
 
-The build process relies on the `empheq' style file, available from the mh
-LaTeX bundle (http://www.ctan.org/tex-archive/macros/latex/contrib/mh); this
-is package dev-tex/mh on Gentoo (not available as a package in Ubuntu?)
+The build process relies on the following LaTeX addons:
+ * `empheq' style file, available from the mh LaTeX bundle
+ (http://www.ctan.org/tex-archive/macros/latex/contrib/mh); this is package
+ dev-tex/mh on Gentoo (not available as a package in Ubuntu?)
+ * Staffan Ulfberg's `alg' style file
+ (http://www.ctan.org/tex-archive/macros/latex/contrib/alg/); this does not
+ appear to have an ebuild in Gentoo;
 
 I rely heavily on makefiles to make my latex documents. In the main directory,
 the command 
