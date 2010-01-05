@@ -28,10 +28,10 @@ BUILDING:
 The build process relies on the following LaTeX addons:
  * `empheq' style file, available from the mh LaTeX bundle
  (http://www.ctan.org/tex-archive/macros/latex/contrib/mh); this is package
- dev-tex/mh on Gentoo (not available as a package in Ubuntu?)
+ dev-tex/mh on Gentoo, texlive-latex-extra on Ubuntu;
  * Staffan Ulfberg's `alg' style file
- (http://www.ctan.org/tex-archive/macros/latex/contrib/alg/); this does not
- appear to have an ebuild in Gentoo;
+ (http://www.ctan.org/tex-archive/macros/latex/contrib/alg/); this is in 
+ package dev-texlive/texlive-science on Gentoo, texlive-science on Ubuntu;
 
 I rely heavily on makefiles to make my latex documents. In the main directory,
 the command 
