@@ -132,7 +132,7 @@ CHAP Introduction	./intro.tex	/^\\chapter{Introduction}$/;"	s
 CHAP Least Squares	./leastsquares.tex	/^\\chapter{Least Squares}$/;"	s
 CHAP Old Exams	./oldexams.tex	/^\\chapter{Old Exams}$/;"	s
 CHAP Ordinary Differential Equations	./odes.tex	/^\\chapter{Ordinary Differential Equations}\\label{chap:odes}$/;"	s
-CHAP Partial Differential Equations by Finite Element Method	./fdm.tex	/^\\chapter{Partial Differential Equations by Finite Element Method}\\label{chap:fem}$/;"	s
+CHAP Partial Differential Equations by Finite Difference Method	./fdm.tex	/^\\chapter{Partial Differential Equations by Finite Difference Method}\\label{chap:fem}$/;"	s
 CHAP Partial Differential Equations by Finite Element Method	./fem.tex	/^\\chapter{Partial Differential Equations by Finite Element Method}\\label{chap:fem}$/;"	s
 CHAP Preface	./numas.tex	/^\\chapter*{Preface} %FOLDUP$/;"	s
 CHAP Solving Linear Systems	./linearsys.tex	/^\\chapter{Solving Linear Systems}$/;"	s
@@ -195,7 +195,7 @@ bkexp:unccoef	./quadrature.tex	/^\\begin{bkexprob}\\label{bkexp:unccoef}%FOLDUP$
 bkthm:#1	./numas.tex	/^\\providecommand{\\bkthmref}[1]{Theorem~\\ref{bkthm:#1}}$/;"	r
 bkthm:taylors	./intro.tex	/^\\begin{bktheorem}[Taylor's Theorem]\\label{bkthm:taylors}%FOLDUP$/;"	l
 chap:apxDeriv	./derivatives.tex	/^\\label{chap:apxDeriv}$/;"	l
-chap:fem	./fdm.tex	/^\\chapter{Partial Differential Equations by Finite Element Method}\\label{chap:fem}$/;"	l
+chap:fem	./fdm.tex	/^\\chapter{Partial Differential Equations by Finite Difference Method}\\label{chap:fem}$/;"	l
 chap:fem	./fem.tex	/^\\chapter{Partial Differential Equations by Finite Element Method}\\label{chap:fem}$/;"	l
 chap:linearsys	./linearsys.tex	/^\\label{chap:linearsys}$/;"	l
 chap:odes	./odes.tex	/^\\chapter{Ordinary Differential Equations}\\label{chap:odes}$/;"	l
