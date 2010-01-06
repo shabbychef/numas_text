@@ -1,3 +1,13 @@
+%%%%(c) COPYRIGHT NOTICE%FOLDUP
+%%%%(c)
+%%%%(c)  This file is a portion of the source for the textbook
+%%%%(c)
+%%%%(c)    Numerical Methods Course Notes,
+%%%%(c)    Copyright 2004-2010 by Steven E. Pav
+%%%%(c)
+%%%%(c)  See the file COPYING.txt for copying conditions
+%%%%(c)
+%%%%(c)%UNFOLD
 %%
 %% This is file `sepbib.bst',
 %% generated with the docstrip utility.
@@ -1435,3 +1445,5 @@ EXECUTE {end.bib}
 %% End of customized bst file
 %%
 %% End of file `sepbib.bst'.
+%for vim modeline: (do not edit)
+% vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=%%s:tags=tags;:syntax=tex:filetype=tex:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:
