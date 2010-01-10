@@ -12,10 +12,13 @@ ORGANIZATIONAL
 
 TECHNICAL
 
+- recognizing contributors properly.
 - compiler switches for octave vs sage vs maple vs etc?
 - make it easier to regenerate figures & the dependency graph
 - autoconfig for the makefile? (ack)
-- or move to latexmk? (ack)
+- or move to latexmk? (ack) or lua? (ack)
+- optional answers for exercises.
+- noting exercises as octave-specific or sage-specific, etc;
 
 CONTENT
 

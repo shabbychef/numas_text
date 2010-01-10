@@ -272,15 +272,17 @@ The former ODE exhibits the opposite behavior--accrued errors will be amplified.
 %\figref{eposneg}%FOLDUP
 \begin{figure}[htbp!]
 \centering
-\subfigure[$(1+\epsilon)\exp{t}$]{
+%\subfigure[$(1+\epsilon)\exp{t}$]{
+\subfloat[$(1+\epsilon)\exp{t}$]{
 	\psfrag{epos(0.5,x)}[Br][r][0.7]{$\epsilon = -0.5$}
 	\psfrag{epos(0.75,x)}[Br][r][0.7]{$\epsilon = -0.25$}
 	\psfrag{epos(1.0,x)}[Br][r][0.7]{$\epsilon = 0$}
 	\psfrag{epos(1.25,x)}[Br][r][0.7]{$\epsilon = 0.25$}
 	\psfrag{epos(1.5,x)}[Br][r][0.7]{$\epsilon = 0.5$}
 	\label{fig:epos}
-	\includegraphics[height=0.76\columnwidth,angle=270,clip=]{epos.eps}}
-\subfigure[$(1+\epsilon)\exp{-t}$]{
+	\includegraphics[height=0.76\columnwidth,angle=270,clip=]{epos.eps}}\\
+%\subfigure[$(1+\epsilon)\exp{-t}$]{
+\subfloat[$(1+\epsilon)\exp{-t}$]{
 	\psfrag{eneg(0.5,x)}[Br][r][0.7]{$\epsilon = -0.5$}
 	\psfrag{eneg(0.75,x)}[Br][r][0.7]{$\epsilon = -0.25$}
 	\psfrag{eneg(1.0,x)}[Br][r][0.7]{$\epsilon = 0$}
@@ -943,10 +945,12 @@ curve.}  This is because the phase curve represents the
 %\figref{autonomous}%FOLDUP
 \begin{figure}[htbp!]
 \centering
-\subfigure[\EM]{
+%\subfigure[\EM]{
+\subfloat[\EM]{
 	\label{fig:autoeuler}
-	\includegraphics[height=0.76\columnwidth,angle=270,clip=]{growtheuler.eps}}
-\subfigure[\RKM]{
+	\includegraphics[height=0.76\columnwidth,angle=270,clip=]{growtheuler.eps}}\\
+%\subfigure[\RKM]{
+\subfloat[\RKM]{
 	\label{fig:autork}
 	\includegraphics[height=0.76\columnwidth,angle=270,clip=]{growthrk.eps}}
 \caption{The simulated phase curves of the system of \bkexref{autonomous} are

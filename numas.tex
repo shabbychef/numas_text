@@ -15,7 +15,6 @@
 
 %%throat clearing%FOLDUP
 \typeout{-- numas.tex}
-\typeout{-- quadrature.tex}
 \typeout{-- N© 2004-2010 Steven E. Pav}
 %UNFOLD
 
@@ -25,7 +24,8 @@
 \usepackage{empheq}
 \usepackage{makeidx}
 \usepackage{graphicx,epsfig,psfrag}
-\usepackage{subfigure}
+%\usepackage{subfigure}
+\usepackage{subfig}
 \graphicspath{{figs/}}
 \usepackage{alg}
 
@@ -33,6 +33,8 @@
 \usepackage{import}
 
 \usepackage[environments,commands,meshstuff,shortcuts]{sepmath}
+\usepackage{fcla-switches}
+%\FCLAstyle{octave=omit,sage=include,maple=omit}
 
 %\numberwithin
 \newtheorem{bktheorem}{Theorem}[chapter]
@@ -148,14 +150,21 @@ early versions of these notes, which were riddled with (more) errors.
 
 %%the chapters%FOLDUP
 \import*{./}{intro}
-\import*{./}{matlab}
+
+\ifthenelse{\boolean{hassage}}{
+\import*{./}{sage}}{}
+\ifthenelse{\boolean{hasoctave}}{
+\import*{./}{matlab}}{}
+\ifthenelse{\boolean{hasmaple}}{
+\import*{./}{maple}}{}
+
 \import*{./}{linearsys}
 \import*{./}{rootfind}
 \import*{./}{interpolate}
 \import*{./}{splines}
 \import*{./}{derivatives}
 \import*{./}{quadrature}
-\import*{./}{leastsquares}
+\import*{./leastsquares/}{leastsquares}
 \import*{./}{odes}
 %these are only stubs right now;
 %\import*{./}{fdm}

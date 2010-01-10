@@ -1,0 +1,41 @@
+%%%%(c) COPYRIGHT NOTICE%FOLDUP
+%%%%(c)
+%%%%(c)  This file is a portion of the source for the textbook
+%%%%(c)
+%%%%(c)    Numerical Methods Course Notes,
+%%%%(c)    Copyright 2004-2010 by Steven E. Pav
+%%%%(c)
+%%%%(c)  See the file COPYING.txt for copying conditions
+%%%%(c)
+%%%%(c)%UNFOLD
+
+%%throat clearing%FOLDUP
+\typeout{-- octave_backslash_lsqr.tex}
+\typeout{-- N© 2004-2010 Steven E. Pav}
+%UNFOLD
+
+%%local commands%FOLDUP
+%UNFOLD
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ordinary Least Squares in \octmat}%FOLDUP
+
+The ordinary least squares best approximant is so fundamental that it is
+hard-wired into \octmat's system solve operator.  The general equation 
+we wish to solve is 
+\[\Mtx{A}\vect{c} = \vect{y}.\]
+This system is overdetermined: there are more rows than columns in \Mtx{A},
+\ie more equations than unknown variables.  However, in \octmat, this is
+solved just like the case where \Mtx{A} is square:
+
+	\begin{verbatim}
+	octave:1> c = A \ y;
+	\end{verbatim}
+Thus, unless specifically told otherwise, you should not implement the
+ordinary least squares solution method in \octmat.  Under the hood,
+\octmat is \emph{not} using the normal equations method, and does not
+suffer the increased condition number of the normal equations method.
+%UNFOLD
+
+%for vim modeline: (do not edit)
+% vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=%%s:tags=tags;:syntax=tex:filetype=tex:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:

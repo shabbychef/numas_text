@@ -64,11 +64,13 @@ rectangles defined by the function $f$ and the partition $P$, as in
 %\figref{thesums}%FOLDUP
 \begin{figure}[htb!]
 \centering
-\subfigure[The Lower Sum]{
+%\subfigure[The Lower Sum]{
+\subfloat[The Lower Sum]{
 	\label{fig:lower}
 	\includegraphics[width=0.35\columnwidth,angle=270,clip=]{lower.eps}}
 \hspace{.04in}
-\subfigure[The Upper Sum]{
+%\subfigure[The Upper Sum]{
+\subfloat[The Upper Sum]{
 	\label{fig:upper}
 	\includegraphics[width=0.35\columnwidth,angle=270,clip=]{upper.eps}}
 \caption{The (a) lower, and (b) upper sums of a function on a given interval
@@ -1092,9 +1094,11 @@ end
 \end{verbatim}
 Use your code to approximate the \emph{error function}:
 \[\operatorname{erf}(z) = \frac{2}{\sqrt{\pi}} \int_0^z \exp{-t^2} \dx[t].\]
+\ifthenelse{\boolean{hasoctave}}{%FOLDUP
 Compare your results with the \octmat builtin function \texttt{erf}.
 (Try \texttt{help erf} in octave, or see 
 \texttt{http://mathworld.wolfram.com/Erf.html})
+}{}%UNFOLD
 
 The error function is used in probability.  In particular, the probability
 that a normal random variable is within $z$ standard deviations from its mean

@@ -16,17 +16,19 @@
 . Finite Differences	./derivatives.tex	/^\\section{Finite Differences}%FOLDUP$/;"	s
 . First Midterm, Fall 2003	./oldexams.tex	/^\\section{First Midterm, Fall 2003}%FOLDUP$/;"	s
 . First Midterm, Fall 2004	./oldexams.tex	/^\\section{First Midterm, Fall 2004}%FOLDUP$/;"	s
+. First Steps	./maple.tex	/^\\section{First Steps}%FOLDUP$/;"	s
+. First Steps	./sage.tex	/^\\section{First Steps}%FOLDUP$/;"	s
 . First and Second Degree Splines	./splines.tex	/^\\section{First and Second Degree Splines}%FOLDUP$/;"	s
 . Gaussian Elimination with \Naive Pivoting	./linearsys.tex	/^\\section{Gaussian Elimination with \\Naive Pivoting}%FOLDUP$/;"	s
 . Gaussian Quadrature	./quadrature.tex	/^\\section{Gaussian Quadrature}%FOLDUP$/;"	s
 . Getting Started	./matlab.tex	/^\\section{Getting Started}%FOLDUP$/;"	s
 . Iterative Solutions	./linearsys.tex	/^\\section{Iterative Solutions}%FOLDUP$/;"	s
 . LU Factorization	./linearsys.tex	/^\\section{LU Factorization}%FOLDUP$/;"	s
-. Least Squares	./leastsquares.tex	/^\\section{Least Squares}\\label{sec:ordinarylsq}%FOLDUP$/;"	s
+. Least Squares	./leastsquares/leastsquares.tex	/^\\section{Least Squares}\\label{sec:ordinarylsq}%FOLDUP$/;"	s
 . Loss of Significance	./intro.tex	/^\\section{Loss of Significance}%FOLDUP$/;"	s
 . Newton's Method	./rootfind.tex	/^\\section{Newton's Method}%FOLDUP$/;"	s
-. Orthogonal Least Squares	./leastsquares.tex	/^\\section{Orthogonal Least Squares}\\label{sec:orthlsq}%FOLDUP$/;"	s
-. Orthonormal Bases	./leastsquares.tex	/^\\section{Orthonormal Bases}\\label{sec:lsorthobases}%FOLDUP$/;"	s
+. Orthogonal Least Squares	./leastsquares/leastsquares.tex	/^\\section{Orthogonal Least Squares}\\label{sec:orthlsq}%FOLDUP$/;"	s
+. Orthonormal Bases	./leastsquares/leastsquares.tex	/^\\section{Orthonormal Bases}\\label{sec:lsorthobases}%FOLDUP$/;"	s
 . Pivoting Strategies for Gaussian Elimination	./linearsys.tex	/^\\section{Pivoting Strategies for Gaussian Elimination}%FOLDUP$/;"	s
 . Plotting	./matlab.tex	/^\\section{Plotting}%FOLDUP$/;"	s
 . Polynomial Interpolation	./interpolate.tex	/^\\section{Polynomial Interpolation}%FOLDUP$/;"	s
@@ -51,7 +53,7 @@
 .. Abstracting Richardson's Method	./derivatives.tex	/^\\subsection{Abstracting Richardson's Method}%FOLDUP$/;"	s
 .. Algorithm Problems	./linearsys.tex	/^\\subsection{Algorithm Problems}%FOLDUP$/;"	s
 .. Algorithm Terminology	./linearsys.tex	/^\\subsection{Algorithm Terminology}%FOLDUP$/;"	s
-.. Alternatives to Normal Equations	./leastsquares.tex	/^\\subsection{Alternatives to Normal Equations}%FOLDUP$/;"	s
+.. Alternatives to Normal Equations	./leastsquares/leastsquares.tex	/^\\subsection{Alternatives to Normal Equations}%FOLDUP$/;"	s
 .. An Example	./linearsys.tex	/^\\subsection{An Example}%FOLDUP$/;"	s
 .. An Operation Count for Gaussian Elimination	./linearsys.tex	/^\\subsection{An Operation Count for Gaussian Elimination}%FOLDUP$/;"	s
 .. Another Example and A Real Algorithm	./linearsys.tex	/^\\subsection{Another Example and A Real Algorithm}%FOLDUP$/;"	s
@@ -60,7 +62,7 @@
 .. Computing Cubic Splines	./splines.tex	/^\\subsection{Computing Cubic Splines}%FOLDUP$/;"	s
 .. Computing Inverses	./linearsys.tex	/^\\subsection{Computing Inverses}%FOLDUP$/;"	s
 .. Computing Second Degree Splines	./splines.tex	/^\\subsection{Computing Second Degree Splines}\\label{subsec:compsplinetwo}%FOLDUP$/;"	s
-.. Computing the Orthogonal Least Squares Approximant	./leastsquares.tex	/^\\subsection{Computing the Orthogonal Least Squares Approximant}\\label{subsec:comptls}%FOLDUP$/;"	s
+.. Computing the Orthogonal Least Squares Approximant	./leastsquares/leastsquares.tex	/^\\subsection{Computing the Orthogonal Least Squares Approximant}\\label{subsec:comptls}%FOLDUP$/;"	s
 .. Convergence	./rootfind.tex	/^\\subsection{Convergence} %FOLDUP$/;"	s
 .. Convergence	./rootfind.tex	/^\\subsection{Convergence}%FOLDUP$/;"	s
 .. Deriving the \RK Methods	./odes.tex	/^\\subsection{Deriving the \\RK Methods}%FOLDUP$/;"	s
@@ -89,16 +91,16 @@
 .. Jacobi Iteration	./linearsys.tex	/^\\subsection{Jacobi Iteration}%FOLDUP$/;"	s
 .. Lagranges Method	./interpolate.tex	/^\\subsection{Lagranges Method}%FOLDUP$/;"	s
 .. Larger Systems	./odes.tex	/^\\subsection{Larger Systems}%FOLDUP$/;"	s
-.. Least Squares from Basis Functions	./leastsquares.tex	/^\\subsection{Least Squares from Basis Functions}%FOLDUP$/;"	s
-.. Linear Least Squares	./leastsquares.tex	/^\\subsection{Linear Least Squares}%FOLDUP$/;"	s
+.. Least Squares from Basis Functions	./leastsquares/leastsquares.tex	/^\\subsection{Least Squares from Basis Functions}%FOLDUP$/;"	s
+.. Linear Least Squares	./leastsquares/leastsquares.tex	/^\\subsection{Linear Least Squares}%FOLDUP$/;"	s
 .. Logical Forks and Control	./matlab.tex	/^\\subsection{Logical Forks and Control}$/;"	s
 .. Matrix Norms	./intro.tex	/^\\subsection{Matrix Norms}%FOLDUP$/;"	s
 .. Modifications	./rootfind.tex	/^\\subsection{Modifications} $/;"	s
 .. Newton's Method	./interpolate.tex	/^\\subsection{Newton's Method}%FOLDUP$/;"	s
 .. Newton's Nested Form	./interpolate.tex	/^\\subsection{Newton's Nested Form} %FOLDUP$/;"	s
 .. Norms	./intro.tex	/^\\subsection{Norms}%FOLDUP$/;"	s
-.. Ordinary Least Squares in \octmat	./leastsquares.tex	/^\\subsection{Ordinary Least Squares in \\octmat}%FOLDUP$/;"	s
-.. Principal Component Analysis	./leastsquares.tex	/^\\subsection{Principal Component Analysis}\\label{subsec:pca}%FOLDUP$/;"	s
+.. Ordinary Least Squares in \octmat	./leastsquares/octave_backslash_lsqr.tex	/^\\subsection{Ordinary Least Squares in \\octmat}%FOLDUP$/;"	s
+.. Principal Component Analysis	./leastsquares/leastsquares.tex	/^\\subsection{Principal Component Analysis}\\label{subsec:pca}%FOLDUP$/;"	s
 .. Problems	./rootfind.tex	/^\\subsection{Problems} As mentioned above, convergence is dependent on $f(x),$ and$/;"	s
 .. Problems	./rootfind.tex	/^\\subsection{Problems} As with Newton's method, convergence is dependent on $f(x),$ and$/;"	s
 .. Recasting Single ODE Methods	./odes.tex	/^\\subsection{Recasting Single ODE Methods}%FOLDUP$/;"	s
@@ -112,7 +114,7 @@
 .. Stability	./odes.tex	/^\\subsection{Stability}\\label{subsec:odestability}%FOLDUP$/;"	s
 .. Taylor's Series Methods	./odes.tex	/^\\subsection{Taylor's Series Methods}%FOLDUP$/;"	s
 .. Taylor's Series Redux	./odes.tex	/^\\subsection{Taylor's Series Redux}%FOLDUP$/;"	s
-.. The Definition of Ordinary Least Squares	./leastsquares.tex	/^\\subsection{The Definition of Ordinary Least Squares}%FOLDUP$/;"	s
+.. The Definition of Ordinary Least Squares	./leastsquares/leastsquares.tex	/^\\subsection{The Definition of Ordinary Least Squares}%FOLDUP$/;"	s
 .. Upper and Lower Sums	./quadrature.tex	/^\\subsection{Upper and Lower Sums}%FOLDUP$/;"	s
 .. Using LU Factorizations	./linearsys.tex	/^\\subsection{Using LU Factorizations}%FOLDUP$/;"	s
 .. Using Newton's Method	./rootfind.tex	/^\\subsection{Using Newton's Method} %FOLDUP$/;"	s
@@ -123,13 +125,15 @@
 .. \BEM	./odes.tex	/^\\subsection{\\BEM}\\label{subsec:backwardsem}%FOLDUP$/;"	s
 .. \EM	./odes.tex	/^\\subsection{\\EM}%FOLDUP$/;"	s
 CHAP A ``Crash'' Course in \octmat	./matlab.tex	/^\\chapter{A ``Crash'' Course in \\octmat}$/;"	s
+CHAP An Introduction to Maple	./maple.tex	/^\\chapter{An Introduction to Maple}$/;"	s
+CHAP An Introduction to Sage	./sage.tex	/^\\chapter{An Introduction to Sage}$/;"	s
 CHAP Approximating Derivatives	./derivatives.tex	/^\\chapter{Approximating Derivatives}$/;"	s
 CHAP Finding Roots	./rootfind.tex	/^\\chapter{Finding Roots}\\label{chap:rootfind}$/;"	s
 CHAP GNU Free Documentation License	./fdl.tex	/^\\chapter{GNU Free Documentation License}$/;"	s
 CHAP Integrals and Quadrature	./quadrature.tex	/^\\chapter{Integrals and Quadrature}$/;"	s
 CHAP Interpolation	./interpolate.tex	/^\\chapter{Interpolation}$/;"	s
 CHAP Introduction	./intro.tex	/^\\chapter{Introduction}$/;"	s
-CHAP Least Squares	./leastsquares.tex	/^\\chapter{Least Squares}$/;"	s
+CHAP Least Squares	./leastsquares/leastsquares.tex	/^\\chapter{Least Squares}$/;"	s
 CHAP Old Exams	./oldexams.tex	/^\\chapter{Old Exams}$/;"	s
 CHAP Ordinary Differential Equations	./odes.tex	/^\\chapter{Ordinary Differential Equations}\\label{chap:odes}$/;"	s
 CHAP Partial Differential Equations by Finite Difference Method	./fdm.tex	/^\\chapter{Partial Differential Equations by Finite Difference Method}\\label{chap:fem}$/;"	s
@@ -150,7 +154,7 @@ bkdef:norm	./intro.tex	/^\\begin{bkdefinition}\\label{bkdef:norm}%FOLDUP$/;"	l
 bkdef:vecspace	./intro.tex	/^\\begin{bkdefinition}\\label{bkdef:vecspace}%FOLDUP$/;"	l
 bkex:#1	./numas.tex	/^\\providecommand{\\bkexref}[1]{Example~\\ref{bkex:#1}}$/;"	r
 bkex:autonomous	./odes.tex	/^\\begin{bkexample}\\label{bkex:autonomous}%FOLDUP$/;"	l
-bkex:awfulbasis	./leastsquares.tex	/^\\begin{bkexample}\\label{bkex:awfulbasis}%awful basis funcs%FOLDUP$/;"	l
+bkex:awfulbasis	./leastsquares/leastsquares.tex	/^\\begin{bkexample}\\label{bkex:awfulbasis}%awful basis funcs%FOLDUP$/;"	l
 bkex:backeultothex	./odes.tex	/^\\begin{bkexample}\\label{bkex:backeultothex}%FOLDUP$/;"	l
 bkex:compsn	./intro.tex	/^%\\begin{bkexample}\\label{bkex:compsn}%FOLDUP$/;"	l
 bkex:eposneg	./odes.tex	/^\\begin{bkexample}\\label{bkex:eposneg}$/;"	l
@@ -181,7 +185,7 @@ bkexp:hdip	./derivatives.tex	/^\\begin{bkexprob}\\label{bkexp:hdip}%FOLDUP$/;"	l
 bkexp:howmanycheby	./interpolate.tex	/^\\begin{bkexprob}\\label{bkexp:howmanycheby}%FOLDUP$/;"	l
 bkexp:interpagain	./interpolate.tex	/^\\begin{bkexprob}\\label{bkexp:interpagain}%FOLDUP$/;"	l
 bkexp:lagcoef	./quadrature.tex	/^\\begin{bkexprob}\\label{bkexp:lagcoef}%FOLDUP$/;"	l
-bkexp:lsqrlog	./leastsquares.tex	/^\\begin{bkexprob}\\label{bkexp:lsqrlog}%FOLDUP$/;"	l
+bkexp:lsqrlog	./leastsquares/leastsquares.tex	/^\\begin{bkexprob}\\label{bkexp:lsqrlog}%FOLDUP$/;"	l
 bkexp:maxeig	./intro.tex	/^%\\begin{bkexprob}\\label{bkexp:maxeig}%FOLDUP$/;"	l
 bkexp:maxeig	./intro.tex	/^\\begin{bkexample}\\label{bkexp:maxeig}%FOLDUP$/;"	l
 bkexp:mnormCS	./intro.tex	/^\\begin{bkexprob}\\label{bkexp:mnormCS}%FOLDUP$/;"	l
@@ -190,7 +194,7 @@ bkexp:quadratic	./intro.tex	/^\\begin{bkexprob}\\label{bkexp:quadratic}%FOLDUP$/
 bkexp:richbadomega	./linearsys.tex	/^\\begin{bkexprob}\\label{bkexp:richbadomega}%FOLDUP$/;"	l
 bkexp:richbestomega	./linearsys.tex	/^\\begin{bkexprob}\\label{bkexp:richbestomega}%FOLDUP$/;"	l
 bkexp:richgoodomega	./linearsys.tex	/^\\begin{bkexprob}\\label{bkexp:richgoodomega}%FOLDUP$/;"	l
-bkexp:twodtls	./leastsquares.tex	/^\\begin{bkexprob}\\label{bkexp:twodtls}%FOLDUP$/;"	l
+bkexp:twodtls	./leastsquares/leastsquares.tex	/^\\begin{bkexprob}\\label{bkexp:twodtls}%FOLDUP$/;"	l
 bkexp:unccoef	./quadrature.tex	/^\\begin{bkexprob}\\label{bkexp:unccoef}%FOLDUP$/;"	l
 bkthm:#1	./numas.tex	/^\\providecommand{\\bkthmref}[1]{Theorem~\\ref{bkthm:#1}}$/;"	r
 bkthm:taylors	./intro.tex	/^\\begin{bktheorem}[Taylor's Theorem]\\label{bkthm:taylors}%FOLDUP$/;"	l
@@ -205,10 +209,10 @@ chex:#2	./numas.tex	/^\\providecommand{\\chexref}[2][\\thechapter]{Exercise~({#1
 chex:cramer	./linearsys.tex	/^\\label{chex:cramer}$/;"	l
 chex:invM	./linearsys.tex	/^\\label{chex:invM}$/;"	l
 chex:richardseigen	./linearsys.tex	/^\\label{chex:richardseigen}$/;"	l
-def:leastsquares	./leastsquares.tex	/^\\begin{definition}[(Ordinary) Least Squares Best Approximant]\\label{def:leastsquares}%FOLDUP$/;"	l
-def:svd	./leastsquares.tex	/^\\begin{definition}\\label{def:svd}%FOLDUP$/;"	l
-def:unitary	./leastsquares.tex	/^\\begin{definition}\\label{def:unitary}%FOLDUP$/;"	l
-eqn:alphbet	./leastsquares.tex	/^&= \\twobytwo{2\\alpha}{\\beta}{\\beta}{2\\gamma}.\\label{eqn:alphbet}$/;"	l
+def:leastsquares	./leastsquares/leastsquares.tex	/^\\begin{definition}[(Ordinary) Least Squares Best Approximant]\\label{def:leastsquares}%FOLDUP$/;"	l
+def:svd	./leastsquares/leastsquares.tex	/^\\begin{definition}\\label{def:svd}%FOLDUP$/;"	l
+def:unitary	./leastsquares/leastsquares.tex	/^\\begin{definition}\\label{def:unitary}%FOLDUP$/;"	l
+eqn:alphbet	./leastsquares/leastsquares.tex	/^&= \\twobytwo{2\\alpha}{\\beta}{\\beta}{2\\gamma}.\\label{eqn:alphbet}$/;"	l
 eqn:cendiff	./derivatives.tex	/^\\label{eqn:cendiff}$/;"	l
 eqn:eqltraprule	./quadrature.tex	/^\\label{eqn:eqltraprule}$/;"	l
 eqn:eulerdef	./odes.tex	/^\\label{eqn:eulerdef}\\end{empheq}$/;"	l
@@ -217,7 +221,7 @@ eqn:gaussianq	./quadrature.tex	/^f(x_n),\\label{eqn:gaussianq}$/;"	l
 eqn:intgltodiffl	./odes.tex	/^x(t+h) &= x(t) + \\int_t^{t+h} f\\Parens{r,x(r)}\\dx[r].\\label{eqn:intgltodiffl}$/;"	l
 eqn:iterativeupdate	./linearsys.tex	/^\\label{eqn:iterativeupdate}$/;"	l
 eqn:lagpolydef	./interpolate.tex	/^\\label{eqn:lagpolydef}$/;"	l
-eqn:lsqrsetup	./leastsquares.tex	/^\\label{eqn:lsqrsetup}$/;"	l
+eqn:lsqrsetup	./leastsquares/leastsquares.tex	/^\\label{eqn:lsqrsetup}$/;"	l
 eqn:ndode	./odes.tex	/^\\label{eqn:ndode}$/;"	l
 eqn:newtoncoeffs	./interpolate.tex	/^\\label{eqn:newtoncoeffs}$/;"	l
 eqn:newtongathered	./interpolate.tex	/^\\label{eqn:newtongathered}$/;"	l
@@ -228,29 +232,29 @@ eqn:richmethdef	./derivatives.tex	/^\\label{eqn:richmethdef}$/;"	l
 eqn:rkfour	./odes.tex	/^\\end{split}\\label{eqn:rkfour}\\end{empheq}$/;"	l
 eqn:rktwo	./odes.tex	/^\\end{split}\\label{eqn:rktwo}\\end{empheq}$/;"	l
 eqn:rombergdef	./quadrature.tex	/^\\label{eqn:rombergdef}$/;"	l
-eqn:simplernormal	./leastsquares.tex	/^\\label{eqn:simplernormal}$/;"	l
+eqn:simplernormal	./leastsquares/leastsquares.tex	/^\\label{eqn:simplernormal}$/;"	l
 eqn:splinesys	./splines.tex	/^%\\label{eqn:splinesys}$/;"	l
 eqn:theeq	./linearsys.tex	/^\\[\\Mtx{A} \\vect{x} = \\vect{b}.\\label{eqn:theeq}\\]$/;"	l
 eqn:thelinearsys	./linearsys.tex	/^\\label{eqn:thelinearsys}$/;"	l
-eqn:thesys	./leastsquares.tex	/^\\label{eqn:thesys}$/;"	l
-eqn:thesysnaivepoly	./leastsquares.tex	/^%\\label{eqn:thesysnaivepoly}$/;"	l
-eqn:tlsdefk	./leastsquares.tex	/^.\\label{eqn:tlsdefk}$/;"	l
+eqn:thesys	./leastsquares/leastsquares.tex	/^\\label{eqn:thesys}$/;"	l
+eqn:thesysnaivepoly	./leastsquares/leastsquares.tex	/^%\\label{eqn:thesysnaivepoly}$/;"	l
+eqn:tlsdefk	./leastsquares/leastsquares.tex	/^.\\label{eqn:tlsdefk}$/;"	l
 eqn:twocendiff	./derivatives.tex	/^\\label{eqn:twocendiff}$/;"	l
 eqn:wherestop	./rootfind.tex	/^%f(x_{k-1})\/e_{k-1}}{x_k - x_{k-1}}} e_k e_{k-1} .\\label{eqn:wherestop}$/;"	l
 fig:autoeuler	./odes.tex	/^	\\label{fig:autoeuler}$/;"	l
 fig:autonomous	./odes.tex	/^is an ellipse, thus the ``spiralling'' observed for \\EM is spurious.}\\label{fig:autonomous}$/;"	l
 fig:autork	./odes.tex	/^	\\label{fig:autork}$/;"	l
-fig:badbasis	./leastsquares.tex	/^can lead to a system of normal equations with no solution.}\\label{fig:badbasis}$/;"	l
-fig:badpoly	./leastsquares.tex	/^essentially.}\\label{fig:badpoly}$/;"	l
+fig:badbasis	./leastsquares/leastsquares.tex	/^can lead to a system of normal equations with no solution.}\\label{fig:badbasis}$/;"	l
+fig:badpoly	./leastsquares/leastsquares.tex	/^essentially.}\\label{fig:badpoly}$/;"	l
 fig:badrunge	./interpolate.tex	/^as $n$ gets larger.}\\label{fig:badrunge}$/;"	l
 fig:beul	./odes.tex	/^$h=0.3$.}\\label{fig:beul}$/;"	l
 fig:bs0	./splines.tex	/^	\\label{fig:bs0}$/;"	l
 fig:bs1	./splines.tex	/^	\\label{fig:bs1}$/;"	l
 fig:bs2	./splines.tex	/^	\\label{fig:bs2}$/;"	l
-fig:cheby	./leastsquares.tex	/^other.}\\label{fig:cheby}$/;"	l
+fig:cheby	./leastsquares/leastsquares.tex	/^other.}\\label{fig:cheby}$/;"	l
 fig:chebynodes	./interpolate.tex	/^semi circle.}\\label{fig:chebynodes}$/;"	l
 fig:concave	./quadrature.tex	/^up, \\ie has positive second derivative.}\\label{fig:concave}$/;"	l
-fig:cseig	./leastsquares.tex	/^which indicates the data is actually $5$-dimensional.}\\label{fig:cseig}$/;"	l
+fig:cseig	./leastsquares/leastsquares.tex	/^which indicates the data is actually $5$-dimensional.}\\label{fig:cseig}$/;"	l
 fig:depgraph	./numas.tex	/^\\caption{The chapter dependency of this text, though some dependencies are weak.}\\label{fig:depgraph}$/;"	l
 fig:eneg	./odes.tex	/^	\\label{fig:eneg}$/;"	l
 fig:epos	./odes.tex	/^	\\label{fig:epos}$/;"	l
@@ -263,10 +267,10 @@ fig:hdip	./derivatives.tex	/^approximation with $h=0.01$ gives much better resul
 fig:lagrange	./interpolate.tex	/^\\delta_{ij}$ for the nodes $1,\\half,3$.}\\label{fig:lagrange}$/;"	l
 fig:lower	./quadrature.tex	/^	\\label{fig:lower}$/;"	l
 fig:lpoly	./interpolate.tex	/^shown.}\\label{fig:lpoly}$/;"	l
-fig:lsk	./leastsquares.tex	/^aspect ratio of the figure.}\\label{fig:lsk}$/;"	l
-fig:lsk1	./leastsquares.tex	/^	\\label{fig:lsk1}$/;"	l
-fig:lsk2	./leastsquares.tex	/^	\\label{fig:lsk2}$/;"	l
-fig:lsqrlog	./leastsquares.tex	/^shown.}\\label{fig:lsqrlog}$/;"	l
+fig:lsk	./leastsquares/leastsquares.tex	/^aspect ratio of the figure.}\\label{fig:lsk}$/;"	l
+fig:lsk1	./leastsquares/leastsquares.tex	/^	\\label{fig:lsk1}$/;"	l
+fig:lsk2	./leastsquares/leastsquares.tex	/^	\\label{fig:lsk2}$/;"	l
+fig:lsqrlog	./leastsquares/leastsquares.tex	/^shown.}\\label{fig:lsqrlog}$/;"	l
 fig:nr	./rootfind.tex	/^guess than $x_k.$}\\label{fig:nr}$/;"	l
 fig:octaveplots	./matlab.tex	/^\\caption{Four plots from octave.} \\label{fig:octaveplots}$/;"	l
 fig:rchsev	./interpolate.tex	/^	\\label{fig:rchsev}$/;"	l
@@ -299,13 +303,13 @@ sec:gaussianE	./linearsys.tex	/^\\label{sec:gaussianE}$/;"	l
 sec:gaussianP	./linearsys.tex	/^\\label{sec:gaussianP}$/;"	l
 sec:gaussianQ	./quadrature.tex	/^\\label{sec:gaussianQ}$/;"	l
 sec:iterative	./linearsys.tex	/^\\label{sec:iterative}$/;"	l
-sec:lsorthobases	./leastsquares.tex	/^\\section{Orthonormal Bases}\\label{sec:lsorthobases}%FOLDUP$/;"	l
+sec:lsorthobases	./leastsquares/leastsquares.tex	/^\\section{Orthonormal Bases}\\label{sec:lsorthobases}%FOLDUP$/;"	l
 sec:newtons	./rootfind.tex	/^\\label{sec:newtons}$/;"	l
 sec:odeelem	./odes.tex	/^\\label{sec:odeelem}$/;"	l
 sec:oderk	./odes.tex	/^\\label{sec:oderk}$/;"	l
 sec:odesys	./odes.tex	/^\\label{sec:odesys}$/;"	l
-sec:ordinarylsq	./leastsquares.tex	/^\\section{Least Squares}\\label{sec:ordinarylsq}%FOLDUP$/;"	l
-sec:orthlsq	./leastsquares.tex	/^\\section{Orthogonal Least Squares}\\label{sec:orthlsq}%FOLDUP$/;"	l
+sec:ordinarylsq	./leastsquares/leastsquares.tex	/^\\section{Least Squares}\\label{sec:ordinarylsq}%FOLDUP$/;"	l
+sec:orthlsq	./leastsquares/leastsquares.tex	/^\\section{Orthogonal Least Squares}\\label{sec:orthlsq}%FOLDUP$/;"	l
 sec:polyInt	./interpolate.tex	/^\\label{sec:polyInt}$/;"	l
 sec:polyerror	./interpolate.tex	/^\\label{sec:polyerror}$/;"	l
 sec:richardextrap	./derivatives.tex	/^\\label{sec:richardextrap}$/;"	l
@@ -317,14 +321,14 @@ sec:trapezoid	./quadrature.tex	/^\\label{sec:trapezoid}$/;"	l
 sm.eps	./rootfind.tex	/^\\includegraphics[height=0.6\\columnwidth,angle=270,clip=]{sm.eps}$/;"	g
 subsec:backwardsem	./odes.tex	/^\\subsection{\\BEM}\\label{subsec:backwardsem}%FOLDUP$/;"	l
 subsec:compsplinetwo	./splines.tex	/^\\subsection{Computing Second Degree Splines}\\label{subsec:compsplinetwo}%FOLDUP$/;"	l
-subsec:comptls	./leastsquares.tex	/^\\subsection{Computing the Orthogonal Least Squares Approximant}\\label{subsec:comptls}%FOLDUP$/;"	l
+subsec:comptls	./leastsquares/leastsquares.tex	/^\\subsection{Computing the Orthogonal Least Squares Approximant}\\label{subsec:comptls}%FOLDUP$/;"	l
 subsec:freelunch	./linearsys.tex	/^\\subsection{A Free Lunch?}\\label{subsec:freelunch}%FOLDUP$/;"	l
 subsec:innerprod	./intro.tex	/^\\label{subsec:innerprod}$/;"	l
 subsec:matrixnorms	./intro.tex	/^\\label{subsec:matrixnorms}$/;"	l
 subsec:norms	./intro.tex	/^\\label{subsec:norms}$/;"	l
 subsec:odeerrors	./odes.tex	/^\\subsection{Errors}\\label{subsec:odeerrors}%FOLDUP$/;"	l
 subsec:odestability	./odes.tex	/^\\subsection{Stability}\\label{subsec:odestability}%FOLDUP$/;"	l
-subsec:pca	./leastsquares.tex	/^\\subsection{Principal Component Analysis}\\label{subsec:pca}%FOLDUP$/;"	l
+subsec:pca	./leastsquares/leastsquares.tex	/^\\subsection{Principal Component Analysis}\\label{subsec:pca}%FOLDUP$/;"	l
 subsec:vectorspace	./intro.tex	/^\\label{subsec:vectorspace}$/;"	l
 tab:atable	./matlab.tex	/^%\\caption{caption}\\label{tab:atable}$/;"	l
 tab:quadrules	./quadrature.tex	/^$2n+1.$}\\label{tab:quadrules}$/;"	l

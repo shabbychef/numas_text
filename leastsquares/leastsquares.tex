@@ -447,24 +447,8 @@ augmented form, as it turns out to be equivalent to using the normal equations m
 
 %UNFOLD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Ordinary Least Squares in \octmat}%FOLDUP
-
-The ordinary least squares best approximant is so fundamental that it is
-hard-wired into \octmat's system solve operator.  The general equation 
-we wish to solve is 
-\[\Mtx{A}\vect{c} = \vect{y}.\]
-This system is overdetermined: there are more rows than columns in \Mtx{A},
-\ie more equations than unknown variables.  However, in \octmat, this is
-solved just like the case where \Mtx{A} is square:
-
-	\begin{verbatim}
-	octave:1> c = A \ y;
-	\end{verbatim}
-Thus, unless specifically told otherwise, you should not implement the
-ordinary least squares solution method in \octmat.  Under the hood,
-\octmat is \emph{not} using the normal equations method, and does not
-suffer the increased condition number of the normal equations method.
-%UNFOLD
+%\ifthenelse{\boolean{hasoctave}}{\subimport*{./}{octave_backslash_lsqr}}{}
+\ifthenelse{\boolean{hasoctave}}{\subimport*{./}{octave_backslash_lsqr}}{}
 %UNFOLD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Orthogonal Least Squares}\label{sec:orthlsq}%FOLDUP
@@ -506,10 +490,12 @@ shown in \figref{lsk2}.
 %\figref{lsk}%FOLDUP
 \begin{figure}[htb!]
 \centering
-\subfigure[Ordinary Least Squares]{
+%\subfigure[Ordinary Least Squares]{
+\subfloat[Ordinary Least Squares]{
 	\label{fig:lsk1}
 	\includegraphics[width=0.4\columnwidth,height=0.4\columnwidth,angle=270,clip=]{lsk1.eps}}
-\subfigure[Orthogonal Least Squares]{
+%\subfigure[Orthogonal Least Squares]{
+\subfloat[Orthogonal Least Squares]{
 	\label{fig:lsk2}
 	\includegraphics[width=0.4\columnwidth,height=0.4\columnwidth,angle=270,clip=]{lsk2.eps}}
 \caption{The ordinary least squares method, as shown in (a), minimizes the
@@ -1011,108 +997,10 @@ The \emph{geometric mean} of the numbers $a_1,a_2,\ldots,a_n$ is defined as
 $\Parens{\prod a_i}^{1/n}.$  How does your answer relate to the geometric mean?
 
 %%%%%%%%%%%%%%%%%%
-\item Write code to find the function $a \exp{x} + b \exp{-x}$ that best
-interpolates, in the least squares sense, a set of data
-\setBIdx{\tuple{x_i,y_i}}{i=0}{i=n}.
-Your m-file should have header line like:
-\begin{verbatim}
-function [a,b] = lsqrexp(xys)
-\end{verbatim}
-where \texttt{xys} is the $(n+1) \cross 2$ matrix whose rows are the $n+1$
-tuples \tuple{x_i,y_i}.  Use the normal equations method.  This should reduce
-the problem to solving a $2\cross2$ linear system; let \octmat solve that
-linear system for you.  \begin{bkhint}To find \texttt{x} such that \texttt{Mx
-= b}, use \texttt{x = M $\backslash$ b}.\end{bkhint}
-\begin{compactenum}
-	\item What do you get when you try the following?
-	\begin{verbatim}
-	octave:1> xs = [-1 -0.5 0 0.5 1]';
-	octave:2> ys = [1.194  0.430  0.103  0.322  1.034]';
-	octave:3> xys = [xs ys];
-	octave:4> [a,b] = lsqrexp(xys)
-	\end{verbatim}
-	% ans =
-	% a = 0.33870   b = 0.25298
-	\item Try the following:
-	\begin{verbatim}
-	octave:5> xys = xys = [-0.00001 0.3;0 0.6;0.00001 0.7];
-	octave:6> [a,b] = lsqrexp(xys)
-	\end{verbatim}
-	%ans =
-	% warning: singular to machine precision.
-	% a = 10000, b = -9999.7
-	% dunno.
-	Does something unexpected happen?  Why?
-\end{compactenum}
+\ifthenelse{\boolean{hasoctave}}{\subimport*{./}{octave_lsq_hw1.tex}}{}
 
 %%%%%%%%%%%%%%%%%%
-\item Write code to find the plane $\trans{\vect{n}}\thex{i} = d$ that best
-interpolates, in the least squares sense, a set of data
-\setBIdx{\thex{i}}{i=0}{i=m}.
-Your m-file should have header line like:
-\begin{verbatim}
-function [n,d] = orthlsq(X)
-\end{verbatim}
-where \texttt{X} is the $m \cross n$ matrix whose rows are the $m$
-tuples \tuple{x_1,x_2,\ldots,x_n}.  Use the \octmat \texttt{eig}
-function, which returns the eigenvalues and vectors of a matrix.
-\begin{compactenum}
-	\item Create artificially planar data by the following:
-	\begin{verbatim}
-	octave:1> m = 100;n = 5;epsi = 0.1;offs = 2;
-	octave:2> Xsub = rand(m,(n-1));
-	octave:3> T = rand(n-1,n);
-	octave:4> X = Xsub * T;
-	octave:5> X += offs .* ones(size(X));
-	octave:6> X += epsi .* randn(size(X));
-	\end{verbatim}
-	Now \texttt{X} contains data which are approximately on a $(n-1)$-dimensional
-	hyperplane in \reals{n}.  The data, when centered, lay in the rowspace of
-	\texttt{T}.
-	Now test your code.
-	\begin{verbatim}
-	octave:7> [n,d] = orthlsq(X);
-	\end{verbatim}
-	You should have that the vector \texttt{n} is orthogonal to the rows of
-	\texttt{T}.  Check this:
-	\begin{verbatim}
-	octave:8> disp(norm(T * n));
-	\end{verbatim}
-	What do you get?  Try again with \texttt{epsi} very small (\tenex{1}{-5}) or
-	zero.
-	\item Compare the orthogonal least squares technique to the ordinary least
-	squares in a two dimensional setting.  Consider $x,y$ data nearly on the line
-	$y = mx + b$:
-	\begin{verbatim}
-	octave:1> obs = 100;xeps = 1.0;yeps = 1.0;m = 0.375;b = 1;
-	octave:2> Xtrue = randn(obs,1);Ytrue = m .* Xtrue .+ b;
-	octave:3> XSaw = Xtrue + xeps * randn(size(Xtrue));
-	octave:4> YSaw = Ytrue + yeps * randn(size(Ytrue));
-	octave:5> lsmb = [XSaw, ones(obs,1)] \ YSaw;
-	octave:6> lsm = lsmb(1); lsb = lsmb(2);
-	octave:7> [n,d] = orthlsq([XSaw, YSaw]);
-	octave:8> orthm = -n(1) / n(2);orthb = d / n(2);
-	\end{verbatim}
-	Compare the estimated coefficients from both solutions.  Plot the 
-	two regression lines.
-	\begin{verbatim}
-	octave:9> hold off;
-	octave:10> plot(XSaw,YSaw,"*;observed data;");
-	octave:11> hold on;
-	octave:12> plot(XSaw,m*XSaw .+ b,"r-;true line;");
-	octave:13> plot(XSaw,lsm*XSaw .+ lsb,"g-;ordinary least squares;");
-	octave:14> plot(XSaw,orthm*XSaw .+ orthb,"b-;orthogonal least squares;");
-	octave:15> hold off;
-	\end{verbatim}
-	Try this again with different values of \texttt{xeps} and \texttt{yeps},
-	which control the sizes of the errors in the $x$ and $y$ dimensions.  Try
-	with $\mathtt{xeps} = 0.1,\mathtt{yeps} = 1.0,$ and with 
-	with $\mathtt{xeps} = 1.0,\mathtt{yeps} = 0.1.$
-	Under which situations does orthogonal least squares outperform ordinary
-	least squares?  Do they give equally erroneous results in some situations?
-	Can you think of a way of ``reweighting'' channel data to make the orthogonal
-	least squares method more robust in cases of unequal error variance?
-\end{compactenum}
+\ifthenelse{\boolean{hasoctave}}{\subimport*{./}{octave_lsq_hw2.tex}}{}
 \end{bkexs}
 %UNFOLD
 %for vim modeline: (do not edit)

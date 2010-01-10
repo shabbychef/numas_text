@@ -387,13 +387,16 @@ coefficients for Newton's form, as found in \bkexpref{interpagain}.
 %\figref{badrunge}%%%%%%%%%%%%%%%%%%FOLDUP
 \begin{figure}[htbp!]
 \begin{center}
-\subfigure[3,7,10 equally spaced nodes]{
+%\subfigure[3,7,10 equally spaced nodes]{
+\subfloat[3,7,10 equally spaced nodes]{
 	\label{fig:rsmall}
-	\includegraphics[height=0.85\columnwidth, angle=270,clip=]{rungesmall.ps}}
-\subfigure[15 equally spaced nodes]{
+	\includegraphics[height=0.85\columnwidth, angle=270,clip=]{rungesmall.ps}}\\
+%\subfigure[15 equally spaced nodes]{
+\subfloat[15 equally spaced nodes]{
 	\label{fig:rfif}
 	\includegraphics[height=0.47\columnwidth, angle=270,clip=]{runge15.ps}}
-\subfigure[50 equally spaced nodes]{
+%\subfigure[50 equally spaced nodes]{
+\subfloat[50 equally spaced nodes]{
 	\label{fig:rfifty}
 	\includegraphics[height=0.47\columnwidth, angle=270,clip=]{runge50.ps}}
 \end{center}
@@ -457,10 +460,12 @@ semi circle.}\label{fig:chebynodes}
 %\figref{rungecheb}%%%%%%%%%%%%%%%%%%FOLDUP
 \begin{figure}[htb!]
 \begin{center}
-\subfigure[3,7,10 Chebyshev nodes]{
+%\subfigure[3,7,10 Chebyshev nodes]{
+\subfloat[3,7,10 Chebyshev nodes]{
 	\label{fig:rchsm}
 	\includegraphics[height=0.47\columnwidth, angle=270,clip=]{rungechebsm.ps}}
-\subfigure[17 Chebyshev nodes]{
+%\subfigure[17 Chebyshev nodes]{
+\subfloat[17 Chebyshev nodes]{
 	\label{fig:rchsev}
 	\includegraphics[height=0.47\columnwidth, angle=270,clip=]{rungecheb17.ps}}
 \end{center}
@@ -790,6 +795,8 @@ function coefs = newtonCoef(xs,fxs)
 \end{verbatim}
 where \texttt{xs} is the vector of $n+1$ nodes, and \texttt{fxs} the
 vector of $n+1$ values.   Test your code on the following input:
+
+%\ifthenelse{\boolean{hasoctave}}{
 \begin{verbatim}
 octave:1> xs = [1 -1 2 -2 3 -3 4 -4];
 octave:2> fxs = [1 1 2 3 5 8 13 21];
@@ -821,6 +828,7 @@ ans =
 	%
 	%  6  5  1  0  0  -0  -0  0  0  0
 \end{compactenum}
+
 %%%%%%%%%%%%%%%%%%
 \item Write code to calculate a polynomial interpolant from its Newton form
 coefficients and the node values.  
@@ -831,6 +839,7 @@ function y = calcNewton(t,coefs,xs)
 where \texttt{coefs} is a vector of the Newton coefficients, \texttt{xs} is a
 vector of the nodes $x_i,$ and \texttt{y} is the value of the interpolating 
 polynomial at \texttt{t}.
+%\ifthenelse{\boolean{hasoctave}}{
 Check your code against the following values:
 \begin{verbatim}
 octave:1> xs = [1 3 4];

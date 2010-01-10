@@ -50,7 +50,7 @@ SUB_FIGS     = $(EPS_FILES)
 # tracked projects
 PROJECTS     = $(PROJECT)
 # add on dependencies (subchapters of numas)
-TEX_EXTRAS   = interpolate.tex intro.tex matlab.tex leastsquares.tex \
+TEX_EXTRAS   = interpolate.tex intro.tex matlab.tex sage.tex leastsquares/leastsquares.tex \
                linearsys.tex odes.tex quadrature.tex rootfind.tex splines.tex \
                derivatives.tex oldexams.tex fdl.tex fdm.tex fem.tex
 # nonlocal dependencies
@@ -267,8 +267,8 @@ endef
 		$$prevline = $$_;' < $< | $(PAGER)
 
 tags : $(TEX_SOURCE) $(BIB_SOURCE) $(TEX_EXTRAS)
-	$(CTAGS) -f .tmp_tags --recurse --language-force=latex --fields=+i `find . -name '*.tex' | grep -ve '\.svn'`;
-	mv .tmp_tags tags;
+	-$(CTAGS) -f .tmp_tags --recurse --language-force=latex --fields=+i `find . -name '*.tex' | grep -ve '\.svn'`;
+	-mv .tmp_tags tags;
 #UNFOLD
 
 ############# CLEAN UP ###############FOLDUP

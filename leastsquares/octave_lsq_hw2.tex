@@ -1,0 +1,91 @@
+%%%%(c) COPYRIGHT NOTICE%FOLDUP
+%%%%(c)
+%%%%(c)  This file is a portion of the source for the textbook
+%%%%(c)
+%%%%(c)    Numerical Methods Course Notes,
+%%%%(c)    Copyright 2004-2010 by Steven E. Pav
+%%%%(c)
+%%%%(c)  See the file COPYING.txt for copying conditions
+%%%%(c)
+%%%%(c)%UNFOLD
+
+%%throat clearing%FOLDUP
+%UNFOLD
+
+%%local commands%FOLDUP
+%UNFOLD
+
+%%%%%%%%%%%%%%%%%%
+\item Write code to find the plane $\trans{\vect{n}}\thex{i} = d$ that best
+interpolates, in the least squares sense, a set of data
+\setBIdx{\thex{i}}{i=0}{i=m}.
+Your m-file should have header line like:
+\begin{verbatim}
+function [n,d] = orthlsq(X)
+\end{verbatim}
+where \texttt{X} is the $m \cross n$ matrix whose rows are the $m$
+tuples \tuple{x_1,x_2,\ldots,x_n}.  
+Use the \octmat \texttt{eig}
+function, which returns the eigenvalues and vectors of a matrix.
+\begin{compactenum}
+	\item Create artificially planar data by the following:
+
+	\begin{verbatim}
+	octave:1> m = 100;n = 5;epsi = 0.1;offs = 2;
+	octave:2> Xsub = rand(m,(n-1));
+	octave:3> T = rand(n-1,n);
+	octave:4> X = Xsub * T;
+	octave:5> X += offs .* ones(size(X));
+	octave:6> X += epsi .* randn(size(X));
+	\end{verbatim}
+	Now \texttt{X} contains data which are approximately on a $(n-1)$-dimensional
+	hyperplane in \reals{n}.  The data, when centered, lay in the rowspace of
+	\texttt{T}.
+	Now test your code.
+	\begin{verbatim}
+	octave:7> [n,d] = orthlsq(X);
+	\end{verbatim}
+	You should have that the vector \texttt{n} is orthogonal to the rows of
+	\texttt{T}.  Check this:
+	\begin{verbatim}
+	octave:8> disp(norm(T * n));
+	\end{verbatim}
+	What do you get?  Try again with \texttt{epsi} very small (\tenex{1}{-5}) or
+	zero.
+	\item Compare the orthogonal least squares technique to the ordinary least
+	squares in a two dimensional setting.  Consider $x,y$ data nearly on the line
+	$y = mx + b$:
+	\begin{verbatim}
+	octave:1> obs = 100;xeps = 1.0;yeps = 1.0;m = 0.375;b = 1;
+	octave:2> Xtrue = randn(obs,1);Ytrue = m .* Xtrue .+ b;
+	octave:3> XSaw = Xtrue + xeps * randn(size(Xtrue));
+	octave:4> YSaw = Ytrue + yeps * randn(size(Ytrue));
+	octave:5> lsmb = [XSaw, ones(obs,1)] \ YSaw;
+	octave:6> lsm = lsmb(1); lsb = lsmb(2);
+	octave:7> [n,d] = orthlsq([XSaw, YSaw]);
+	octave:8> orthm = -n(1) / n(2);orthb = d / n(2);
+	\end{verbatim}
+
+	Compare the estimated coefficients from both solutions.  Plot the 
+	two regression lines.
+	\begin{verbatim}
+	octave:9> hold off;
+	octave:10> plot(XSaw,YSaw,"*;observed data;");
+	octave:11> hold on;
+	octave:12> plot(XSaw,m*XSaw .+ b,"r-;true line;");
+	octave:13> plot(XSaw,lsm*XSaw .+ lsb,"g-;ordinary least squares;");
+	octave:14> plot(XSaw,orthm*XSaw .+ orthb,"b-;orthogonal least squares;");
+	octave:15> hold off;
+	\end{verbatim}
+	Try this again with different values of \texttt{xeps} and \texttt{yeps},
+	which control the sizes of the errors in the $x$ and $y$ dimensions.  Try
+	with $\mathtt{xeps} = 0.1,\mathtt{yeps} = 1.0,$ and with 
+	with $\mathtt{xeps} = 1.0,\mathtt{yeps} = 0.1.$
+	Under which situations does orthogonal least squares outperform ordinary
+	least squares?  Do they give equally erroneous results in some situations?
+	Can you think of a way of ``reweighting'' channel data to make the orthogonal
+	least squares method more robust in cases of unequal error variance?
+\end{compactenum}
+
+%for vim modeline: (do not edit)
+% vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=%%s:tags=tags;:syntax=tex:filetype=tex:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:

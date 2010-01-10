@@ -1,0 +1,54 @@
+%%%%(c) COPYRIGHT NOTICE%FOLDUP
+%%%%(c)
+%%%%(c)  This file is a portion of the source for the textbook
+%%%%(c)
+%%%%(c)    Numerical Methods Course Notes,
+%%%%(c)    Copyright 2004-2010 by Steven E. Pav
+%%%%(c)
+%%%%(c)  See the file COPYING.txt for copying conditions
+%%%%(c)
+%%%%(c)%UNFOLD
+
+%%throat clearing%FOLDUP
+%UNFOLD
+
+%%local commands%FOLDUP
+%UNFOLD
+
+%%%%%%%%%%%%%%%%%%
+\item Write code to find the function $a \exp{x} + b \exp{-x}$ that best
+interpolates, in the least squares sense, a set of data
+\setBIdx{\tuple{x_i,y_i}}{i=0}{i=n}.
+Your m-file should have header line like:
+\begin{verbatim}
+function [a,b] = lsqrexp(xys)
+\end{verbatim}
+where \texttt{xys} is the $(n+1) \cross 2$ matrix whose rows are the $n+1$
+tuples \tuple{x_i,y_i}.  Use the normal equations method.  This should reduce
+the problem to solving a $2\cross2$ linear system; let \octmat solve that
+linear system for you.  \begin{bkhint}To find \texttt{x} such that \texttt{Mx
+= b}, use \texttt{x = M $\backslash$ b}.\end{bkhint}
+\begin{compactenum}
+	\item What do you get when you try the following?
+	\begin{verbatim}
+	octave:1> xs = [-1 -0.5 0 0.5 1]';
+	octave:2> ys = [1.194  0.430  0.103  0.322  1.034]';
+	octave:3> xys = [xs ys];
+	octave:4> [a,b] = lsqrexp(xys)
+	\end{verbatim}
+	% ans =
+	% a = 0.33870   b = 0.25298
+	\item Try the following:
+	\begin{verbatim}
+	octave:5> xys = xys = [-0.00001 0.3;0 0.6;0.00001 0.7];
+	octave:6> [a,b] = lsqrexp(xys)
+	\end{verbatim}
+	%ans =
+	% warning: singular to machine precision.
+	% a = 10000, b = -9999.7
+	% dunno.
+	Does something unexpected happen?  Why?
+\end{compactenum}
+
+%for vim modeline: (do not edit)
+% vim:ts=2:sw=2:tw=79:fdm=marker:fmr=FOLDUP,UNFOLD:cms=%%s:tags=tags;:syntax=tex:filetype=tex:ai:si:cin:nu:fo=croqt:cino=p0t0c5(0:
