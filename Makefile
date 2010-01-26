@@ -149,27 +149,31 @@ default : all
 # this is nogood for psfrag texthooks.
 # change them here.
 
+define convert_hooks
+@echo adhoc perl func to convert $< to hookable $@;
+@$(PERL) -n -e 'BEGIN { @FE=();$$HASF=0; } \
+if (m{^.*ENC-.*\[}) { \
+	print;$$esc = 0;$$HASF ||= 1; \
+	while (($$line = <>) && not $$esc) \
+	{ print $$line;chomp($$line); \
+		while ($$line =~ s{/([^\/\]]+)}{}) {push (@FE,$$1);} \
+		$$esc = ($$line =~ m{\]\s*def\s*$$});} \
+	%mymaps = qw( one 1 two 2 three 3 four 4 five 5 \
+		six 6 seven 7 eight 8 nine 9 zero 0 \
+		period . equal = plus + );$$mymaps{space}=q[ ]; \
+	while (($$k,$$v)=each(%mymaps)) { map {s/^$$k$$/$$v/;} @FE; } \
+	print qq[/myT{gsave PCol SC ty MT 1 index dup length exch stringwidth pop 1 -1 roll -1 1 scale 180 rotate exch sub exch div exch 0 exch ashow grestore}D\n]; \
+} elsif ((m{(\d{1,3}\s+Y)?<([0-9A-F]+)>(-?\d+)\s+(-?\d+)\s+A?T\s*$$}) && $$HASF) \
+{ print qq[/Times-Roman findfont 18 scalefont setfont\n]; \
+	$$cod = $$2;$$str = q[]; \
+	while ($$cod) { $$ch = substr($$cod,0,4,q[]); \
+									$$str .= (hex($$ch))? $$FE[hex($$ch)]:q[ ]; } \
+	print qq[$$1($$str)$$3 $$4 myT\n]; \
+} else { print $$_; }' < $< > $@;
+endef
+
 %.pps : %.qps
-		@echo funky perl func to convert $< to hookable $@;
-		@$(PERL) -n -e 'BEGIN { @FE=();$$HASF=0; } \
-		if (m{^.*ENC-.*\[}) { \
-			print;$$esc = 0;$$HASF ||= 1; \
-			while (($$line = <>) && not $$esc) \
-			{ print $$line;chomp($$line); \
-				while ($$line =~ s{/([^\/\]]+)}{}) {push (@FE,$$1);} \
-				$$esc = ($$line =~ m{\]\s*def\s*$$});} \
-			%mymaps = qw( one 1 two 2 three 3 four 4 five 5 \
-			  six 6 seven 7 eight 8 nine 9 zero 0 \
-        period . equal = plus + );$$mymaps{space}=q[ ]; \
-			while (($$k,$$v)=each(%mymaps)) { map {s/^$$k$$/$$v/;} @FE; } \
-			print qq[/myT{gsave PCol SC ty MT 1 index dup length exch stringwidth pop 1 -1 roll -1 1 scale 180 rotate exch sub exch div exch 0 exch ashow grestore}D\n]; \
-		} elsif ((m{(\d{1,3}\s+Y)?<([0-9A-F]+)>(-?\d+)\s+(-?\d+)\s+A?T\s*$$}) && $$HASF) \
-		{ print qq[/Times-Roman findfont 18 scalefont setfont\n]; \
-			$$cod = $$2;$$str = q[]; \
-			while ($$cod) { $$ch = substr($$cod,0,4,q[]); \
-										  $$str .= (hex($$ch))? $$FE[hex($$ch)]:q[ ]; } \
-			print qq[$$1($$str)$$3 $$4 myT\n]; \
-		} else { print $$_; }' < $< > $@;
+	$(convert_hooks)
 
 # define a rule to find a bounding box
 
@@ -256,15 +260,19 @@ endef
 		$(ASPELL) $(ASPELL_FLAGS) --dont-tex-check-comments -t -l < $< | sort | uniq | $(PAGER)
 
 # check duplicate words
+define dupcheck
+$(PERL) -an -F/\\s+/ -e 'BEGIN { $$last = q[]; $$line = 0; $$prevline = q[];}\
+$$line++;$$first = 1;\
+foreach $$word (@F) {\
+if ($$word eq $$last) {\
+if ($$first) { print qq[duplicate $$word, lines ],($$line-1),qq[-$$line:\n$$prevline$$_]; }\
+else { print qq[duplicate $$word, line $$line:\n$$_]; } }\
+$$last = $$word; $$first = 0; } \
+$$prevline = $$_;' < $< | $(PAGER)
+endef
+
 %.dup : %.tex
-		$(PERL) -an -F/\\s+/ -e 'BEGIN { $$last = q[]; $$line = 0; $$prevline = q[];}\
-		$$line++;$$first = 1;\
-		foreach $$word (@F) {\
-		if ($$word eq $$last) {\
-		if ($$first) { print qq[duplicate $$word, lines ],($$line-1),qq[-$$line:\n$$prevline$$_]; }\
-		else { print qq[duplicate $$word, line $$line:\n$$_]; } }\
-		$$last = $$word; $$first = 0; } \
-		$$prevline = $$_;' < $< | $(PAGER)
+	$(dupcheck)
 
 tags : $(TEX_SOURCE) $(BIB_SOURCE) $(TEX_EXTRAS)
 	-$(CTAGS) -f .tmp_tags --recurse --language-force=latex --fields=+i `find . -name '*.tex' | grep -ve '\.svn'`;
