@@ -1,0 +1,23 @@
+%
+% this is test code for the preprocessor
+%
+%define FOOBAR
+%
+%ifdef FOOBAR
+WIN; this should be on
+%else
+FAIL
+%endif
+
+%undef FOOBAR
+
+%ifdef FOOBAR
+FAIL; this should be commented out;
+%endif
+
+%ifdef FOOBAR
+FAIL; this should be commented out;
+%else
+WIN; this should be ok;
+%endif
+
